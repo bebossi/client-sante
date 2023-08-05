@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   id: string;
   email: string;
   name: string;
@@ -10,7 +10,7 @@ interface User {
   updatedAt: Date;
 }
 
-interface Category {
+export interface Category {
   id: string;
   name: string;
   createdAt: Date;
@@ -19,7 +19,7 @@ interface Category {
   products: Product[];
 }
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   description: string;
@@ -35,7 +35,7 @@ interface Product {
   updatedAt: Date;
 }
 
-interface Topping {
+export interface Topping {
   id: string;
   name: string;
   description: string;
@@ -47,7 +47,7 @@ interface Topping {
   orderToProductToppings: OrderToProductTopping[];
 }
 
-interface Cart {
+export interface Cart {
   id: string;
   userId: string;
   user: User;
@@ -55,7 +55,7 @@ interface Cart {
   subtotal: number;
 }
 
-interface Order {
+export interface Order {
   id: string;
   userId: string;
   user: User;
@@ -65,7 +65,7 @@ interface Order {
   createdAt: Date;
 }
 
-interface CartToProduct {
+export interface CartToProduct {
   id: string;
   cartId: string;
   cart: Cart;
@@ -76,7 +76,7 @@ interface CartToProduct {
   cartToProductToppings: CartToProductTopping[];
 }
 
-interface OrderToProduct {
+export interface OrderToProduct {
   id: string;
   orderId: string;
   order: Order;
@@ -87,7 +87,7 @@ interface OrderToProduct {
   orderToProductTopping: OrderToProductTopping[];
 }
 
-interface CartToProductTopping {
+export interface CartToProductTopping {
   id: string;
   cartToProdId: string;
   cartToProduct: CartToProduct;
@@ -96,7 +96,7 @@ interface CartToProductTopping {
   quantity: number;
 }
 
-interface OrderToProductTopping {
+export interface OrderToProductTopping {
   id: string;
   orderToProductId: string;
   orderToProduct: OrderToProduct;
