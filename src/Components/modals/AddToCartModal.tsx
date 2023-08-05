@@ -18,6 +18,15 @@ const AddToCartModal = () => {
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
 
   useEffect(() => {
+    if (addCartModal.isOpen === true) {
+      document.body.style.overflow = "hidden";
+    }
+    if (addCartModal.isOpen === false) {
+      document.body.style.overflow = "auto";
+    }
+  }, [addCartModal.isOpen]);
+
+  useEffect(() => {
     let initialToppings: ToppingProps[] | undefined = undefined;
     if (addCartModal.product?.toppings) {
       initialToppings = addCartModal.product.toppings.map(
@@ -26,9 +35,6 @@ const AddToCartModal = () => {
           quantity: 0,
         })
       );
-      setToppings(initialToppings);
-    }
-    if (initialToppings) {
       setToppings(initialToppings);
     }
   }, [addCartModal.product?.toppings]);
@@ -53,24 +59,14 @@ const AddToCartModal = () => {
       return;
     }
     const toppingIndex = toppings?.findIndex(
-        (topping) => topping.topping.id === toppingId
-      );
-      if (toppingIndex !== -1) {
-        const updatedToppings = [...toppings];
-        updatedToppings[toppingIndex].quantity -= 1;
-        setToppings(updatedToppings);
-      }
-
+      (topping) => topping.topping.id === toppingId
+    );
+    if (toppingIndex !== -1) {
+      const updatedToppings = [...toppings];
+      updatedToppings[toppingIndex].quantity -= 1;
+      setToppings(updatedToppings);
+    }
   };
-
-  useEffect(() => {
-    if (addCartModal.isOpen === true) {
-      document.body.style.overflow = "hidden";
-    }
-    if (addCartModal.isOpen === false) {
-      document.body.style.overflow = "auto";
-    }
-  }, [addCartModal.isOpen]);
 
   const onSubmit = async () => {
     try {
@@ -78,13 +74,20 @@ const AddToCartModal = () => {
         productId: addCartModal?.product?.id,
         toppings: toppings,
       });
-      addCartModal.onClose()
+      addCartModal.onClose();
       console.log(response.data);
       setIsLoading(true);
     } catch (err) {
       console.log(err);
     }
   };
+  let totalPriceToppings = toppings.reduce((total, topping) => {
+    return (total += topping.quantity * topping.topping.price);
+  }, 0);
+  console.log(totalPriceToppings);
+
+  const subtotal =
+    Number(totalPriceToppings) + Number(addCartModal?.product?.price);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -100,9 +103,9 @@ const AddToCartModal = () => {
       </div>
       <div>
         {addCartModal.product?.toppings?.map((topping) => (
-          <>
+          <div key={topping.id}>
             <div className="flex justify-between">
-              <div key={topping.id}>
+              <div>
                 <p className="text-base font-mono">{topping.name}</p>
                 <p className="font-semibold">R${topping.price}</p>
               </div>
@@ -125,7 +128,7 @@ const AddToCartModal = () => {
               </div>
             </div>
             <hr className="w-full h-0.5" />
-          </>
+          </div>
         ))}
       </div>
     </div>
@@ -135,7 +138,7 @@ const AddToCartModal = () => {
     <div>
       <Modal
         title="Detalhes do item"
-        actionLabel="adicionar"
+        actionLabel={`Adicionar  ${subtotal}`}
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}
