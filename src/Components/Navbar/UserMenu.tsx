@@ -35,7 +35,7 @@ const UserMenu = () => {
         <div onClick={() => navigate("/menu")} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           Cardápio
         </div>
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div onClick={() => navigate("/menuu")} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           Quem somos
         </div>
         <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
@@ -60,7 +60,7 @@ const UserMenu = () => {
             {user ? (
               <>
                 <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
-                <MenuItem onClick={() => navigate("/we")} label="Quem somos" />
+                <MenuItem onClick={() => navigate("/menuu")} label="Quem somos" />
                 <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
                   onClick={() => navigate("/contact")}

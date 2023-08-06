@@ -10,7 +10,11 @@ const MenuPage = () => {
   const [products, setProducts] = useState<Product[]>();
   const [categories, setCategories] = useState<Category[]>();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const [selectedCategorySide, setSelectedCategorySide] = useState<
+    string | null
+  >(null);
+
+  const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -49,7 +53,7 @@ const MenuPage = () => {
     const categoryElement = document.getElementById(`category-${categoryId}`);
     if (categoryElement) {
       setSelectedCategory(categoryId); // Update the selected category ID
-      const headerOffset = 180;
+      const headerOffset = 162;
       const elementPosition = categoryElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition - headerOffset;
 
@@ -60,15 +64,42 @@ const MenuPage = () => {
     }
   };
 
+  const handleCategoryClick = (categoryId: string) => {
+    const categoryElement = document.getElementById(
+      `categorySide-${categoryId}`
+    );
+    if (categoryElement) {
+      setSelectedCategorySide(categoryId);
+
+      const headerOffset = 100;
+      const elementPosition = categoryElement.offsetLeft;
+      const offsetPosition = elementPosition - headerOffset;
+
+      // Set the container's scrollLeft to scroll the sticky div
+      if (scrollableContainerRef.current) {
+        scrollableContainerRef.current.scrollLeft = offsetPosition;
+      }
+    }
+    goToProductsOfCategoryId(categoryId);
+  };
+
   return (
     <Container>
       <div className="flex flex-col items-center md:border-2 sm:mx-2 md:mx-8 lg:mx-16 xl:mx-80 ">
-        <div className="flex items-center justify-center gap-x-10 sticky w-full border-b-2 bg-white top-28 ">
+        <div
+          ref={scrollableContainerRef}
+          className="flex items-center gap-x-16 sticky w-full border-b-2 bg-white top-28 overflow-x-hidden "
+        >
           {categories?.map((category) => (
-            <div key={category.id} className="">
+              <div key={category.id} className="shrink-0 py-3 px-1 ">
               <p
-                onClick={() => goToProductsOfCategoryId(category.id)}
-                className={selectedCategory === category.id ? "border-b-2 border-blue-600" : ""}
+                id={`categorySide-${category.id}`}
+                onClick={() => handleCategoryClick(category.id)}
+                className={
+                  selectedCategory && selectedCategorySide === category.id
+                    ? "border-b-2 border-blue-600 text-blue-600"
+                    : ""
+                }
               >
                 {category.name}
               </p>
