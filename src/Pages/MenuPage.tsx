@@ -91,14 +91,14 @@ const MenuPage = () => {
           className="flex items-center gap-x-16 sticky w-full border-b-2 bg-white top-28 overflow-x-hidden "
         >
           {categories?.map((category) => (
-              <div key={category.id} className="shrink-0 py-3 px-1 ">
+              <div key={category.id} className="shrink-0 py-3 px-1 cursor-pointer">
               <p
                 id={`categorySide-${category.id}`}
                 onClick={() => handleCategoryClick(category.id)}
-                className={
-                  selectedCategory && selectedCategorySide === category.id
+                className={`text-lg font-semibold 
+                  ${selectedCategory && selectedCategorySide === category.id
                     ? "border-b-2 border-blue-600 text-blue-600"
-                    : ""
+                    : ""}`
                 }
               >
                 {category.name}
