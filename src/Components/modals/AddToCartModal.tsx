@@ -5,6 +5,7 @@ import { api } from "../../api";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { Topping } from "../../interfaces";
+// import toast from "react-hot-toast";
 
 interface ToppingProps {
   topping: Topping;
@@ -16,15 +17,16 @@ const AddToCartModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
+  const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    if (addCartModal.isOpen === true) {
-      document.body.style.overflow = "hidden";
-    }
-    if (addCartModal.isOpen === false) {
-      document.body.style.overflow = "auto";
-    }
-  }, [addCartModal.isOpen]);
+  // useEffect(() => {
+  //   if (addCartModal.isOpen === true) {
+  //     document.body.style.overflow = "hidden";
+  //   }
+  //   if (addCartModal.isOpen === false) {
+  //     document.body.style.overflow = "auto";
+  //   }
+  // }, [addCartModal.isOpen]);
 
   useEffect(() => {
     let initialToppings: ToppingProps[] | undefined = undefined;
@@ -38,6 +40,16 @@ const AddToCartModal = () => {
       setToppings(initialToppings);
     }
   }, [addCartModal.product?.toppings]);
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  const decreaseQuantity = () => {
+    if(quantity === 1){
+      return
+    }
+    setQuantity(quantity - 1);
+  };
 
   const onAdd = (toppingId: string) => {
     if (!toppings) {
@@ -70,27 +82,30 @@ const AddToCartModal = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await api.post("/test", {
+      setIsLoading(true)
+      const response = await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,
+        quantity: quantity,
       });
       addCartModal.onClose();
+      
       console.log(response.data);
-      setIsLoading(true);
     } catch (err) {
       console.log(err);
+    } finally{
+      setIsLoading(false)
     }
   };
   let totalPriceToppings = toppings.reduce((total, topping) => {
     return (total += topping.quantity * topping.topping.price);
   }, 0);
-  console.log(totalPriceToppings);
 
   const subtotal =
-    Number(totalPriceToppings) + Number(addCartModal?.product?.price);
+    Number(totalPriceToppings) * quantity + Number(addCartModal?.product?.price) * quantity;
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 ">
       <Heading
         title={addCartModal.product?.name}
         subtitle={addCartModal.product?.description}
@@ -130,6 +145,14 @@ const AddToCartModal = () => {
             <hr className="w-full h-0.5" />
           </div>
         ))}
+      </div>
+      <div className="flex items-center gap-x-2 border-black border-[1px] rounded-lg">
+        <BiMinus
+          className="cursor-pointer"
+          onClick={() => decreaseQuantity()}
+        />
+        {quantity}
+        <BiPlus className="mr-2 cursor-pointer " onClick={() => increaseQuantity()} />
       </div>
     </div>
   );

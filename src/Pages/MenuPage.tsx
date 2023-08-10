@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import Container from "../Components/Container";
 import { api } from "../api";
 import useAddToCartModal from "../hooks/useAddToCartModal";
-import React from "react";
 import { Product, Category } from "../interfaces";
+import useCartModal from "../hooks/useCartModal";
+import ProductCard from "../Components/ProductCard";
+
 
 const MenuPage = () => {
   const addCartModal = useAddToCartModal();
+  const cartModal = useCartModal()
   const [products, setProducts] = useState<Product[]>();
   const [categories, setCategories] = useState<Category[]>();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -43,12 +45,6 @@ const MenuPage = () => {
     addCartModal.onOpen(product);
   };
 
-  // const goToProductsOfCategoryId = (categoryId: string) => {
-  //   const categoryElement = document.getElementById(`category-${categoryId}`);
-  //   if (categoryElement) {
-  //     categoryElement.scrollIntoView({ behavior: "smooth", block: "start" , inline: "start"});
-  //   }
-  // };
   const goToProductsOfCategoryId = (categoryId: string) => {
     const categoryElement = document.getElementById(`category-${categoryId}`);
     if (categoryElement) {
@@ -64,31 +60,56 @@ const MenuPage = () => {
     }
   };
 
-  const handleCategoryClick = (categoryId: string) => {
+  const handleCategoryClick = (categoryId: string,) => {
     const categoryElement = document.getElementById(
       `categorySide-${categoryId}`
     );
     if (categoryElement) {
       setSelectedCategorySide(categoryId);
-
-      const headerOffset = 100;
+      
+      const headerOffset = 130;
       const elementPosition = categoryElement.offsetLeft;
       const offsetPosition = elementPosition - headerOffset;
-
-      // Set the container's scrollLeft to scroll the sticky div
+      
+      console.log("elemetn position:" ,  elementPosition)
+      console.log("offset position:" , offsetPosition)
       if (scrollableContainerRef.current) {
         scrollableContainerRef.current.scrollLeft = offsetPosition;
       }
     }
+  
     goToProductsOfCategoryId(categoryId);
   };
+  // const handleCategoryClick = (categoryId: string) => {
+  //   const categoryElement = document.getElementById(`categorySide-${categoryId}`);
+    
+  //   if (categoryElement) {
+  //     setSelectedCategorySide(categoryId);
+  
+  //     const headerOffset = window.innerWidth / 2; // Adjust as needed
+  //     const elementPosition = categoryElement.offsetLeft + categoryElement.offsetWidth / 2;
+  //     const offsetPosition = elementPosition - headerOffset;
+  
+    
+  
+  //     if (scrollableContainerRef.current) {
+  //       const scrollContainerWidth = scrollableContainerRef.current.offsetWidth;
+  //       const maxScroll = scrollableContainerRef.current.scrollWidth - scrollContainerWidth;
+  //       const finalScroll = Math.max(Math.min(offsetPosition, maxScroll), 0);
+  
+  //       scrollableContainerRef.current.scrollLeft = finalScroll;
+  //     }
+  //   }
+  
+  //   goToProductsOfCategoryId(categoryId);
+  // };
 
   return (
-    <Container>
-      <div className="flex flex-col items-center md:border-2 sm:mx-2 md:mx-8 lg:mx-16 xl:mx-80 ">
+    <div>
+      <div className="flex flex-col items-center ">
         <div
           ref={scrollableContainerRef}
-          className="flex items-center gap-x-16 sticky w-full border-b-2 bg-white top-28 overflow-x-hidden "
+          className="flex items-center gap-x-14 sticky w-full border-b-2 bg-white top-28 overflow-x-hidden "
         >
           {categories?.map((category) => (
               <div key={category.id} className="shrink-0 py-3 px-1 cursor-pointer">
@@ -112,43 +133,20 @@ const MenuPage = () => {
             className="w-full"
             key={category.id}
           >
-            <h2 className="text-2xl font-semibold border-y-[1px] py-2 flex  items-center justify-center">
+            <h2 onClick={cartModal.onOpen} className="text-2xl font-semibold py-2 flex  items-center justify-start ml-6">
               {category.name}
             </h2>
-            <div className="">
+            <div className="grid  sm:grid-cols-1 lg:grid-cols-2">
               {products
                 ?.filter((product) => product.categoryId === category.id)
                 .map((product) => (
-                  <React.Fragment key={product.id}>
-                    <div
-                      className="flex w-full  p-2 cursor-pointer hover:bg-slate-200"
-                      onClick={() => handleProductClick(product)}
-                    >
-                      <div className="md:flex-1 sm:flex-1 mx-3">
-                        <h2 className="text-xl">{product.name}</h2>
-                        <p className="text-gray-500 mr-4">
-                          {product.description}
-                        </p>
-                        <p className="text-lg font-semibold mt-2">
-                          R${product.price}
-                        </p>
-                      </div>
-                      <div className=" flex items-center min-w-max ">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-20 h-20 rounded-lg mr-3"
-                        />
-                      </div>
-                    </div>
-                    <hr className="w-full h-2/3" />
-                  </React.Fragment>
+                  <ProductCard key={product.id} onClick={() => handleProductClick(product)} title={product.name} description={product.description} image={product.image} price={product.price} />
                 ))}
             </div>
           </div>
         ))}
       </div>
-    </Container>
+    </div>
   );
 };
 
