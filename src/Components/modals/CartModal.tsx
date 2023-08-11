@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import useCartModal from "../../hooks/useCartModal";
 import { api } from "../../api";
 import Modal from "./Modal";
@@ -26,9 +26,7 @@ const CartModal = () => {
   const onSubmit = async () => {
     try{
       setIsLoading(true)
-      const response = await api.post("/testCheckout")
-
-      console.log(response.data)
+       await api.post("/testCheckout")
 
       toast.success("Pedido enviado")
       cartModal.onClose()
@@ -42,13 +40,12 @@ const CartModal = () => {
   const removeProduct = async (ctp: CartToProduct) => {
     try{
       setIsLoading(true)
-      const response = await api.delete("/remove", {
+      await api.delete("/remove", {
         data:{
         productId: ctp.productId,
         cartProductId: ctp.id
         }
       })
-      console.log(response.data)
 
     } catch(err){
       console.log(err);
@@ -58,12 +55,14 @@ const CartModal = () => {
   }
   useEffect(() => { 
     const fetchCart = async () => {
+      
       const response = await api.get("/cart");
-
       setCart(response.data);
+      
+
     };
     fetchCart();
-  }, [onSubmit, removeProduct]);
+  }, [ cartModal.isOpen]);
 
   const bodyContent = (
     <div>
@@ -99,8 +98,6 @@ const CartModal = () => {
         <p> R${cart?.subtotal}</p>
     </div>
   )
-
-  
 
   return (
     <div>

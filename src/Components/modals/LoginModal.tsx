@@ -39,7 +39,6 @@ const LoginModal = () => {
             setUser(response.data)
             toast.success("Logged in");
             loginModal.onClose();
-            window.location.reload();
         } catch(err){
             console.log(err)
         }

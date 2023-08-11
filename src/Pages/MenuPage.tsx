@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import useAddToCartModal from "../hooks/useAddToCartModal";
 import { Product, Category } from "../interfaces";
 import useCartModal from "../hooks/useCartModal";
 import ProductCard from "../Components/ProductCard";
+import { AuthContext } from "../auth/authContext";
 
 
 const MenuPage = () => {
@@ -17,6 +18,20 @@ const MenuPage = () => {
   >(null);
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
+  const {user, setUser, setLoggedInToken} = useContext(AuthContext)
+
+  const fetchGuestUser = async () => {
+    try{
+      const response = await api.post("/guestUser")
+      const token = response.data.token
+      setUser(response.data.guestUser)
+      setLoggedInToken(token)
+      localStorage.setItem("token", token)
+
+    } catch(err){
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,6 +52,11 @@ const MenuPage = () => {
         console.log(err);
       }
     };
+     
+    if(!user){
+      fetchGuestUser()
+    }
+    
     fetchProducts();
     fetchCategories();
   }, []);
@@ -71,8 +91,7 @@ const MenuPage = () => {
       const elementPosition = categoryElement.offsetLeft;
       const offsetPosition = elementPosition - headerOffset;
       
-      console.log("elemetn position:" ,  elementPosition)
-      console.log("offset position:" , offsetPosition)
+     
       if (scrollableContainerRef.current) {
         scrollableContainerRef.current.scrollLeft = offsetPosition;
       }
@@ -80,29 +99,6 @@ const MenuPage = () => {
   
     goToProductsOfCategoryId(categoryId);
   };
-  // const handleCategoryClick = (categoryId: string) => {
-  //   const categoryElement = document.getElementById(`categorySide-${categoryId}`);
-    
-  //   if (categoryElement) {
-  //     setSelectedCategorySide(categoryId);
-  
-  //     const headerOffset = window.innerWidth / 2; // Adjust as needed
-  //     const elementPosition = categoryElement.offsetLeft + categoryElement.offsetWidth / 2;
-  //     const offsetPosition = elementPosition - headerOffset;
-  
-    
-  
-  //     if (scrollableContainerRef.current) {
-  //       const scrollContainerWidth = scrollableContainerRef.current.offsetWidth;
-  //       const maxScroll = scrollableContainerRef.current.scrollWidth - scrollContainerWidth;
-  //       const finalScroll = Math.max(Math.min(offsetPosition, maxScroll), 0);
-  
-  //       scrollableContainerRef.current.scrollLeft = finalScroll;
-  //     }
-  //   }
-  
-  //   goToProductsOfCategoryId(categoryId);
-  // };
 
   return (
     <div>

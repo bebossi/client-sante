@@ -5,12 +5,13 @@ const AuthContext = createContext<any>(null);
 
 function AuthContextComponent(props: any) {
   const [loggedInToken, setLoggedInToken] = useState<string | null>(null);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
+    
 
-    if (storedToken) {
+    if (!user && storedToken) {
       try {
         const decodedUser: any = jwtDecode(storedToken);
         setLoggedInToken(storedToken);
@@ -21,7 +22,7 @@ function AuthContextComponent(props: any) {
     } else {
       setLoggedInToken(null);
     }
-  }, []);
+  }, [user]);
 
   return (
     <AuthContext.Provider
