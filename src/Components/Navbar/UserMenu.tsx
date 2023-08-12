@@ -57,7 +57,7 @@ console.log(user)
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {user ? (
+            {user && user.role !== "guest" ? (
               <>
                 <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
                 <MenuItem onClick={() => navigate("/menuu")} label="Quem somos" />

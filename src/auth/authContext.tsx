@@ -22,7 +22,7 @@ function AuthContextComponent(props: any) {
     } else {
       setLoggedInToken(null);
     }
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider

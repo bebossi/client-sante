@@ -20,18 +20,8 @@ const MenuPage = () => {
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
   const {user, setUser, setLoggedInToken} = useContext(AuthContext)
 
-  const fetchGuestUser = async () => {
-    try{
-      const response = await api.post("/guestUser")
-      const token = response.data.token
-      setUser(response.data.guestUser)
-      setLoggedInToken(token)
-      localStorage.setItem("token", token)
-
-    } catch(err){
-      console.log(err);
-    }
-  }
+  
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -52,14 +42,30 @@ const MenuPage = () => {
         console.log(err);
       }
     };
+
+    const fetchGuestUser = async () => {
+      try{
+        const token = localStorage.getItem("token");
+        if (!token) {
+        const response = await api.post("/guestUser")
+        const token = response.data.token
+        setUser(response.data.guestUser)
+        setLoggedInToken(token)
+        localStorage.setItem("token", token)
+        }
+  
+      } catch(err){
+        console.log(err);
+      }
+    }
      
     if(!user){
-      fetchGuestUser()
+     fetchGuestUser()
     }
     
     fetchProducts();
     fetchCategories();
-  }, []);
+  }, [user]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
