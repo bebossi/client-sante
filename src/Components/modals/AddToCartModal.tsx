@@ -19,14 +19,14 @@ const AddToCartModal = () => {
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
   const [quantity, setQuantity] = useState(1);
 
-  // useEffect(() => {
-  //   if (addCartModal.isOpen === true) {
-  //     document.body.style.overflow = "hidden";
-  //   }
-  //   if (addCartModal.isOpen === false) {
-  //     document.body.style.overflow = "auto";
-  //   }
-  // }, [addCartModal.isOpen]);
+  useEffect(() => {
+    if (addCartModal.isOpen === true) {
+      document.body.style.overflow = "hidden";
+    }
+    if (addCartModal.isOpen === false) {
+      document.body.style.overflow = "auto";
+    }
+  }, [addCartModal.isOpen]);
 
   useEffect(() => {
     let initialToppings: ToppingProps[] | undefined = undefined;
