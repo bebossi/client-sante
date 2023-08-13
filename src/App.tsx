@@ -6,6 +6,10 @@ import MenuPage from "./Pages/MenuPage";
 import AddToCartModal from "./Components/modals/AddToCartModal";
 import CartModal from "./Components/modals/CartModal";
 import AA from "./Pages/a";
+import Map from "./Components/Map";
+import B from "./Pages/b";
+import "./App.css"
+
 
 function App() {
   return (
@@ -16,10 +20,12 @@ function App() {
           <LoginModal />
           <CartModal/>
           <NavBar />
-          <div className="pb-20 pt-28">
+          <div className="pb-0 pt-28">
             <Routes>
               <Route path="/menu" element={<MenuPage />} />
               <Route path="/a" element={<AA/>}/>
+              <Route path="/map" element={<Map/>} />
+              <Route path="/b" element={<B/>} />
             </Routes>
           </div>
         </div>
