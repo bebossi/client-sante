@@ -7,6 +7,8 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  children?: React.ReactNode;
+
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
+  children
 }) => {
   return (
     <button
@@ -35,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {Icon && <Icon className="absolute left-4 top-3" />}
       {label}
+      {children}
     </button>
   );
 };

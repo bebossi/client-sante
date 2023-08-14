@@ -16,10 +16,8 @@ const B = () => {
     libraries: ["places"],
   });
   const {
-    ready,
     value,
     setValue,
-    // suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
 

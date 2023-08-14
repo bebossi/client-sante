@@ -5,10 +5,10 @@ import { AuthContextComponent } from "./auth/authContext";
 import MenuPage from "./Pages/MenuPage";
 import AddToCartModal from "./Components/modals/AddToCartModal";
 import CartModal from "./Components/modals/CartModal";
-import AA from "./Pages/a";
 import Map from "./Components/Map";
 import B from "./Pages/b";
 import "./App.css"
+import DashboardAdmin from "./Pages/DashboardAdmin";
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <div className="pb-0 pt-28">
             <Routes>
               <Route path="/menu" element={<MenuPage />} />
-              <Route path="/a" element={<AA/>}/>
+              <Route path="/dashboard" element={<DashboardAdmin/>}/>
               <Route path="/map" element={<Map/>} />
               <Route path="/b" element={<B/>} />
             </Routes>

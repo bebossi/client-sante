@@ -18,6 +18,7 @@ const MenuPage = () => {
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
+  console.log(cartModal.cartItems)
   
 
   useEffect(() => {
