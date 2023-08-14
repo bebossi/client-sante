@@ -9,6 +9,7 @@ import Map from "./Components/Map";
 import B from "./Pages/b";
 import "./App.css"
 import DashboardAdmin from "./Pages/DashboardAdmin";
+import ProductPage from "./Pages/Product";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardAdmin/>}/>
               <Route path="/map" element={<Map/>} />
               <Route path="/b" element={<B/>} />
+              <Route path="/product/:productId" element={<ProductPage />} />
             </Routes>
           </div>
         </div>

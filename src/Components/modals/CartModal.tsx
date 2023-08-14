@@ -19,7 +19,7 @@ const CartModal = () => {
     if (cartModal.isOpen === false) {
       document.body.style.overflow = "auto";
     }
-  }, [cartModal.isOpen]);
+  }, [cartModal.isOpen === true]);
 
   const onSubmit = async () => {
     try {
