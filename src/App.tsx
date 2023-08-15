@@ -35,6 +35,7 @@ function App() {
               <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/product" element={<ProductPage />} />
               <Route path="/topping/:toppingId" element={<ToppingPage/>}/>
+              <Route path="/topping" element={<ToppingPage/>}/>
             </Routes>
           </div>
         </div>

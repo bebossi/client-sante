@@ -83,8 +83,8 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
       };
     
     return (
-        <>
-        <div className="flex items-center justify-between">
+        <div className="p-1">
+        <div className="flex items-center justify-between ">
           <Heading title={title} subtitle={description} />
           {initialData && (
             <Button variant="destructive" size="sm">
@@ -180,15 +180,16 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                       onValueChange={field.onChange}
                       value={field.value}
                       defaultValue={field.value}
+                    
                     >
                       <FormControl>
-                        <SelectTrigger className="border-[1px]">
+                        <SelectTrigger className="border-[1px] h-auto w-auto">
                           <SelectValue className="" defaultValue={field.value} placeholder="Select a product"  />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectLabel>Categories</SelectLabel>
+                          <SelectLabel>Products</SelectLabel>
                         {products?.map((product) => (
                           <SelectItem  key={product.id} value={product.id} >
                             {product.name}
@@ -211,7 +212,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
             </Button>
           </form>
         </Form>
-      </>
+      </div>
   )
 }
 
