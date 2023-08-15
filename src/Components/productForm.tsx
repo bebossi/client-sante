@@ -1,5 +1,5 @@
 import { api } from "../api";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import { Separator } from "./ui/separator";
 import { Trash } from "lucide-react";
 import { Button } from "../Components/ui/button";
 import { Input } from "../Components/ui/input";
