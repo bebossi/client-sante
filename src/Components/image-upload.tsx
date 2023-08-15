@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from "react"
 import { TbPhotoPlus } from "react-icons/tb"
 import { Image , Transformation } from "cloudinary-react";
+import { cn } from "../lib/utils";
 
 interface ImageUploadProps {
     onChange: (value: string  ) => void
@@ -50,8 +51,8 @@ const ImageUpload: React.FC<ImageUploadProps>  = ({onChange , value}) => {
         <div className="font-semibold text-lg">Click to upload</div>
         {value && (
           <div className="absolute inset-0 w-full h-full">
-            <Image src={value} >
-              <Transformation width="300" height="300" crop="fill" />
+            <Image className={cn("w-full h-full object-fill")} src={value} >
+              <Transformation width="100" height="100" crop="fill" />
             </Image>
           </div>
         )}

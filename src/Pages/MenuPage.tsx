@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import useAddToCartModal from "../hooks/useAddToCartModal";
 import { Product, Category } from "../interfaces";
-import useCartModal from "../hooks/useCartModal";
+import useCartModal from "../hooks/useCartModal"; 
 import ProductCard from "../Components/ProductCard";
 import { AuthContext } from "../auth/authContext";
 

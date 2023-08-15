@@ -1,4 +1,3 @@
-
 // import Button  from "../Button";
 import {
   ColumnDef,
@@ -19,18 +18,22 @@ import {
   TableRow,
 } from "../../Components/ui/table";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
+import { cn } from "../../lib/utils";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]; 
+  columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  searchKey: string
+  searchKey: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  searchKey
+  searchKey,
 }: DataTableProps<TData, TValue>) {
+  const navigate = useNavigate();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
@@ -46,16 +49,19 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="flex items-center py-4">
+    <div className="p-0">
+      <div className="flex items-center p-4">
         <input
           placeholder="Search"
           value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-2xl border-slate-200 border-[1px] rounded-md"
         />
+        <Button className={cn(" mx-5 bg-red-500")} onClick={() => navigate("/product")}>
+          Add new
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -107,18 +113,6 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {/* <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()} label={""}        >
-          Previous
-        </Button>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()} label={""}        >
-          Next
-        </Button>
-      </div> */}
     </div>
   );
 }
