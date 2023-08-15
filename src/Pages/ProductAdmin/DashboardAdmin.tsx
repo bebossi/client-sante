@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import {DataTable} from "../Components/DataTable/Data-table"
-import { api } from "../api"
-import { Product } from "../interfaces"
-import {  columns } from "../Components/DataTable/columns"
+import {DataTable} from "../../Components/DataTable/Data-table"
+import { api } from "../../api"
+import { Product } from "../../interfaces"
+import {  columns } from "./columns"
   
 const DashboardAdmin = () => {
 
-    const [products, setProducts] = useState<Product[] | null >(null)
+    const [products, setProducts] = useState<Product[] | null >(null) 
 
     useEffect(() => {
         const fetchProducts = async () => {

@@ -8,8 +8,10 @@ import CartModal from "./Components/modals/CartModal";
 import Map from "./Components/Map";
 import B from "./Pages/b";
 import "./App.css"
-import DashboardAdmin from "./Pages/DashboardAdmin";
+import DashboardAdmin from "./Pages/ProductAdmin/DashboardAdmin";
 import ProductPage from "./Pages/ProductPage";
+import DashboardCategories from "./Pages/CategoryAdmin/DashboardCategories";
+import DashboardToppings from "./Pages/ToppingAdmin/DashboardAdmin";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
             <Routes>
               <Route path="/menu" element={<MenuPage />} />
               <Route path="/dashboard" element={<DashboardAdmin/>}/>
+              <Route path="/dashboardCategories" element={<DashboardCategories/>}/>
+              <Route path="/dashboardToppings" element={<DashboardToppings/>}/>
               <Route path="/map" element={<Map/>} />
               <Route path="/b" element={<B/>} />
               <Route path="/product/:productId" element={<ProductPage />} />
