@@ -2,11 +2,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import useAddToCartModal from "../hooks/useAddToCartModal";
 import { Product, Category } from "../interfaces";
-import useCartModal from "../hooks/useCartModal";
+import useCartModal from "../hooks/useCartModal"; 
 import ProductCard from "../Components/ProductCard";
 import { AuthContext } from "../auth/authContext";
 
-const MenuPage = () => {
+const MenuPageCar = () => {
   const addCartModal = useAddToCartModal();
   const cartModal = useCartModal();
   const [products, setProducts] = useState<Product[]>();
@@ -18,6 +18,8 @@ const MenuPage = () => {
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
+  console.log(cartModal.cartItems)
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -60,45 +62,13 @@ const MenuPage = () => {
 
     fetchProducts();
     fetchCategories();
-  }, [ addCartModal, cartModal]);
+  }, [user]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
   };
 
-  const goToProductsOfCategoryId = (categoryId: string) => {
-    const categoryElement = document.getElementById(`category-${categoryId}`);
-    if (categoryElement) {
-      setSelectedCategory(categoryId);
-      const headerOffset = 162;
-      const elementPosition = categoryElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition - headerOffset;
 
-      window.scrollBy({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleCategoryClick = (categoryId: string) => {
-    const categoryElement = document.getElementById(
-      `categorySide-${categoryId}`
-    );
-    if (categoryElement) {
-      setSelectedCategorySide(categoryId);
-
-      const headerOffset = 130;
-      const elementPosition = categoryElement.offsetLeft;
-      const offsetPosition = elementPosition - headerOffset;
-
-      if (scrollableContainerRef.current) {
-        scrollableContainerRef.current.scrollLeft = offsetPosition;
-      }
-    }
-
-    goToProductsOfCategoryId(categoryId);
-  };
 
   return (
     <div>
@@ -114,7 +84,6 @@ const MenuPage = () => {
             >
               <p
                 id={`categorySide-${category.id}`}
-                onClick={() => handleCategoryClick(category.id)}
                 className={`text-lg font-semibold 
                   ${
                     selectedCategory && selectedCategorySide === category.id
@@ -133,7 +102,10 @@ const MenuPage = () => {
             className="w-full"
             key={category.id}
           >
-            <h2 className="text-xl font-bold py-1 flex items-center justify-start ml-4">
+            <h2
+              
+              className="text-xl font-bold py-1 flex items-center justify-start ml-4"
+            >
               {category.name}
             </h2>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
@@ -154,10 +126,7 @@ const MenuPage = () => {
         ))}
       </div>
       {cartModal.cartItems.length > 0 && (
-        <div
-          onClick={cartModal.onOpen}
-          className="sticky bg-red-600 bottom-0 flex justify-center py-1 hover:cursor-pointer"
-        >
+        <div onClick={cartModal.onOpen} className="sticky bg-red-600 bottom-0 flex justify-center py-1 hover:cursor-pointer">
           <p className="font-semibold text-lg text-white">Ver carrinho</p>
         </div>
       )}
@@ -165,4 +134,4 @@ const MenuPage = () => {
   );
 };
 
-export default MenuPage;
+export default MenuPageCar;

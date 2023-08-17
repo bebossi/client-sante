@@ -5,9 +5,12 @@ import Modal from "./Modal";
 import { Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
+import useAddToCartModal from "../../hooks/useAddToCartModal";
 
 const CartModal = () => {
   const cartModal = useCartModal();
+  const addCartModal = useAddToCartModal();
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
@@ -19,7 +22,7 @@ const CartModal = () => {
     if (cartModal.isOpen === false) {
       document.body.style.overflow = "auto";
     }
-  }, [cartModal.isOpen === true]);
+  }, []);
 
   const onSubmit = async () => {
     try {
@@ -38,12 +41,14 @@ const CartModal = () => {
   const removeProduct = async (ctp: CartToProduct) => {
     try {
       setIsLoading(true);
-      await api.delete("/remove", {
+      await api.delete("/removeProduct", {
         data: {
           productId: ctp.productId,
           cartProductId: ctp.id,
         },
       });
+      toast.success("product deleted successfully")
+      
     } catch (err) {
       console.log(err);
     } finally {
@@ -56,7 +61,8 @@ const CartModal = () => {
       setCart(response.data);
     };
     fetchCart();
-  }, [cartModal.isOpen, onSubmit, removeProduct]);
+    
+  }, [cartModal, addCartModal, cartModal.cartItems]);
 
   if(cart){
     cartModal.cartItems = cart.cartProducts 

@@ -14,6 +14,8 @@ import DashboardToppings from "./Pages/ToppingAdmin/DashboardTopping";
 import ToppingPage from "./Pages/ToppingPage";
 import DashboardProduct from "./Pages/ProductAdmin/DashboardProduct";
 import DashBoard from "./Pages/DashBoard";
+import CategoryPage from "./Pages/CategoryPage";
+import ToasterProvider from "./Providers/ToaterProvider";
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
     <>
       <AuthContextComponent>
         <div>
+          <ToasterProvider/>
           <AddToCartModal />
           <LoginModal />
           <CartModal/>
@@ -38,6 +41,8 @@ function App() {
               <Route path="/product" element={<ProductPage />} />
               <Route path="/topping/:toppingId" element={<ToppingPage/>}/>
               <Route path="/topping" element={<ToppingPage/>}/>
+              <Route path="/category/:categoryId" element={<CategoryPage/>}/>
+              <Route path="/category" element={<CategoryPage/>}/>
             </Routes>
           </div>
         </div>

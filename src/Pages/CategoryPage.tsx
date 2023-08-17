@@ -4,7 +4,7 @@ import { api } from "../api";
 import { Category } from "../interfaces";
 import CategoryForm from "../Components/CategoryForm";
 
-const ProductPage = () => {
+const CategoryPage = () => {
   const params = useParams();
 
   const [category, setCategory] = useState<Category | null>(null);
@@ -19,15 +19,14 @@ const ProductPage = () => {
       }
     };
 
-    
-      fetchCategory();
+    fetchCategory();
   }, [params.categoryId]);
 
   return (
     <>
-      <CategoryForm initialData={category}  />
+      <CategoryForm initialData={category} />
     </>
   );
 };
 
-export default ProductPage;
+export default CategoryPage;

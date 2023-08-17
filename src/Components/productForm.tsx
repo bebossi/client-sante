@@ -75,8 +75,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
       navigate("/dashboard");
     } catch (err) {
       toast.error("Something went wrong");
-    } finally {
-    }
+    } 
   };
 
   return (

@@ -5,7 +5,7 @@ import { api } from "../../api";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { Topping } from "../../interfaces";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface ToppingProps {
   topping: Topping;
@@ -45,8 +45,8 @@ const AddToCartModal = () => {
     setQuantity(quantity + 1);
   };
   const decreaseQuantity = () => {
-    if(quantity === 1){
-      return
+    if (quantity === 1) {
+      return;
     }
     setQuantity(quantity - 1);
   };
@@ -82,19 +82,18 @@ const AddToCartModal = () => {
 
   const onSubmit = async () => {
     try {
-      setIsLoading(true)
-      const response = await api.post("/addProduct", {
+      setIsLoading(true);
+    await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,
         quantity: quantity,
       });
+      toast.success("Product added successfully")
       addCartModal.onClose();
-      
-      console.log(response.data);
     } catch (err) {
       console.log(err);
-    } finally{
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   };
   let totalPriceToppings = toppings.reduce((total, topping) => {
@@ -102,7 +101,8 @@ const AddToCartModal = () => {
   }, 0);
 
   const subtotal =
-    Number(totalPriceToppings) * quantity + Number(addCartModal?.product?.price) * quantity;
+    Number(totalPriceToppings) * quantity +
+    Number(addCartModal?.product?.price) * quantity;
 
   const bodyContent = (
     <div className="flex flex-col gap-4 ">
@@ -152,7 +152,10 @@ const AddToCartModal = () => {
           onClick={() => decreaseQuantity()}
         />
         {quantity}
-        <BiPlus className="mr-2 cursor-pointer " onClick={() => increaseQuantity()} />
+        <BiPlus
+          className="mr-2 cursor-pointer "
+          onClick={() => increaseQuantity()}
+        />
       </div>
     </div>
   );
