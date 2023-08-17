@@ -4,7 +4,7 @@ import { api } from "../../api"
 import { Product } from "../../interfaces"
 import {  columns } from "./columns"
   
-const DashboardAdmin = () => {
+const DashboardProduct = () => {
 
     const [products, setProducts] = useState<Product[] | null >(null) 
 
@@ -21,6 +21,10 @@ const DashboardAdmin = () => {
         fetchProducts()  
     }, [])
 
+    if(!products){
+        return <div>No Products</div>
+    }
+
   return (
     <>
     <DataTable columns={columns} data={products ?? []} searchKey={"name"}   />
@@ -28,4 +32,4 @@ const DashboardAdmin = () => {
   )
 }
 
-export default DashboardAdmin
+export default DashboardProduct
