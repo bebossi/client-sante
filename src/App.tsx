@@ -16,6 +16,7 @@ import DashboardProduct from "./Pages/ProductAdmin/DashboardProduct";
 import DashBoard from "./Pages/DashBoard";
 import CategoryPage from "./Pages/CategoryPage";
 import ToasterProvider from "./Providers/ToaterProvider";
+import MenuPageCar from "./Pages/MenuPageCar";
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           <div className="pb-0 pt-28">
             <Routes>
               <Route path="/menu" element={<MenuPage />} />
+              <Route path="/menuu" element={<MenuPageCar />} />
+
               <Route path="/dashboard" element={<DashBoard/>}/>
               <Route path="/dashboardProduct" element={<DashboardProduct/>}/>
               <Route path="/dashboardCategories" element={<DashboardCategories/>}/>

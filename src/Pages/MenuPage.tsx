@@ -95,6 +95,7 @@ const MenuPage = () => {
       if (scrollableContainerRef.current) {
         scrollableContainerRef.current.scrollLeft = offsetPosition;
       }
+      
     }
 
     goToProductsOfCategoryId(categoryId);

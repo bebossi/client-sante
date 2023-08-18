@@ -11,14 +11,13 @@ const MenuPageCar = () => {
   const cartModal = useCartModal();
   const [products, setProducts] = useState<Product[]>();
   const [categories, setCategories] = useState<Category[]>();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedCategorySide, setSelectedCategorySide] = useState<
-    string | null
-  >(null);
+  const reff = useRef<HTMLDivElement| null>(null);
 
-  const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
+  const handleClick = () => {
+    reff.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
-  console.log(cartModal.cartItems)
   
 
   useEffect(() => {
@@ -68,13 +67,11 @@ const MenuPageCar = () => {
     addCartModal.onOpen(product);
   };
 
-
-
   return (
     <div>
       <div className="flex flex-col items-center ">
         <div
-          ref={scrollableContainerRef}
+          ref={reff}
           className="flex items-center gap-x-12 sticky w-full border-b-2 bg-white top-28 overflow-x-hidden "
         >
           {categories?.map((category) => (
@@ -84,12 +81,8 @@ const MenuPageCar = () => {
             >
               <p
                 id={`categorySide-${category.id}`}
-                className={`text-lg font-semibold 
-                  ${
-                    selectedCategory && selectedCategorySide === category.id
-                      ? "border-b-2 border-red-600 text-red-600"
-                      : ""
-                  }`}
+                className="text-lg font-semibold category.id border-b-2 border-red-600 text-red-600 "
+                onClick={handleClick}
               >
                 {category.name}
               </p>
