@@ -6,12 +6,21 @@ import { Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
+import MapAddress from "../../Pages/Map";
+
+enum STEPS {
+  PRODUCTS = 0,
+  LOCATION = 1,
+  PAYMENT = 2,
+
+}
+
 
 const CartModal = () => {
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
 
-
+  const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
 
@@ -24,8 +33,20 @@ const CartModal = () => {
     }
   }, []);
 
+  const onBack = () => {
+    setStep((value) => value - 1);
+  };
+
+  const onNext = () => {
+    setStep((value) => value + 1);
+  };
+
+
   const onSubmit = async () => {
     try {
+      if (step !== STEPS.PAYMENT) {
+        return onNext();
+      }
       setIsLoading(true);
       await api.post("/testCheckout");
 
@@ -68,7 +89,7 @@ const CartModal = () => {
     cartModal.cartItems = cart.cartProducts 
   }
 
-  const bodyContent = (
+  let bodyContent = (
     <div>
       {cart?.cartProducts.map((cartProduct) => (
         <div
@@ -114,6 +135,24 @@ const CartModal = () => {
       <p className="font-semibold"> R${cart?.subtotal}</p>
     </div>
   );
+
+
+  if(step === STEPS.LOCATION){
+    bodyContent = (
+      <div className="flex flex-col ">
+        <MapAddress/>
+      </div>
+    )
+  }
+
+  if(step === STEPS.PAYMENT){
+    bodyContent = (
+      <div className="flex flex-col ">
+        
+      </div>
+    )
+  }
+
 
   return (
     <div>

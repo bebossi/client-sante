@@ -18,8 +18,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import Heading from "../Components/Heading";
 import ImageUpload from "./image-upload";
-import { useNavigate, useParams } from "react-router-dom";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import { useNavigate } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -33,14 +42,20 @@ type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
   initialData: Product | null;
-  categories: Category[] | null;
+  categories: Category[];
 }
-const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) => {
-  if (!initialData && !categories) {
-    return <div>Loading...</div>;
-  }
-  const params = useParams();
+const ProductForm: React.FC<ProductFormProps> = ({
+  initialData,
+  categories,
+}) => {
+  
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  
+  if (!initialData && !categories) { 
+    return <div>Loading</div>;
+  }
+
   const title = initialData ? "Edit product" : "Create product";
   const description = initialData ? "Edit product" : "Add a new product";
   const toastMessage = initialData ? "Product updated" : "Product created";
@@ -57,14 +72,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
           description: "",
           image: "",
           price: 0,
-          categoryId: ""
+          categoryId: "",
         },
   });
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
+      setLoading(true);
       if (initialData) {
-        await api.put(`/updateProduct/${params.productId}`, data);
+        await api.put(`/updateProduct/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
         await api.post(`/create`, data);
@@ -75,7 +91,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
       navigate("/dashboard");
     } catch (err) {
       toast.error("Something went wrong");
-    } 
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -121,7 +139,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      //   disabled={loading}
+                      disabled={loading}
                       placeholder="Prouct name"
                       {...field}
                     />
@@ -139,7 +157,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
                   <FormControl>
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
-                      //   disabled={loading}
+                      disabled={loading}
                       placeholder="Product description"
                       {...field}
                     />
@@ -157,7 +175,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
                   <FormControl>
                     <Input
                       type="number"
-                      //   disabled={loading}
+                      disabled={loading}
                       placeholder="9.99"
                       {...field}
                     />
@@ -166,30 +184,34 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) =>
                 </FormItem>
               )}
             />
-              <FormField
+            <FormField
               control={form.control}
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select 
+                  <Select
                     onValueChange={field.onChange}
                     value={field.value}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="border-[1px]">
-                        <SelectValue className="" defaultValue={field.value} placeholder="Select a category"  />
+                        <SelectValue
+                          className=""
+                          defaultValue={field.value}
+                          placeholder="Select a category"
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="">
                       <SelectGroup>
                         <SelectLabel>Categories</SelectLabel>
-                      {categories?.map((category) => (
-                        <SelectItem  key={category.id} value={category.id} >
-                          {category.name}
-                        </SelectItem>
-                      ))}
+                        {categories?.map((category) => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>

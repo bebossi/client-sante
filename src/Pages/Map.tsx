@@ -11,8 +11,9 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { api } from "../api";
 import Button from "../Components/Button";
+import { toast } from "react-hot-toast";
 
-const B = () => {
+const MapAddress = () => {
   const [selected, setSelected] = useState({ lat: -19.9129, lng: -43.9409 });
   const [selectedAddress, setSelectedAddress] = useState("");
   const [form, setForm] = useState({
@@ -62,21 +63,20 @@ const B = () => {
     setSelected({ lat, lng });
     setSelectedAddress(results[0].formatted_address);
   };
-  console.log(Number(form.CEP))
+  console.log(Number(form.CEP));
 
   const onSubmit = async () => {
     try {
-      const cleanedCEP = form.CEP.replace(/-/g, '');
+      const cleanedCEP = form.CEP.replace(/-/g, "");
 
-
-     const response = await api.post("/address", {
-          street: form.street,
-          neighborhood: form.neighborhood,
-          streetNumber: Number( form.streetNumber),
-          complementNumber: Number(form.complementNumber) || "",
-          CEP: Number(cleanedCEP)
+      await api.post("/address", {
+        street: form.street,
+        neighborhood: form.neighborhood,
+        streetNumber: Number(form.streetNumber),
+        complementNumber: Number(form.complementNumber) || "",
+        CEP: Number(cleanedCEP),
       });
-      console.log(response)
+      toast.success("Address added");
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +84,7 @@ const B = () => {
 
   return (
     <>
-      <div className="h-full w-full flex">
+      <div className="h-full w-full flex flex-col ">
         <div className="w-full">
           <Autocomplete
             onLoad={(autocomplete) => {
@@ -180,4 +180,4 @@ const B = () => {
   );
 };
 
-export default B;
+export default MapAddress;

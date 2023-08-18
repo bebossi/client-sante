@@ -8,12 +8,14 @@ const ToppingPage = () => {
   const params = useParams();
   const [topping, setTopping] = useState<Topping | null>(null);
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [toppingFetched, setToppingFetched] = useState(false);
 
   useEffect(() => {
     const fetchTopping = async () => {
       try {
         const response = await api.get(`/getTopping/${params.toppingId}`);
         setTopping(response.data);
+        setToppingFetched(true);
       } catch (err) {
         console.log(err);
       }
@@ -34,7 +36,9 @@ const ToppingPage = () => {
   }, [params.toppingId]);
   return (
     <>
-      <ToppingForm initialData={topping} products={products} />
+      {toppingFetched && (
+        <ToppingForm initialData={topping} products={products} />
+      )}
     </>
   );
 };

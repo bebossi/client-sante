@@ -8,12 +8,14 @@ const CategoryPage = () => {
   const params = useParams();
 
   const [category, setCategory] = useState<Category | null>(null);
+  const [categoryFetched, setCategoryFetched] = useState(false);
 
   useEffect(() => {
     const fetchCategory = async () => {
       try {
         const response = await api.get(`/getCategory/${params.categoryId}`);
         setCategory(response.data);
+        setCategoryFetched(true);
       } catch (err) {
         console.log(err);
       }
@@ -22,11 +24,7 @@ const CategoryPage = () => {
     fetchCategory();
   }, [params.categoryId]);
 
-  return (
-    <>
-      <CategoryForm initialData={category} />
-    </>
-  );
+  return <>{categoryFetched && <CategoryForm initialData={category} />} </>;
 };
 
 export default CategoryPage;
