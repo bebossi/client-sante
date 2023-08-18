@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import Heading from "../Components/Heading";
 import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -32,6 +33,8 @@ interface CategoryFormProps {
 const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const params = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   if (!initialData) {
     return <div>Loading...</div>;
   }
@@ -54,6 +57,8 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
 
   const onSubmit = async (data: CategoryFormValues) => {
     try {
+      setLoading(true);
+
       if (initialData) {
         await api.put(`/updateCategory/${params.categoryId}`, data);
         toast.success(toastMessage);
@@ -67,6 +72,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
+      setLoading(false);
     }
   };
 
@@ -95,7 +101,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      //   disabled={loading}
+                      disabled={loading}
                       placeholder="Prouct name"
                       {...field}
                     />
@@ -105,11 +111,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
               )}
             />
           </div>
-          <Button
-            //    disabled={loading}
-            className="ml-auto py-5"
-            type="submit"
-          >
+          <Button disabled={loading} className="ml-auto py-5" type="submit">
             {action}
           </Button>
         </form>

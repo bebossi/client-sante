@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useCartModal from "../../hooks/useCartModal";
 import { api } from "../../api";
 import Modal from "./Modal";
@@ -89,6 +89,22 @@ const CartModal = () => {
     cartModal.cartItems = cart.cartProducts 
   }
 
+  const actionLabel = useMemo(() => {
+    if (step === STEPS.PAYMENT) {
+      return "Escolher forma de pagamento";
+    }
+
+    return "Next";
+  }, [step]);
+
+  const secondaryActionLabel = useMemo(() => {
+    if (step === STEPS.PRODUCTS) {
+      return undefined;
+    }
+
+    return "Back";
+  }, [step]);
+
   let bodyContent = (
     <div>
       {cart?.cartProducts.map((cartProduct) => (
@@ -158,14 +174,16 @@ const CartModal = () => {
     <div>
       <Modal
         title="Carrinho"
-        actionLabel={`Escolher forma de pagamento`}
+        actionLabel={actionLabel}
         body={bodyContent}
         onClose={cartModal.onClose}
         disabled={isLoading}
         onSubmit={onSubmit}
         isOpen={cartModal.isOpen}
         footer={footerContent}
-      />
+        secondaryActionLabel={secondaryActionLabel}
+        secondaryAction={step === STEPS.PRODUCTS ? undefined : onBack}
+        />
     </div>
   );
 };

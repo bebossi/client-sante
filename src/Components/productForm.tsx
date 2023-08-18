@@ -48,11 +48,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
   categories,
 }) => {
-  
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  
-  if (!initialData && !categories) { 
+
+  if (!initialData && !categories) {
     return <div>Loading</div>;
   }
 

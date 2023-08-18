@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -47,6 +48,8 @@ interface ToppingFormProps {
 const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
   const params = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   if (!initialData && !products) {
     return <div>Loading...</div>;
   }
@@ -73,6 +76,8 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
 
   const onSubmit = async (data: ToppingFormValues) => {
     try {
+      setLoading(true);
+
       if (initialData) {
         await api.put(`/updateTopping/${params.toppingId}`, data);
         toast.success(toastMessage);
@@ -86,6 +91,8 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
+      setLoading(false);
+
     }
   };
 
@@ -132,7 +139,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      //   disabled={loading}
+                        disabled={loading}
                       placeholder="Prouct name"
                       {...field}
                     />
@@ -150,7 +157,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormControl>
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
-                      //   disabled={loading}
+                        disabled={loading}
                       placeholder="Product description"
                       {...field}
                     />
@@ -168,7 +175,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormControl>
                     <Input
                       type="number"
-                      //   disabled={loading}
+                        disabled={loading}
                       placeholder="9.99"
                       {...field}
                     />
@@ -214,7 +221,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
             />
           </div>
           <Button
-            //    disabled={loading}
+               disabled={loading}
             className="ml-auto py-5"
             type="submit"
           >

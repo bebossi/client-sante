@@ -97,7 +97,7 @@ const MenuPageCar = () => {
           >
             <h2
               
-              className="text-xl font-bold py-1 flex items-center justify-start ml-4"
+              className="text-xl font-bold py-1 flex items-center justify-start ml-4 "
             >
               {category.name}
             </h2>

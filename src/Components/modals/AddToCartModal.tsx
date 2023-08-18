@@ -96,6 +96,9 @@ const AddToCartModal = () => {
       setIsLoading(false);
     }
   };
+
+  
+
   let totalPriceToppings = toppings.reduce((total, topping) => {
     return (total += topping.quantity * topping.topping.price);
   }, 0);

@@ -116,7 +116,7 @@ const MenuPage = () => {
               <p
                 id={`categorySide-${category.id}`}
                 onClick={() => handleCategoryClick(category.id)}
-                className={`text-lg font-semibold 
+                className={`text-lg font-semibold lg:text-2xl sm:text-xl md:text-2xl
                   ${
                     selectedCategory && selectedCategorySide === category.id
                       ? "border-b-2 border-red-600 text-red-600"
@@ -134,7 +134,7 @@ const MenuPage = () => {
             className="w-full"
             key={category.id}
           >
-            <h2 className="text-xl font-bold py-1 flex items-center justify-start ml-4">
+            <h2 className="text-xl font-bold p-4 flex items-center justify-start ml-4 lg:text-4xl sm:text-3xl">
               {category.name}
             </h2>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">

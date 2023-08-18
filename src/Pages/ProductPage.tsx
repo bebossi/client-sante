@@ -39,7 +39,6 @@ const ProductPage = () => {
   }, []);
   return (
     <>
-      {/* <ProductForm initialData={product} categories={categories} /> */}
       {productFetched && (
         <ProductForm initialData={product} categories={categories} />
       )}
