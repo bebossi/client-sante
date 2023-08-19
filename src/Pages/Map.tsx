@@ -13,7 +13,11 @@ import { api } from "../api";
 import Button from "../Components/Button";
 import { toast } from "react-hot-toast";
 
-const MapAddress = () => {
+interface MapAddressProps {
+  handleAddressId: (addressId: string) => void;
+}
+
+const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
   const [selected, setSelected] = useState({ lat: -19.9129, lng: -43.9409 });
   const [selectedAddress, setSelectedAddress] = useState("");
   const [form, setForm] = useState({
@@ -29,8 +33,7 @@ const MapAddress = () => {
     if (selectedAddress) {
       const addressParts = selectedAddress.split(", ");
       const streetNumberAndNeighborhood = addressParts[1].split(" - ");
-      console.log(addressParts);
-      console.log(streetNumberAndNeighborhood);
+   
 
       setForm({
         street: addressParts[0],
@@ -63,21 +66,24 @@ const MapAddress = () => {
     setSelected({ lat, lng });
     setSelectedAddress(results[0].formatted_address);
   };
-  console.log(Number(form.CEP));
 
   const onSubmit = async () => {
     try {
       const cleanedCEP = form.CEP.replace(/-/g, "");
 
-      await api.post("/address", {
+    const response = await api.post("/address", {
         street: form.street,
         neighborhood: form.neighborhood,
         streetNumber: Number(form.streetNumber),
         complementNumber: Number(form.complementNumber) || "",
         CEP: Number(cleanedCEP),
       });
+      console.log(response.data.id)
+      handleAddressId(response.data.id)
+      console.log(handleAddressId)
+      console.log(handleAddressId(response.data.id))
       toast.success("Address added");
-    } catch (err) {
+    } catch (err) { 
       console.log(err);
     }
   };

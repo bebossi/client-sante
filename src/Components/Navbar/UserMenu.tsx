@@ -67,7 +67,7 @@ console.log(user)
                 <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
                   onClick={() => navigate("/contact")}
-                  label="Contato"
+                  label="Contato" 
                 />
 
                 <hr />
@@ -77,6 +77,13 @@ console.log(user)
               <>
                 <MenuItem onClick={loginModal.onOpen} label="Entre" />
                 <MenuItem onClick={registerModal.onOpen} label="Cadastre" />
+                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
+                <MenuItem onClick={() => navigate("/menuu")} label="Quem somos" />
+                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
+                <MenuItem
+                  onClick={() => navigate("/contact")}
+                  label="Contato"
+                />
               </>
             )}
           </div>

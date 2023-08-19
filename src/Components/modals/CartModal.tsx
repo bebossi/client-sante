@@ -23,6 +23,7 @@ const CartModal = () => {
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
+  const [addressId, setAddressId] = useState("")
 
   useEffect(() => {
     if (cartModal.isOpen === true) {
@@ -42,14 +43,23 @@ const CartModal = () => {
   };
 
 
-  const onSubmit = async () => {
+  const handleAddressId = (addressId: string) => {
+    setAddressId(addressId); 
+    console.log(addressId)
+    console.log(setAddressId(addressId));
+  }
+  console.log(addressId) 
+
+  const onSubmit = async () => { 
     try {
       if (step !== STEPS.PAYMENT) {
         return onNext();
       }
       setIsLoading(true);
-      await api.post("/testCheckout");
-
+      await api.post("/testCheckout", {
+        addressId: addressId
+      });
+      console.log(addressId)
       toast.success("Pedido enviado");
       cartModal.onClose();
     } catch (err) {
@@ -83,7 +93,7 @@ const CartModal = () => {
     };
     fetchCart();
     
-  }, [cartModal, addCartModal, cartModal.cartItems]);
+  }, [cartModal, addCartModal, cartModal.cartItems]); 
 
   if(cart){
     cartModal.cartItems = cart.cartProducts 
@@ -93,7 +103,7 @@ const CartModal = () => {
     if (step === STEPS.PAYMENT) {
       return "Escolher forma de pagamento";
     }
-
+    console.log(addressId)
     return "Next";
   }, [step]);
 
@@ -156,7 +166,7 @@ const CartModal = () => {
   if(step === STEPS.LOCATION){
     bodyContent = (
       <div className="flex flex-col ">
-        <MapAddress/>
+        <MapAddress handleAddressId={ handleAddressId} />
       </div>
     )
   }
