@@ -25,7 +25,7 @@ const DashboardOrders = () => {
 
   return (
     <>
-      <DataTable data={orders ?? []} columns={columns} searchKey="id" />
+      <DataTable data={orders ?? []} columns={columns} searchKey="createdAt" />
     </>
   )
 }

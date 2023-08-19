@@ -21,7 +21,12 @@ const OrderPage = () => {
     };
     fetchOrder();
   }, []);
-
+const date = new Date(order?.createdAt!)
+const formatted = new Intl.DateTimeFormat("pt-BR", {
+  timeZone:"America/Sao_Paulo",
+  dateStyle: "short",
+  timeStyle: "short",
+}).format(date)
   return (
     <>
       {/* <div className="flex items-center justify-between">
@@ -34,7 +39,7 @@ const OrderPage = () => {
             Order #{order?.id}
           </h1>
           <p className="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">
-            Created At
+            Created At {formatted}
           </p>
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
@@ -44,14 +49,16 @@ const OrderPage = () => {
                 User: {order?.user.id}
               </p>
               {order?.orderProducts.map((orderProduct) => (
-                <div className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
+                <div
+                  key={orderProduct.id}
+                  className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
+                >
                   <div className="pb-4 md:pb-8 w-full md:w-40">
                     <img
                       className="w-full hidden md:block"
                       src={orderProduct.product.image}
                       alt="dress"
                     />
-                   
                   </div>
                   <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
                     <div className="w-full flex flex-col justify-start items-start space-y-8">
@@ -59,15 +66,19 @@ const OrderPage = () => {
                         {orderProduct.product.name}
                       </h3>
                       <div className="flex justify-start items-start flex-col space-y-2">
-                        {orderProduct.orderToProductTopping.map((orderTopping) => (
-
-                        <p className="text-sm dark:text-white leading-none text-gray-800">
-                          <span className="dark:text-gray-500 text-gray-500">
-                            X {orderTopping.quantity}
-                          </span>
-                           {orderTopping.topping.name}
-                        </p>
-                        ))}
+                        {orderProduct.orderToProductTopping.map(
+                          (orderTopping) => (
+                            <p
+                              key={orderTopping.id}
+                              className="text-sm dark:text-white leading-none text-gray-800"
+                            >
+                              <span className="dark:text-gray-500 text-gray-500">
+                                X {orderTopping.quantity}
+                              </span>
+                              {orderTopping.topping.name}
+                            </p>
+                          )
+                        )}
                       </div>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
@@ -99,10 +110,10 @@ const OrderPage = () => {
                       Subtotal
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                     R${order?.subTotal}
+                      R${order?.subTotal}
                     </p>
                   </div>
-                
+
                   <div className="flex justify-between items-center w-full">
                     <p className="text-base dark:text-white leading-4 text-gray-800">
                       Shipping
@@ -208,7 +219,9 @@ const OrderPage = () => {
                       Billing Address
                     </p>
                     <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                     {order?.address.street}, {order?.address.streetNumber} - apto {order?.address.complementNumber} - {order?.address.neighborhood}, {order?.address.CEP}
+                      {order?.address.street}, {order?.address.streetNumber} -
+                      apto {order?.address.complementNumber} -{" "}
+                      {order?.address.neighborhood}, {order?.address.CEP}
                     </p>
                   </div>
                 </div>

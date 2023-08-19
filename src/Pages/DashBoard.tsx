@@ -13,7 +13,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="flex justify-around text-xl gap-x-2 sticky top-28 bg-white">
+      <div className="flex justify-around text-xl gap-x-2 sticky top-28 bg-white lg:text-4xl md:text-3xl sm:text-2xl">
         <p
           className={`${
             activeTab === "products"

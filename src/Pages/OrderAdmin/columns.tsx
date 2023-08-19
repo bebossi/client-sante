@@ -11,10 +11,7 @@ user: User;
 }; 
 
 export const columns: ColumnDef<OrderColumn>[] = [
-//   {
-//     accessorKey: "id",
-//     header: "Id",
-//   },
+
 {
     accessorKey: `address.street`,
     header: "Address"
@@ -25,7 +22,17 @@ export const columns: ColumnDef<OrderColumn>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date"
+    header: () => <div className="text-right">Date</div>,
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdAt"));
+      const formatted = new Intl.DateTimeFormat("pt-BR", {
+        timeZone:"America/Sao_Paulo",
+        dateStyle: "short",
+        timeStyle: "short",
+      }).format(date)
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
   },
   {
     id: "actions",

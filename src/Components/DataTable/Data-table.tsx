@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="p-0">
+    <div className="p-0 lg:">
       <div className="flex items-center p-4">
         <input
           placeholder="Search"
@@ -57,14 +57,14 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-2xl border-slate-200 border-[1px] rounded-md"
+          className="border-slate-200 border-[1px] rounded-md h-auto"
         />
         <Button className={cn(" mx-5 bg-red-500")} onClick={() => navigate("/product")}>
           Add new
         </Button>
       </div>
       <div className="rounded-md border">
-        <Table>
+        <Table className="lg:text-2xl md:text-xl sm:text-lg text-base">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
