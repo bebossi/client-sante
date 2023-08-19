@@ -80,8 +80,6 @@ const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
       });
       console.log(response.data.id)
       handleAddressId(response.data.id)
-      console.log(handleAddressId)
-      console.log(handleAddressId(response.data.id))
       toast.success("Address added");
     } catch (err) { 
       console.log(err);

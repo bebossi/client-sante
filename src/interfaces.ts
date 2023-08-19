@@ -10,6 +10,18 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface Address {
+  id: string;
+  street: string;
+  neighborhood: string;
+  streetNumber: number;
+  complementNumber: number;
+  CEP: number;
+  userId: string;
+  user: User;
+  order: Order[];
+}
+
 export interface Category {
   id: string;
   name: string;
@@ -63,6 +75,8 @@ export interface Order {
   subTotal: number;
   total: number;
   createdAt: Date;
+  addressId: string;
+  address: Address;
 }
 
 export interface CartToProduct {
