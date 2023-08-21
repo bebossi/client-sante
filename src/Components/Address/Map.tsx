@@ -174,7 +174,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
             >
               {selected && <Marker position={selected} />}
             </GoogleMap>
-            <Button label="Confirmar endereço" onClick={onSubmit} />
+            <Button label="Confirmar endereço" onClick={onSubmit} small />
           </>
         )}
       </div>

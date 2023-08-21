@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 interface SelectAddressProps {
   user: User;
   handleAddressId: (addressId: string) => void;
+  handleIsSelectOpen: () => void
 }
 
 const FormSchema = z.object({
@@ -30,6 +31,7 @@ const FormSchema = z.object({
 const SelectAddress: React.FC<SelectAddressProps> = ({
   user,
   handleAddressId,
+  handleIsSelectOpen
 }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -57,10 +59,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
       </SelectContent>
     </Select> */}
       <Form {...form}>
-        <form
-          //   onSubmit={form.handleSubmit(() => handleAddressId(fi))}
-          className="w-2/3 space-y-6"
-        >
+        <form className="w-2/3 space-y-6">
           <FormField
             control={form.control}
             name="addressId"
@@ -68,6 +67,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <Select
+                onOpenChange={ handleIsSelectOpen}
                   onValueChange={(newValue) => {
                     handleAddressId(newValue);
                     field.onChange(newValue);
@@ -76,18 +76,12 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select an address" />
+                      <SelectValue placeholder="Select an existing address" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {user.addresses.map((address: Address) => (
-                      <SelectItem
-                        key={address.id}
-                        value={address.id}
-                        onClick={() => {
-                          handleAddressId(address.id);
-                        }}
-                      >
+                      <SelectItem key={address.id} value={address.id}>
                         {address.street}, {address.streetNumber}, apto
                         {address.complementNumber} - {address.neighborhood}. CEP
                         {address.CEP}.

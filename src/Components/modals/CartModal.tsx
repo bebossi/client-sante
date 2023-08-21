@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import useCartModal from "../../hooks/useCartModal";
 import { api } from "../../api";
 import Modal from "./Modal";
-import {  Cart, CartToProduct } from "../../interfaces";
+import { Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
@@ -12,6 +12,7 @@ import { UserContext } from "../../auth/currentUser";
 
 import SelectAddress from "../Address/SelectAddress";
 import Button from "../Button";
+// import Button from "../Button";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -29,6 +30,7 @@ const CartModal = () => {
   const [cart, setCart] = useState<Cart>();
   const [addressId, setAddressId] = useState("");
   const [showSelectAddress, setShowSelectAddress] = useState(true);
+  const [isSelectOpen, setIsSelectOpen] = useState(false); // Track if the select is open
 
 
   const [serachParams] = useSearchParams();
@@ -65,6 +67,10 @@ const CartModal = () => {
   const handleAddressId = (addressId: string) => {
     setAddressId(addressId);
   };
+  const handleIsSelectOpen = () => {
+    setIsSelectOpen(!isSelectOpen)
+    console.log(isSelectOpen)
+  }
 
   const onSubmit = async () => {
     try {
@@ -166,27 +172,42 @@ const CartModal = () => {
           </div>
         </div>
       ))}
+      <div className="flex items-center justify-between  ">
+        <p className="font-semibold">Subtotal: </p>
+        <p className="font-semibold"> R${cart?.subtotal}</p>
+      </div>
     </div>
   );
-  const footerContent = (
-    <div className="flex items-center justify-between  ">
-      <p className="font-semibold">Subtotal: </p>
-      <p className="font-semibold"> R${cart?.subtotal}</p>
-    </div>
-  );
+  // const footerContent = ( // AVALIAR ISSO TAMBEM
+  //   <div className="flex items-center justify-between  ">
+  //     <p className="font-semibold">Subtotal: </p>
+  //     <p className="font-semibold"> R${cart?.subtotal}</p>
+  //   </div>
+  // );
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
-      <div className="flex flex-col gap-3">
-        { showSelectAddress ? (
-         <>
-         <SelectAddress user={user} handleAddressId={handleAddressId} />
-         <Button label="create address" onClick={toggleSelectAddress} />
-         </>
+      <div className="flex flex-col  gap-3">
+        {showSelectAddress ? ( // AVALIAR ISSO DEPOIS
+          <>
+            <SelectAddress  user={user} handleIsSelectOpen={handleIsSelectOpen} handleAddressId={handleAddressId} />
+            <Button
+              label="create address"
+              onClick={toggleSelectAddress}
+              outline
+              small
+              disabled={isSelectOpen}
+            />
+          </>
         ) : (
           <div className="flex flex-col gap-3 ">
             <MapAddress handleAddressId={handleAddressId} />
-            <Button label="select an existing address" onClick={toggleSelectAddress} />
+            <Button
+              label="select an existing address"
+              onClick={toggleSelectAddress}
+              outline
+              small
+            />
           </div>
         )}
       </div>
@@ -204,10 +225,10 @@ const CartModal = () => {
         actionLabel={actionLabel}
         body={bodyContent}
         onClose={cartModal.onClose}
-        disabled={isLoading}
+        disabled={isLoading || isSelectOpen}
         onSubmit={onSubmit}
         isOpen={cartModal.isOpen}
-        footer={footerContent}
+        // footer={footerContent}
         secondaryActionLabel={secondaryActionLabel}
         secondaryAction={step === STEPS.PRODUCTS ? undefined : onBack}
       />
