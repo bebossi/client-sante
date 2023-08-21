@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Order } from "../interfaces";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
-// import { Separator } from "../Components/ui/separator";
-// import Heading from "../Components/Heading";
 
 const OrderPage = () => {
   const [order, setOrder] = useState<Order | null>(null);
@@ -21,32 +19,35 @@ const OrderPage = () => {
     };
     fetchOrder();
   }, []);
-const date = new Date(order?.createdAt!)
-const formatted = new Intl.DateTimeFormat("pt-BR", {
-  timeZone:"America/Sao_Paulo",
-  dateStyle: "short",
-  timeStyle: "short",
-}).format(date)
+  // const date = new Date(order?.createdAt!);
+  // const formatted = new Intl.DateTimeFormat("pt-BR", {
+  //   timeZone: "America/Sao_Paulo",
+  //   dateStyle: "short",
+  //   timeStyle: "short",
+  // }).format(date);
   return (
     <>
-      {/* <div className="flex items-center justify-between">
-        <Heading title="Order" subtitle="Order info" />
-      </div>
-      <Separator /> */}
       <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div className="flex justify-start item-start space-y-2 flex-col">
           <h1 className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
             Order #{order?.id}
           </h1>
           <p className="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">
-            Created At {formatted}
+            Created At{" "}
+            {order?.createdAt
+              ? new Intl.DateTimeFormat("pt-BR", {
+                  timeZone: "America/Sao_Paulo",
+                  dateStyle: "short",
+                  timeStyle: "short",
+                }).format(new Date(order?.createdAt))
+              : ""}
           </p>
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
             <div className="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
               <p className="text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800">
-                User: {order?.user.id}
+                User: {order?.user.name ?? order?.user.email ?? order?.user.id}
               </p>
               {order?.orderProducts.map((orderProduct) => (
                 <div
@@ -62,7 +63,7 @@ const formatted = new Intl.DateTimeFormat("pt-BR", {
                   </div>
                   <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
                     <div className="w-full flex flex-col justify-start items-start space-y-8">
-                      <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">
+                      <h3 className="text-2xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">
                         {orderProduct.product.name}
                       </h3>
                       <div className="flex justify-start items-start flex-col space-y-2">
@@ -70,9 +71,9 @@ const formatted = new Intl.DateTimeFormat("pt-BR", {
                           (orderTopping) => (
                             <p
                               key={orderTopping.id}
-                              className="text-sm dark:text-white leading-none text-gray-800"
+                              className="text-md dark:text-white leading-none text-gray-800"
                             >
-                              <span className="dark:text-gray-500 text-gray-500">
+                              <span className="dark:text-gray-500 text-gray-500 mx-1">
                                 X {orderTopping.quantity}
                               </span>
                               {orderTopping.topping.name}
@@ -82,17 +83,14 @@ const formatted = new Intl.DateTimeFormat("pt-BR", {
                       </div>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
-                      <p className="text-base dark:text-white xl:text-lg leading-6">
-                        ${orderProduct.price}
-                        <span className="text-red-300 line-through">
-                          $45.00
-                        </span>
+                      <p className="text-lg dark:text-white xl:text-lg leading-6">
+                        R${orderProduct.price}
                       </p>
-                      <p className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
+                      <p className="text-lg dark:text-white xl:text-lg leading-6 text-gray-800">
                         {orderProduct.quantity}
                       </p>
-                      <p className="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                        ${order.total}
+                      <p className="text-lg dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
+                        R${order.total}
                       </p>
                     </div>
                   </div>
@@ -119,7 +117,7 @@ const formatted = new Intl.DateTimeFormat("pt-BR", {
                       Shipping
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      $8.00
+                      R$8.00
                     </p>
                   </div>
                 </div>
@@ -156,7 +154,7 @@ const formatted = new Intl.DateTimeFormat("pt-BR", {
                     </div>
                   </div>
                   <p className="text-lg font-semibold leading-6 dark:text-white text-gray-800">
-                    $8.00
+                    R$8.00
                   </p>
                 </div>
                 <div className="w-full flex justify-center items-center">

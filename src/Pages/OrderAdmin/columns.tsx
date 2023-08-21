@@ -8,6 +8,7 @@ total: number;
 createdAt: Date;
 address: Address;
 user: User;
+isPaid: boolean
 }; 
 
 export const columns: ColumnDef<OrderColumn>[] = [
@@ -19,6 +20,10 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "total",
     header: "Total"
+  },
+  {
+    accessorKey: "isPaid",
+    header: "Paid"
   },
   {
     accessorKey: "createdAt",

@@ -77,6 +77,7 @@ export interface Order {
   createdAt: Date;
   addressId: string;
   address: Address;
+  isPaid: boolean;
 }
 
 export interface CartToProduct {

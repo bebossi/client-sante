@@ -7,14 +7,13 @@ import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
 import MapAddress from "../../Pages/Map";
+import { useSearchParams } from "react-router-dom";
 
 enum STEPS {
   PRODUCTS = 0,
   LOCATION = 1,
   PAYMENT = 2,
-
 }
-
 
 const CartModal = () => {
   const cartModal = useCartModal();
@@ -23,7 +22,18 @@ const CartModal = () => {
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
-  const [addressId, setAddressId] = useState("")
+  const [addressId, setAddressId] = useState("");
+
+  const [serachParams] = useSearchParams();
+
+  useEffect(() => {
+    if (serachParams.get("success")) {
+      toast.success("Payment completed.");
+    }
+    if (serachParams.get("canceled")) {
+      toast.error("Something went wrong");
+    }
+  }, [serachParams]);
 
   useEffect(() => {
     if (cartModal.isOpen === true) {
@@ -42,26 +52,22 @@ const CartModal = () => {
     setStep((value) => value + 1);
   };
 
-
   const handleAddressId = (addressId: string) => {
-    setAddressId(addressId); 
-    console.log(addressId)
-    console.log(setAddressId(addressId));
-  }
-  console.log(addressId) 
+    setAddressId(addressId);
+  };
 
-  const onSubmit = async () => { 
+  const onSubmit = async () => {
     try {
       if (step !== STEPS.PAYMENT) {
         return onNext();
       }
       setIsLoading(true);
-      await api.post("/testCheckout", {
-        addressId: addressId
+      const response = await api.post("/testCheckout", {
+        addressId: addressId,
       });
-      console.log(addressId)
       toast.success("Pedido enviado");
       cartModal.onClose();
+      window.location = response.data.url;
     } catch (err) {
       console.log(err);
     } finally {
@@ -78,8 +84,7 @@ const CartModal = () => {
           cartProductId: ctp.id,
         },
       });
-      toast.success("product deleted successfully")
-      
+      toast.success("product deleted successfully");
     } catch (err) {
       console.log(err);
     } finally {
@@ -92,18 +97,16 @@ const CartModal = () => {
       setCart(response.data);
     };
     fetchCart();
-    
-  }, [cartModal, addCartModal, cartModal.cartItems]); 
+  }, [cartModal, addCartModal, cartModal.cartItems]);
 
-  if(cart){
-    cartModal.cartItems = cart.cartProducts 
+  if (cart) {
+    cartModal.cartItems = cart.cartProducts;
   }
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PAYMENT) {
       return "Escolher forma de pagamento";
     }
-    console.log(addressId)
     return "Next";
   }, [step]);
 
@@ -162,23 +165,17 @@ const CartModal = () => {
     </div>
   );
 
-
-  if(step === STEPS.LOCATION){
+  if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col ">
-        <MapAddress handleAddressId={ handleAddressId} />
+        <MapAddress handleAddressId={handleAddressId} />
       </div>
-    )
+    );
   }
 
-  if(step === STEPS.PAYMENT){
-    bodyContent = (
-      <div className="flex flex-col ">
-        
-      </div>
-    )
+  if (step === STEPS.PAYMENT) {
+    bodyContent = <div className="flex flex-col "></div>;
   }
-
 
   return (
     <div>
@@ -193,7 +190,7 @@ const CartModal = () => {
         footer={footerContent}
         secondaryActionLabel={secondaryActionLabel}
         secondaryAction={step === STEPS.PRODUCTS ? undefined : onBack}
-        />
+      />
     </div>
   );
 };
