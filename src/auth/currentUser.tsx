@@ -4,7 +4,7 @@ import { api } from "../api";
 const UserContext = createContext<any>(null);
 
 
-export function UserContextProvider({
+ function UserContextProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -24,4 +24,4 @@ export function UserContextProvider({
   return <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>;
 }
 
-export {UserContext}
+export {UserContext, UserContextProvider}

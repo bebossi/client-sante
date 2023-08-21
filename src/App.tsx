@@ -19,11 +19,13 @@ import MenuPageCar from "./Pages/MenuPageCar";
 import Home from "./Pages/Home";
 import DashboardOrders from "./Pages/OrderAdmin/DashboardOrders";
 import OrderPage from "./Pages/OrderPage";
+import { UserContextProvider } from "./auth/currentUser";
 
 function App() {
   return (
     <>
       <AuthContextComponent>
+        <UserContextProvider>
         <div>
           <ToasterProvider />
           <AddToCartModal />
@@ -58,6 +60,7 @@ function App() {
             </Routes>
           </div>
         </div>
+        </UserContextProvider>
       </AuthContextComponent>
     </>
   );

@@ -1,13 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import useCartModal from "../../hooks/useCartModal";
 import { api } from "../../api";
 import Modal from "./Modal";
-import { Cart, CartToProduct } from "../../interfaces";
+import {  Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
-import MapAddress from "../../Pages/Map";
+import MapAddress from "../Address/Map";
 import { useSearchParams } from "react-router-dom";
+import { UserContext } from "../../auth/currentUser";
+
+import SelectAddress from "../Address/SelectAddress";
+import Button from "../Button";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -16,6 +20,7 @@ enum STEPS {
 }
 
 const CartModal = () => {
+  const { user } = useContext(UserContext);
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
 
@@ -23,9 +28,14 @@ const CartModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
   const [addressId, setAddressId] = useState("");
+  const [showSelectAddress, setShowSelectAddress] = useState(true);
+
 
   const [serachParams] = useSearchParams();
 
+  const toggleSelectAddress = () => {
+    setShowSelectAddress(!showSelectAddress);
+  };
   useEffect(() => {
     if (serachParams.get("success")) {
       toast.success("Payment completed.");
@@ -167,8 +177,18 @@ const CartModal = () => {
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
-      <div className="flex flex-col ">
-        <MapAddress handleAddressId={handleAddressId} />
+      <div className="flex flex-col gap-3">
+        { showSelectAddress ? (
+         <>
+         <SelectAddress user={user} handleAddressId={handleAddressId} />
+         <Button label="create address" onClick={toggleSelectAddress} />
+         </>
+        ) : (
+          <div className="flex flex-col gap-3 ">
+            <MapAddress handleAddressId={handleAddressId} />
+            <Button label="select an existing address" onClick={toggleSelectAddress} />
+          </div>
+        )}
       </div>
     );
   }

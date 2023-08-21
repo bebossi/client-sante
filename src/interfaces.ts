@@ -6,6 +6,7 @@ export interface User {
   cart: Cart;
   orders: Order[];
   role: string;
+  addresses: Address[];
   createdAt: Date;
   updatedAt: Date;
 }

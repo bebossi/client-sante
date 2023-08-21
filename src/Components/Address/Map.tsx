@@ -9,15 +9,15 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { api } from "../api";
-import Button from "../Components/Button";
+import { api } from "../../api";
+import Button from "../Button";
 import { toast } from "react-hot-toast";
 
 interface MapAddressProps {
   handleAddressId: (addressId: string) => void;
 }
 
-const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
+const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   const [selected, setSelected] = useState({ lat: -19.9129, lng: -43.9409 });
   const [selectedAddress, setSelectedAddress] = useState("");
   const [form, setForm] = useState({
@@ -33,7 +33,6 @@ const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
     if (selectedAddress) {
       const addressParts = selectedAddress.split(", ");
       const streetNumberAndNeighborhood = addressParts[1].split(" - ");
-   
 
       setForm({
         street: addressParts[0],
@@ -71,17 +70,16 @@ const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
     try {
       const cleanedCEP = form.CEP.replace(/-/g, "");
 
-    const response = await api.post("/address", {
+      const response = await api.post("/address", {
         street: form.street,
         neighborhood: form.neighborhood,
         streetNumber: Number(form.streetNumber),
         complementNumber: Number(form.complementNumber) || "",
         CEP: Number(cleanedCEP),
       });
-      console.log(response.data.id)
-      handleAddressId(response.data.id)
+      handleAddressId(response.data.id);
       toast.success("Address added");
-    } catch (err) { 
+    } catch (err) {
       console.log(err);
     }
   };
@@ -176,10 +174,10 @@ const MapAddress: React.FC<MapAddressProps> = ({handleAddressId}) => {
             >
               {selected && <Marker position={selected} />}
             </GoogleMap>
+            <Button label="Confirmar endereço" onClick={onSubmit} />
           </>
         )}
       </div>
-      <Button label="Confirmar endereço" onClick={onSubmit} />
     </>
   );
 };
