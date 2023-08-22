@@ -8,23 +8,34 @@ const CategoryPage = () => {
   const params = useParams();
 
   const [category, setCategory] = useState<Category | null>(null);
-  const [categoryFetched, setCategoryFetched] = useState(false);
-
+  const [fetchingCategory, setfetchingCategory] = useState(true);
+  
   useEffect(() => {
     const fetchCategory = async () => {
       try {
         const response = await api.get(`/getCategory/${params.categoryId}`);
         setCategory(response.data);
-        setCategoryFetched(true);
+        setfetchingCategory(false);
       } catch (err) {
         console.log(err);
       }
     };
-
-    fetchCategory();
+    if (params.categoryId) {
+      fetchCategory();
+    } else {
+      setfetchingCategory(false);
+    }
   }, [params.categoryId]);
 
-  return <>{categoryFetched && <CategoryForm initialData={category} />} </>;
+  return (
+    <>
+      {fetchingCategory ? (
+        <p>Loading ...</p>
+      ) : (
+        <CategoryForm initialData={category} />
+      )}
+    </>
+  );
 };
 
 export default CategoryPage;

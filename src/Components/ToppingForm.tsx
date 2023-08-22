@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import Heading from "../Components/Heading";
 import ImageUpload from "./image-upload";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -42,11 +42,11 @@ type ToppingFormValues = z.infer<typeof formSchema>;
 
 interface ToppingFormProps {
   initialData: Topping | null;
-  products: Product[] | null;
+  products: Product[] ;
 }
 
 const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
-  const params = useParams();
+  // const params = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -54,9 +54,9 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
     return <div>Loading...</div>;
   }
 
-  const title = initialData ? "Edit product" : "Create product";
-  const description = initialData ? "Edit product" : "Add a new product";
-  const toastMessage = initialData ? "Product updated" : "Product created";
+  const title = initialData ? "Edit topping" : "Create topping";
+  const description = initialData ? "Edit topping" : "Add a new topping";
+  const toastMessage = initialData ? "Topping updated" : "Topping created";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<ToppingFormValues>({
@@ -79,7 +79,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
       setLoading(true);
 
       if (initialData) {
-        await api.put(`/updateTopping/${params.toppingId}`, data);
+        await api.put(`/updateTopping/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
         await api.post(`/create`, data);

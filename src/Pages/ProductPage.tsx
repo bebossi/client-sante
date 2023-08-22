@@ -5,18 +5,18 @@ import ProductForm from "../Components/productForm";
 import { Category, Product } from "../interfaces";
 
 const ProductPage = () => {
+  const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [productFetched, setProductFetched] = useState(false);
+  const [fetchingProduct, setFetchingProduct] = useState(true);
 
-  const params = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await api.get(`/getProduct/${params.productId}`);
         setProduct(response.data);
-        setProductFetched(true);
+        setFetchingProduct(false);
       } catch (err) {
         console.log(err);
       }
@@ -35,11 +35,16 @@ const ProductPage = () => {
     fetchCategories();
     if (params.productId) {
       fetchProduct();
+    } else {
+      setFetchingProduct(false);
     }
   }, []);
+
   return (
     <>
-      {productFetched && (
+      {fetchingProduct ? (
+        <p>Loading...</p>
+      ) : (
         <ProductForm initialData={product} categories={categories} />
       )}
     </>

@@ -1,4 +1,3 @@
-// import Button  from "../Button";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -18,9 +17,6 @@ import {
   TableRow,
 } from "../../Components/ui/table";
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
-import { cn } from "../../lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,7 +29,6 @@ export function DataTable<TData, TValue>({
   data,
   searchKey,
 }: DataTableProps<TData, TValue>) {
-  const navigate = useNavigate();
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
@@ -59,9 +54,6 @@ export function DataTable<TData, TValue>({
           }
           className="border-slate-200 border-[1px] rounded-md h-auto"
         />
-        <Button className={cn(" mx-5 bg-red-500")} onClick={() => navigate("/product")}>
-          Add new
-        </Button>
       </div>
       <div className="rounded-md border">
         <Table className="lg:text-2xl md:text-xl sm:text-lg text-base">

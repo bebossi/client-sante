@@ -4,7 +4,6 @@ import {
   useJsApiLoader,
   Autocomplete,
   LoadScriptProps,
-
 } from "@react-google-maps/api";
 import { useEffect,  useState } from "react";
 import usePlacesAutocomplete, {
@@ -116,7 +115,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
           </Autocomplete>
           {selectedAddress && selected && (
             <>
-              <form {...form} className="m-2 ">
+              <form {...form} className="m-2 " name="Map">
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"

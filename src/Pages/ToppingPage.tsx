@@ -7,15 +7,15 @@ import { Product, Topping } from "../interfaces";
 const ToppingPage = () => {
   const params = useParams();
   const [topping, setTopping] = useState<Topping | null>(null);
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [toppingFetched, setToppingFetched] = useState(false);
+  const [products, setProducts] = useState<Product[] >([]);
+  const [fetchingTopping, setFetchingTopping] = useState(true);
 
   useEffect(() => {
     const fetchTopping = async () => {
       try {
         const response = await api.get(`/getTopping/${params.toppingId}`);
         setTopping(response.data);
-        setToppingFetched(true);
+        setFetchingTopping(false);
       } catch (err) {
         console.log(err);
       }
@@ -31,12 +31,17 @@ const ToppingPage = () => {
     };
     fetchProducts();
 
-    fetchTopping();
-    fetchProducts();
-  }, [params.toppingId]);
+    if (params.toppingId) {
+      fetchTopping();
+    } else {
+      setFetchingTopping(false);
+    }
+  }, []);
   return (
     <>
-      {toppingFetched && (
+      {fetchingTopping ? (
+        <p>Loading...</p>
+      ) : (
         <ToppingForm initialData={topping} products={products} />
       )}
     </>

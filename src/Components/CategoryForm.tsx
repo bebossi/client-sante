@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import Heading from "../Components/Heading";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -31,17 +31,14 @@ interface CategoryFormProps {
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
-  const params = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  if (!initialData) {
-    return <div>Loading...</div>;
-  }
 
-  const title = initialData ? "Edit product" : "Create product";
-  const description = initialData ? "Edit product" : "Add a new product";
-  const toastMessage = initialData ? "Product updated" : "Product created";
+
+  const title = initialData ? "Edit category" : "Create category";
+  const description = initialData ? "Edit category" : "Add a new category";
+  const toastMessage = initialData ? "Category updated" : "Category created";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<CategoryFormValues>({
@@ -60,7 +57,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       setLoading(true);
 
       if (initialData) {
-        await api.put(`/updateCategory/${params.categoryId}`, data);
+        await api.put(`/updateCategory/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
         await api.post(`/create`, data);
@@ -102,7 +99,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Prouct name"
+                      placeholder="Category name"
                       {...field}
                     />
                   </FormControl>

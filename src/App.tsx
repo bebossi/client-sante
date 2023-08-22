@@ -15,7 +15,6 @@ import DashBoard from "./Pages/DashBoard";
 import CategoryPage from "./Pages/CategoryPage";
 import ToasterProvider from "./Providers/ToaterProvider";
 import MenuPageCar from "./Pages/MenuPageCar";
-// import MapAddress from "./Pages/Map";
 import Home from "./Pages/Home";
 import DashboardOrders from "./Pages/OrderAdmin/DashboardOrders";
 import OrderPage from "./Pages/OrderPage";
@@ -48,7 +47,6 @@ function App() {
                 element={<DashboardToppings />}
               />
               <Route path="/dashboardOrders" element={<DashboardOrders/>} /> 
-              {/* <Route path="/map" element={<MapAddress />} /> */}
               <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/product" element={<ProductPage />} />
               <Route path="/topping/:toppingId" element={<ToppingPage />} />
