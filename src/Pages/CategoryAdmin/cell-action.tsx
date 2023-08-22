@@ -20,13 +20,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onDelete = async (id: string) => {
     try {
-     const response = await api.delete(`/delete`, {
+     await api.delete(`/deleteCategory`, {
         data: {
           categoryId: id,
         },
       });
-      console.log(response)
-      toast.success("Product deleted");
+      toast.success("Category deleted");
     } catch (err) {
       toast.error("Something went wrong");
     }

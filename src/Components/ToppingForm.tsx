@@ -46,7 +46,6 @@ interface ToppingFormProps {
 }
 
 const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
-  // const params = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -82,7 +81,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
         await api.put(`/updateTopping/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
-        await api.post(`/create`, data);
+        await api.post(`/createTopping`, data);
         toast.success(toastMessage);
       }
 

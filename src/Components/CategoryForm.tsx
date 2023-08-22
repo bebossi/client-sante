@@ -60,7 +60,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
         await api.put(`/updateCategory/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
-        await api.post(`/create`, data);
+        await api.post(`/createCategory`, data);
         toast.success(toastMessage);
       }
 
