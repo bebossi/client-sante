@@ -3,8 +3,10 @@ import {
   Marker,
   useJsApiLoader,
   Autocomplete,
+  LoadScriptProps,
+
 } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -16,40 +18,47 @@ import { toast } from "react-hot-toast";
 interface MapAddressProps {
   handleAddressId: (addressId: string) => void;
 }
+const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
+
+const libraries: LoadScriptProps["libraries"] = ["places"]
 
 const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   const [selected, setSelected] = useState({ lat: -19.9129, lng: -43.9409 });
   const [selectedAddress, setSelectedAddress] = useState("");
   const [form, setForm] = useState({
     street: "",
-    streetNumber: "",
+    streetnumber: "",
     neighborhood: "",
-    CEP: "",
+    cep: "",
     city: "",
-    complementNumber: "",
+    complementnumber: "",
   });
 
   useEffect(() => {
+
+
     if (selectedAddress) {
       const addressParts = selectedAddress.split(", ");
       const streetNumberAndNeighborhood = addressParts[1].split(" - ");
 
       setForm({
         street: addressParts[0],
-        streetNumber: streetNumberAndNeighborhood[0],
+        streetnumber: streetNumberAndNeighborhood[0],
         neighborhood: streetNumberAndNeighborhood[1],
-        CEP: addressParts[3],
+        cep: addressParts[3],
         city: addressParts[2],
-        complementNumber: "",
-      });
+        complementnumber: "",
+      }); 
     }
+
   }, [selectedAddress]);
 
+
+  const { value, setValue, clearSuggestions } = usePlacesAutocomplete({callbackName: "MapAddress"});
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
-    libraries: ["places"],
+    googleMapsApiKey: apiKey as string,
+    libraries
   });
-  const { value, setValue, clearSuggestions } = usePlacesAutocomplete();
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -68,13 +77,13 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
   const onSubmit = async () => {
     try {
-      const cleanedCEP = form.CEP.replace(/-/g, "");
+      const cleanedCEP = form.cep.replace(/-/g, "");
 
       const response = await api.post("/address", {
         street: form.street,
         neighborhood: form.neighborhood,
-        streetNumber: Number(form.streetNumber),
-        complementNumber: Number(form.complementNumber) || "",
+        streetNumber: Number(form.streetnumber),
+        complementNumber: Number(form.complementnumber) || "",
         CEP: Number(cleanedCEP),
       });
       handleAddressId(response.data.id);
@@ -85,6 +94,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   };
 
   return (
+
     <>
       <div className="h-full w-full flex flex-col ">
         <div className="w-full">
@@ -118,9 +128,9 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="number"
                   placeholder="Number"
-                  value={form.streetNumber}
+                  value={form.streetnumber}
                   onChange={(e) =>
-                    setForm({ ...form, streetNumber: e.target.value })
+                    setForm({ ...form, streetnumber: e.target.value })
                   }
                 />
                 <input
@@ -143,16 +153,16 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="string"
                   placeholder="Zip/Postal code"
-                  value={form.CEP}
-                  onChange={(e) => setForm({ ...form, CEP: e.target.value })}
+                  value={form.cep}
+                  onChange={(e) => setForm({ ...form, cep: e.target.value })}
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="Apt, Suite, etc (optional)"
-                  value={form.complementNumber}
+                  value={form.complementnumber}
                   onChange={(e) =>
-                    setForm({ ...form, complementNumber: e.target.value })
+                    setForm({ ...form, complementnumber: e.target.value })
                   }
                 />
               </form>
@@ -162,6 +172,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         {selectedAddress && selected && (
           <>
             <GoogleMap
+
               zoom={11}
               center={selected}
               mapContainerClassName={"map-container"}

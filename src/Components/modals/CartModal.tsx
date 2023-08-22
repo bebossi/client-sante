@@ -188,7 +188,7 @@ const CartModal = () => {
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col  gap-3">
-        {showSelectAddress ? ( // AVALIAR ISSO DEPOIS
+        {showSelectAddress && user.addresses ? ( // AVALIAR ISSO DEPOIS
           <>
             <SelectAddress  user={user} handleIsSelectOpen={handleIsSelectOpen} handleAddressId={handleAddressId} />
             <Button
