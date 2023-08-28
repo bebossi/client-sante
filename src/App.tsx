@@ -19,48 +19,52 @@ import Home from "./Pages/Home";
 import DashboardOrders from "./Pages/OrderAdmin/DashboardOrders";
 import OrderPage from "./Pages/OrderPage";
 import { UserContextProvider } from "./auth/currentUser";
-import Appointments from "./Pages/Appointments";
+import AppointmentsPage from "./Pages/AppointmentsPage";
 
 function App() {
   return (
     <>
       <AuthContextComponent>
         <UserContextProvider>
-        <div>
-          <ToasterProvider />
-          <AddToCartModal />
-          <LoginModal />
-          <CartModal />
-          <NavBar />
-          <div className="pb-0 pt-28">
-            <Routes>
-              <Route path="/menu" element={<MenuPage />} />
-              <Route path="/menuu" element={<MenuPageCar />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<DashBoard />} />
-              <Route path="/dashboardProduct" element={<DashboardProduct />} />
-              <Route
-                path="/dashboardCategories"
-                element={<DashboardCategories />}
-              />
-              <Route
-                path="/dashboardToppings"
-                element={<DashboardToppings />}
-              />
-              <Route path="/dashboardOrders" element={<DashboardOrders/>} /> 
-              <Route path="/product/:productId" element={<ProductPage />} />
-              <Route path="/product" element={<ProductPage />} />
-              <Route path="/topping/:toppingId" element={<ToppingPage />} />
-              <Route path="/topping" element={<ToppingPage />} />
-              <Route path="/category/:categoryId" element={<CategoryPage />} />
-              <Route path="/category" element={<CategoryPage />} />
-              <Route path="/order/:orderId" element={<OrderPage />} />
-              <Route path="/appointment" element={<Appointments />} />
-
-
-            </Routes>
+          <div>
+            <ToasterProvider />
+            <AddToCartModal />
+            <LoginModal />
+            <CartModal />
+            <NavBar />
+            <div className="pb-0 pt-28">
+              <Routes>
+                <Route path="/menu" element={<MenuPage />} />
+                <Route path="/menuu" element={<MenuPageCar />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/dashboard" element={<DashBoard />} />
+                <Route
+                  path="/dashboardProduct"
+                  element={<DashboardProduct />}
+                />
+                <Route
+                  path="/dashboardCategories"
+                  element={<DashboardCategories />}
+                />
+                <Route
+                  path="/dashboardToppings"
+                  element={<DashboardToppings />}
+                />
+                <Route path="/dashboardOrders" element={<DashboardOrders />} />
+                <Route path="/product/:productId" element={<ProductPage />} />
+                <Route path="/product" element={<ProductPage />} />
+                <Route path="/topping/:toppingId" element={<ToppingPage />} />
+                <Route path="/topping" element={<ToppingPage />} />
+                <Route
+                  path="/category/:categoryId"
+                  element={<CategoryPage />}
+                />
+                <Route path="/category" element={<CategoryPage />} />
+                <Route path="/order/:orderId" element={<OrderPage />} />
+                <Route path="/appointment" element={<AppointmentsPage />} />
+              </Routes>
+            </div>
           </div>
-        </div>
         </UserContextProvider>
       </AuthContextComponent>
     </>

@@ -6,18 +6,20 @@ import { Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
-import MapAddress from "../Address/Map";
 import { useSearchParams } from "react-router-dom";
-import { UserContext } from "../../auth/currentUser";
-
+import SelectAppointment from "../SelectAppointment";
 import SelectAddress from "../Address/SelectAddress";
 import Button from "../Button";
-// import Button from "../Button";
+import MapAddress from "../Address/Map";
+import { UserContext } from "../../auth/currentUser";
+import { CalendarIcon, Car } from "lucide-react";
 
 enum STEPS {
   PRODUCTS = 0,
-  LOCATION = 1,
-  PAYMENT = 2,
+  CHOOSE = 1,
+  APPOINTMENT = 2,
+  LOCATION = 3,
+  PAYMENT = 4,
 }
 
 const CartModal = () => {
@@ -28,16 +30,17 @@ const CartModal = () => {
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
+  const [appointmentId, setAppointmentId] = useState("");
   const [addressId, setAddressId] = useState("");
   const [showSelectAddress, setShowSelectAddress] = useState(true);
-  const [isSelectOpen, setIsSelectOpen] = useState(false); // Track if the select is open
-
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const [serachParams] = useSearchParams();
 
   const toggleSelectAddress = () => {
     setShowSelectAddress(!showSelectAddress);
   };
+
   useEffect(() => {
     if (serachParams.get("success")) {
       toast.success("Payment completed.");
@@ -57,20 +60,30 @@ const CartModal = () => {
   }, []);
 
   const onBack = () => {
+    if (step === STEPS.LOCATION) {
+      return setStep((value) => value - 2);
+    }
     setStep((value) => value - 1);
   };
 
   const onNext = () => {
+    if (step === STEPS.APPOINTMENT) {
+      return setStep((value) => value + 2);
+    }
     setStep((value) => value + 1);
   };
 
   const handleAddressId = (addressId: string) => {
     setAddressId(addressId);
   };
+
+  const handleAvailiableAppointmentId = (avaliableAppointmentId: string) => {
+    setAppointmentId(avaliableAppointmentId);
+  };
+
   const handleIsSelectOpen = () => {
-    setIsSelectOpen(!isSelectOpen)
-    console.log(isSelectOpen)
-  }
+    setIsSelectOpen(!isSelectOpen);
+  };
 
   const onSubmit = async () => {
     try {
@@ -79,6 +92,7 @@ const CartModal = () => {
       }
       setIsLoading(true);
       const response = await api.post("/testCheckout", {
+        avaliableAppointmentId: appointmentId,
         addressId: addressId,
       });
       toast.success("Pedido enviado");
@@ -178,6 +192,7 @@ const CartModal = () => {
       </div>
     </div>
   );
+
   // const footerContent = ( // AVALIAR ISSO TAMBEM
   //   <div className="flex items-center justify-between  ">
   //     <p className="font-semibold">Subtotal: </p>
@@ -185,12 +200,48 @@ const CartModal = () => {
   //   </div>
   // );
 
+  if (step === STEPS.CHOOSE) {
+    bodyContent = (
+      <div className="flex justify-around">
+        <div
+          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer"
+          onClick={() => setStep((value) => value + 1)}
+        >
+          <CalendarIcon size={50} />
+          <p className="text-xl font-semibold">Pick up at the restaurant</p>
+        </div>
+        <div
+          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer"
+          onClick={() => setStep((value) => value + 2)}
+        >
+          <Car size={50} />
+          <p className="text-xl font-semibold">Delivery up to 2 km</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === STEPS.APPOINTMENT) {
+    bodyContent = (
+      <div className="flex flex-col  gap-3">
+        <h1 className="text-2xl ">Select a time </h1>
+        <SelectAppointment
+          handleAvailiableAppointmentId={handleAvailiableAppointmentId}
+        />
+      </div>
+    );
+  }
+
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col  gap-3">
-        {showSelectAddress && user.addresses ? ( // AVALIAR ISSO DEPOIS
+        {showSelectAddress && user.addresses ? ( 
           <>
-            <SelectAddress  user={user} handleIsSelectOpen={handleIsSelectOpen} handleAddressId={handleAddressId} />
+            <SelectAddress
+              user={user}
+              handleIsSelectOpen={handleIsSelectOpen}
+              handleAddressId={handleAddressId}
+            />
             <Button
               label="create address"
               onClick={toggleSelectAddress}
@@ -225,7 +276,7 @@ const CartModal = () => {
         actionLabel={actionLabel}
         body={bodyContent}
         onClose={cartModal.onClose}
-        disabled={isLoading || isSelectOpen}
+        disabled={isLoading}
         onSubmit={onSubmit}
         isOpen={cartModal.isOpen}
         // footer={footerContent}
