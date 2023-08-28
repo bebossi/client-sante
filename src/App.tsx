@@ -19,6 +19,7 @@ import Home from "./Pages/Home";
 import DashboardOrders from "./Pages/OrderAdmin/DashboardOrders";
 import OrderPage from "./Pages/OrderPage";
 import { UserContextProvider } from "./auth/currentUser";
+import Appointments from "./Pages/Appointments";
 
 function App() {
   return (
@@ -54,6 +55,8 @@ function App() {
               <Route path="/category/:categoryId" element={<CategoryPage />} />
               <Route path="/category" element={<CategoryPage />} />
               <Route path="/order/:orderId" element={<OrderPage />} />
+              <Route path="/appointment" element={<Appointments />} />
+
 
             </Routes>
           </div>

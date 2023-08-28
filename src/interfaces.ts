@@ -120,3 +120,11 @@ export interface OrderToProductTopping {
   topping: Topping;
   quantity: number;
 }
+
+export interface AvailiableAppointment {
+  id: string;
+  startDate: Date;
+  endTime: string;
+  isAvailable: boolean;
+  orders: Order[];
+}
