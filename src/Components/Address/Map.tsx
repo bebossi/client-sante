@@ -80,6 +80,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       setSelected({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
+
     } catch (err) {
       console.log(err);
     }
@@ -88,7 +89,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     const calculateRoute = async () => {
     const directionsService = new google.maps.DirectionsService()
     const results = await directionsService.route({
-      origin: { lat: -19.9129, lng: -43.9409 } ,
+      origin: { lat: -19.9126701, lng: -43.9207056 } ,
       destination: selected as { lat: number, lng: number},
       travelMode: google.maps.TravelMode.DRIVING,
     })
@@ -96,16 +97,23 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     setDistance(results.routes[0].legs[0].distance!.text)
     setDuration(results?.routes[0].legs[0].duration!.text)
   }
- 
-  console.log(parseFloat(distance.split(" ")[0]))
-  console.log(distance)
   console.log(selected)
-  console.log(selectedAddress)
-  console.log(duration)
+  const calculatedDistance = parseFloat(distance.split(" ")[0]);
+
+  if (calculatedDistance >= 2) {
+    toast.error("Distance is bigger than 2km");
+  }
 
   const onSubmit = async () => {
     try {
       const cleanedCEP = form.cep.replace(/-/g, "");
+
+      const calculatedDistance = parseFloat(distance.split(" ")[0]);
+
+      if (calculatedDistance > 2) {
+        toast.error("Distance is bigger than 2km");
+        return; 
+      }
 
       const response = await api.post("/address", {
         street: form.street,
