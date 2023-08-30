@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="p-0 lg:">
+    <div className="p-0">
       <div className="flex items-center p-4">
         <input
           placeholder="Search"
@@ -56,7 +56,7 @@ export function DataTable<TData, TValue>({
         />
       </div>
       <div className="rounded-md border">
-        <Table className="lg:text-2xl md:text-xl sm:text-lg text-base">
+        <Table className="lg:text-2xl md:text-xl sm:text-lg text-xs">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
