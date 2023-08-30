@@ -88,7 +88,7 @@ const AddToCartModal = () => {
         toppings: toppings,
         quantity: quantity,
       });
-      toast.success("Product added successfully")
+      toast.success("Produto addicionado ao carrinho")
       addCartModal.onClose();
     } catch (err) {
       console.log(err);
@@ -167,7 +167,7 @@ const AddToCartModal = () => {
     <div>
       <Modal
         title="Detalhes do item"
-        actionLabel={`Adicionar  ${subtotal}`}
+        actionLabel={`Adicionar  R$${subtotal}`}
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}

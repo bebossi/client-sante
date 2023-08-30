@@ -46,7 +46,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
             name="addressId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>Endereço</FormLabel>
                 <Select
                 onOpenChange={ handleIsSelectOpen}
                   onValueChange={(newValue) => {
@@ -57,7 +57,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select an existing address" />
+                      <SelectValue placeholder="Selecione um endereçado salvo" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>

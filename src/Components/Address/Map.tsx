@@ -28,12 +28,12 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   const [distance, setDistance] = useState<string>('')
   const [duration, setDuration] = useState<string>('')
   const [form, setForm] = useState({
-    street: "",
-    streetnumber: "",
-    neighborhood: "",
+    rua: "",
+    numero: "",
+    bairro: "",
     cep: "",
-    city: "", 
-    complementnumber: "",
+    cidade: "", 
+    apartamento: "",
   });
 
   useEffect(() => {
@@ -43,12 +43,12 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       console.log(selectedAddress)
 
       setForm({
-        street: addressParts[0],
-        streetnumber: streetNumberAndNeighborhood[0],
-        neighborhood: streetNumberAndNeighborhood[1],
+        rua: addressParts[0],
+        numero: streetNumberAndNeighborhood[0],
+        bairro: streetNumberAndNeighborhood[1],
         cep: addressParts[3],
-        city: addressParts[2],
-        complementnumber: "",
+        cidade: addressParts[2],
+        apartamento: "",
       });
       calculateRoute()
     }
@@ -114,10 +114,10 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       }
 
       const response = await api.post("/address", {
-        street: form.street,
-        neighborhood: form.neighborhood,
-        streetNumber: Number(form.streetnumber),
-        complementNumber: Number(form.complementnumber) || "",
+        street: form.rua,
+        neighborhood: form.bairro,
+        streetNumber: Number(form.numero),
+        complementNumber: Number(form.apartamento) || "",
         CEP: Number(cleanedCEP),
       });
       handleAddressId(response.data.id);
@@ -155,33 +155,33 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="Street"
-                  value={form.street}
-                  onChange={(e) => setForm({ ...form, street: e.target.value })}
+                  value={form.rua}
+                  onChange={(e) => setForm({ ...form, rua: e.target.value })}
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="number"
                   placeholder="Number"
-                  value={form.streetnumber}
+                  value={form.numero}
                   onChange={(e) =>
-                    setForm({ ...form, streetnumber: e.target.value })
+                    setForm({ ...form, numero: e.target.value })
                   }
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="Neighborhood"
-                  value={form.neighborhood}
+                  value={form.bairro}
                   onChange={(e) =>
-                    setForm({ ...form, neighborhood: e.target.value })
+                    setForm({ ...form, bairro: e.target.value })
                   }
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="City"
-                  value={form.city}
-                  onChange={(e) => setForm({ ...form, city: e.target.value })}
+                  value={form.cidade}
+                  onChange={(e) => setForm({ ...form, cidade: e.target.value })}
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
@@ -194,9 +194,9 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="Apt, Suite, etc (optional)"
-                  value={form.complementnumber}
+                  value={form.apartamento}
                   onChange={(e) =>
-                    setForm({ ...form, complementnumber: e.target.value })
+                    setForm({ ...form, apartamento: e.target.value })
                   }
                 />
               </form>

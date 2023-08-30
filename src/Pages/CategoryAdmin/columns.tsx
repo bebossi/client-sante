@@ -11,7 +11,7 @@ export const columns: ColumnDef<Category>[] = [
 
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Nome",
   },
   {
     id: "actions",

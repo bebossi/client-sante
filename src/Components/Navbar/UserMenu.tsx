@@ -66,41 +66,77 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {  ((user && user.role === "guest") || !user)  && (
+            {((user && user.role === "guest") || !user) && (
               <>
                 <MenuItem onClick={loginModal.onOpen} label="Entre" />
                 <MenuItem onClick={registerModal.onOpen} label="Cadastre" />
-                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
                 <MenuItem
-                  onClick={() => navigate("/menuu")}
+                  onClick={() => {
+                    navigate("/menu");
+                    toggleOpen();
+                  }}
+                  label="Cardápio"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/menuu");
+                    toggleOpen();
+                  }}
                   label="Quem somos"
                 />
-                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
-                  onClick={() => navigate("/contact")}
+                  onClick={() => {
+                    navigate("/doubts");
+                    toggleOpen();
+                  }}
+                  label="Dúvidas"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/contact");
+                    toggleOpen();
+                  }}
                   label="Contato"
                 />
               </>
             )}
             {user && user.role === "admin" && (
               <>
-                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
                 <MenuItem
-                  onClick={() => navigate("/menuu")}
+                  onClick={() => {
+                    navigate("/menu");
+                    toggleOpen();
+                  }}
+                  label="Cardápio"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/menuu");
+                    toggleOpen();
+                  }}
                   label="Quem somos"
                 />
-                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
-                  onClick={() => navigate("/contact")}
+                  onClick={() => {
+                    navigate("/doubts");
+                    toggleOpen();
+                  }}
+                  label="Dúvidas"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/contact");
+                    toggleOpen();
+                  }}
                   label="Contato"
                 />
                 <MenuItem
-                  onClick={() => navigate(`/dashboard`)}
+                  onClick={() => {navigate(`/dashboard`); toggleOpen()}}
                   label="Dashboard"
                 />
                 <MenuItem
                   label="Agendamento"
-                  onClick={() => navigate(`/appointment`)}
+                  onClick={() => {navigate(`/appointment`); toggleOpen()}}
                 />
                 <MenuItem onClick={handleLogout} label="Sair" />
               </>

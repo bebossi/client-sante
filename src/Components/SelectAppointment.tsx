@@ -74,7 +74,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({handleAvailiableAppo
               name="avaliableAppointmentId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Horário de agendamento </FormLabel>
                   <Select
                     // onOpenChange={handleIsSelectOpen}
                     onValueChange={(newValue) => {

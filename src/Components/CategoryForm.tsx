@@ -34,10 +34,10 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit category" : "Create category";
-  const description = initialData ? "Edit category" : "Add a new category";
-  const toastMessage = initialData ? "Category updated" : "Category created";
-  const action = initialData ? "Save changes" : "Create";
+  const title = initialData ? "Editar categoria" : "Criar categoria";
+  const description = initialData ? "Editar categoria" : "Adicione uma categoria";
+  const toastMessage = initialData ? "Categoria atualizada" : "Categoria criada";
+  const action = initialData ? "Salvar mudanças" : "Criar";
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
@@ -93,7 +93,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}

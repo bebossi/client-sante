@@ -43,10 +43,10 @@ const CartModal = () => {
 
   useEffect(() => {
     if (serachParams.get("success")) {
-      toast.success("Payment completed.");
+      toast.success("Pagamento efetuado com sucesso.");
     }
     if (serachParams.get("canceled")) {
-      toast.error("Something went wrong");
+      toast.error("Algo deu errado, tente novamente.");
     }
   }, [serachParams]);
 
@@ -137,7 +137,7 @@ const CartModal = () => {
     if (step === STEPS.PAYMENT) {
       return "Escolher forma de pagamento";
     }
-    return "Next";
+    return "Próximo";
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -145,7 +145,7 @@ const CartModal = () => {
       return undefined;
     }
 
-    return "Back";
+    return "Voltar";
   }, [step]);
 
   let bodyContent = (
@@ -201,14 +201,14 @@ const CartModal = () => {
           onClick={() => setStep((value) => value + 1)}
         >
           <CalendarIcon size={50} />
-          <p className="text-lg font-semibold">Pick up at the restaurant</p>
+          <p className="text-lg font-semibold">Busque no restaurante</p>
         </div>
         <div
           className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer w-1/2"
           onClick={() => setStep((value) => value + 2)}
         >
           <Car size={50} />
-          <p className="text-lg font-semibold">Delivery up to 2 km</p>
+          <p className="text-lg font-semibold">Delivery grátis ate 2km</p>
         </div>
       </div>
     );
@@ -217,7 +217,7 @@ const CartModal = () => {
   if (step === STEPS.APPOINTMENT) {
     bodyContent = (
       <div className="flex flex-col  gap-3">
-        <h1 className="text-2xl ">Select a time </h1>
+        <h1 className="text-2xl ">Selecione um horário para buscar</h1>
         <SelectAppointment
           handleAvailiableAppointmentId={handleAvailiableAppointmentId}
         />
@@ -236,7 +236,7 @@ const CartModal = () => {
               handleAddressId={handleAddressId}
             />
             <Button
-              label="create address"
+              label="Crie um endereço"
               onClick={toggleSelectAddress}
               outline
               small
@@ -247,7 +247,7 @@ const CartModal = () => {
           <div className="flex flex-col gap-3 ">
             <MapAddress handleAddressId={handleAddressId} />
             <Button
-              label="select an existing address"
+              label="Selecione um endereço salvo"
               onClick={toggleSelectAddress}
               outline
               small

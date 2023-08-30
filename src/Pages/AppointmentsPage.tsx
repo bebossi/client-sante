@@ -42,9 +42,9 @@ const AppointmentsPage = () => {
         endTime: formattedEndTime,
       });
 
-      toast.success("Avaliable appointment was created");
+      toast.success("Horário criado");
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error("Algo deu errado");
       console.log(err);
     }
   };

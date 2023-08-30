@@ -22,24 +22,16 @@ export const columns: ColumnDef<Product>[] = [
 
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Nome",
   },
-  // {
-  //   accessorKey: "description",
-  //   header: "Description",
-  // },
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Preço",
   },
   {
     accessorKey: "category.name",
-    header: "Category",
+    header: "Categoria",
   },
-  // {
-  //   accessorKey: "createdAt",
-  //   header: "Date",
-  // },
   {
     id: "actions",
     cell: ({ row }) => <CellAction data={row.original} />,

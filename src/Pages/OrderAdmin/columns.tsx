@@ -15,7 +15,7 @@ export const columns: ColumnDef<OrderColumn>[] = [
 
 {
     accessorKey: `address.street`,
-    header: "Address"
+    header: "Endereço"
 },
   {
     accessorKey: "total",
@@ -23,11 +23,11 @@ export const columns: ColumnDef<OrderColumn>[] = [
   },
   {
     accessorKey: "isPaid",
-    header: "Paid"
+    header: "Pago"
   },
   {
     accessorKey: "createdAt",
-    header: () => <div className="text-right">Date</div>,
+    header: () => <div className="text-right">Data</div>,
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
       const formatted = new Intl.DateTimeFormat("pt-BR", {

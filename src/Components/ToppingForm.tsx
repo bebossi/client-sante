@@ -53,10 +53,10 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
     return <div>Loading...</div>;
   }
 
-  const title = initialData ? "Edit topping" : "Create topping";
-  const description = initialData ? "Edit topping" : "Add a new topping";
-  const toastMessage = initialData ? "Topping updated" : "Topping created";
-  const action = initialData ? "Save changes" : "Create";
+  const title = initialData ? "Editar topping" : "Criar topping";
+  const description = initialData ? "Editar topping" : "Adicionar topping";
+  const toastMessage = initialData ? "Topping atualizado" : "Topping criado";
+  const action = initialData ? "Salvar mudanças" : "Criar";
 
   const form = useForm<ToppingFormValues>({
     resolver: zodResolver(formSchema),
@@ -117,7 +117,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
             render={({ field }) => (
               <div>
                 <FormItem className="w-1/3">
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>Imagem</FormLabel>
                   <FormControl>
                     <ImageUpload
                       value={field.value}
@@ -135,7 +135,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
                         disabled={loading}
@@ -152,7 +152,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
@@ -170,7 +170,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel>Preço</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -188,7 +188,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               name="productId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Products</FormLabel>
+                  <FormLabel>Produto</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
@@ -205,7 +205,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                     </FormControl>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Products</SelectLabel>
+                        <SelectLabel>Produtos</SelectLabel>
                         {products?.map((product) => (
                           <SelectItem key={product.id} value={product.id}>
                             {product.name}

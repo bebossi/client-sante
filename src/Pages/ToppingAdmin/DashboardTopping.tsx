@@ -56,7 +56,7 @@ const DashboardToppings = () => {
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/topping")}
       >
-        Add new topping
+        Adicione novo topping
       </Button>
       <DataTable columns={columns} data={toppings ?? []} searchKey={"name"} />
     </>

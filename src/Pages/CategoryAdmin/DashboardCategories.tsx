@@ -57,7 +57,7 @@ const DashboardCategories = () => {
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/category")}
       >
-        Add new category
+        Adicione uma categoria
       </Button>
       <DataTable columns={columns} data={categories ?? []} searchKey={"name"} />
     </>

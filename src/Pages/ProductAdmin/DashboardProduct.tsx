@@ -29,7 +29,7 @@ const DashboardProduct = () => {
   }, []);
 
   if (!products) {
-    return <div>No Products</div>;
+    return <div>Sem produtos</div>;
   }
 
   if (isLoading) {
@@ -61,7 +61,7 @@ const DashboardProduct = () => {
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/product")}
       >
-        Add new product
+        Adicione novo produto
       </Button>
       <DataTable columns={columns} data={products ?? []} searchKey={"name"} />
     </>

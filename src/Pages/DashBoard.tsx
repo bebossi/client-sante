@@ -15,7 +15,7 @@ const DashBoard = () => {
 
   if(user.role !== "admin") {
     return (
-      <div>You cannot access this page</div>
+      <div>Você não tem acesso a essa página</div>
     )
   }
 
@@ -30,7 +30,7 @@ const DashBoard = () => {
           }`}
           onClick={() => handleTabClick("products")}
         >
-          Products
+          Produtos
         </p>
         <p
           className={`${
@@ -51,7 +51,7 @@ const DashBoard = () => {
           }`}
           onClick={() => handleTabClick("categories")}
         >
-          Categories
+          Categorias
         </p>
         <p
           className={`${
@@ -61,7 +61,7 @@ const DashBoard = () => {
           }`}
           onClick={() => handleTabClick("orders")}
         >
-          Orders
+          Pedidos
         </p>
       </div>
       <div>

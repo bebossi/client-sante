@@ -55,10 +55,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
     return <div>Loading</div>;
   }
 
-  const title = initialData ? "Edit product" : "Create product";
-  const description = initialData ? "Edit product" : "Add a new product";
-  const toastMessage = initialData ? "Product updated" : "Product created";
-  const action = initialData ? "Save changes" : "Create";
+  const title = initialData ? "Editar produto" : "Criar produto";
+  const description = initialData ? "Editar produto" : "Adicione um produto";
+  const toastMessage = initialData ? "Produto atualizado" : "Produto criado";
+  const action = initialData ? "Salvar mudanças" : "Criar";
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
@@ -117,7 +117,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             render={({ field }) => (
               <div>
                 <FormItem className="w-1/3">
-                  <FormLabel>Image</FormLabel>
+                  <FormLabel>Imagem</FormLabel>
                   <FormControl>
                     <ImageUpload
                       value={field.value}
@@ -135,7 +135,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
@@ -152,7 +152,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
@@ -170,7 +170,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price</FormLabel>
+                  <FormLabel>Preço</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -188,7 +188,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Categoria</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
@@ -205,7 +205,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     </FormControl>
                     <SelectContent className="">
                       <SelectGroup>
-                        <SelectLabel>Categories</SelectLabel>
+                        <SelectLabel>Categorias</SelectLabel>
                         {categories?.map((category) => (
                           <SelectItem key={category.id} value={category.id}>
                             {category.name}

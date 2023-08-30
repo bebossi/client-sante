@@ -16,16 +16,16 @@ export const columns: ColumnDef<Topping>[] = [
 
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Nome",
   },
 
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Preço",
   },
   {
     accessorKey: "product.name",
-    header: "Product",
+    header: "Produto",
   },
 
   {
