@@ -15,7 +15,7 @@ const UserMenu = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
-console.log(user)
+  console.log(user);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -32,23 +32,26 @@ console.log(user)
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div onClick={() => navigate("/menu")} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div
+          onClick={() => navigate("/menu")}
+          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+        >
           Cardápio
         </div>
-        <div onClick={() => navigate("/menuu")} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div
+          onClick={() => navigate("/menuu")}
+          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+        >
           Quem somos
         </div>
-        <div onClick={() => navigate("/map")} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div
+          onClick={() => navigate("/map")}
+          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+        >
           Dúvidas
         </div>
         <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           Contato
-        </div>
-        <div  onClick={() => navigate(`/dashboard`)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          Dashboard
-        </div>
-        <div  onClick={() => navigate(`/appointment`)} className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          Agendamento
         </div>
         <div
           onClick={toggleOpen}
@@ -63,30 +66,60 @@ console.log(user)
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {user && user.role !== "guest" ? (
-              <>
-                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
-                <MenuItem onClick={() => navigate("/menuu")} label="Quem somos" />
-                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
-                <MenuItem
-                  onClick={() => navigate("/contact")}
-                  label="Contato" 
-                />
-
-                <hr />
-                <MenuItem onClick={handleLogout} label="Sair" />
-              </>
-            ) : (
+            {user && user.role === "guest" && (
               <>
                 <MenuItem onClick={loginModal.onOpen} label="Entre" />
                 <MenuItem onClick={registerModal.onOpen} label="Cadastre" />
                 <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
-                <MenuItem onClick={() => navigate("/menuu")} label="Quem somos" />
+                <MenuItem
+                  onClick={() => navigate("/menuu")}
+                  label="Quem somos"
+                />
                 <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
                   onClick={() => navigate("/contact")}
                   label="Contato"
                 />
+                <hr />
+                <MenuItem onClick={handleLogout} label="Sair" />
+              </>
+            )}
+            {user && user.role === "admin" && (
+              <>
+                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
+                <MenuItem
+                  onClick={() => navigate("/menuu")}
+                  label="Quem somos"
+                />
+                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
+                <MenuItem
+                  onClick={() => navigate("/contact")}
+                  label="Contato"
+                />
+                <MenuItem
+                  onClick={() => navigate(`/dashboard`)}
+                  label="Dashboard"
+                />
+                <MenuItem
+                  label="Agendamento"
+                  onClick={() => navigate(`/appointment`)}
+                />
+                <MenuItem onClick={handleLogout} label="Sair" />
+              </>
+            )}
+            {user && user.role === "user" && (
+              <>
+                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
+                <MenuItem
+                  onClick={() => navigate("/menuu")}
+                  label="Quem somos"
+                />
+                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
+                <MenuItem
+                  onClick={() => navigate("/contact")}
+                  label="Contato"
+                />
+                <MenuItem onClick={handleLogout} label="Sair" />
               </>
             )}
           </div>

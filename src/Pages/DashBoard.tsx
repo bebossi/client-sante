@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DashboardCategories from "./CategoryAdmin/DashboardCategories";
 import DashboardProduct from "./ProductAdmin/DashboardProduct";
 import DashboardToppings from "./ToppingAdmin/DashboardTopping";
 import DashboardOrders from "./OrderAdmin/DashboardOrders";
+import { UserContext } from "../auth/currentUser";
 
 const DashBoard = () => {
   const [activeTab, setActiveTab] = useState("products");
+  const {user} = useContext(UserContext)
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+
+  if(user.role !== "admin") {
+    return (
+      <div>You cannot access this page</div>
+    )
+  }
 
   return (
     <>

@@ -266,7 +266,11 @@ const CartModal = () => {
   }
 
   if (step === STEPS.PAYMENT) {
-    bodyContent = <div className="flex flex-col "></div>;
+    bodyContent = (
+    <div className="flex flex-col ">
+      
+    </div>
+    );
   }
 
   return (

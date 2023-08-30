@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -8,6 +8,7 @@ import Button from "../Components/Button";
 import { format } from "date-fns-tz";
 import toast from "react-hot-toast";
 import SelectAppointment from "../Components/SelectAppointment";
+import { UserContext } from "../auth/currentUser";
 
 type ValuePiece = Date | null;
 
@@ -16,6 +17,13 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const AppointmentsPage = () => {
   const [valueTime, onChangeTime] = useState<Value>(new Date());
   const [endTime, setOnEndTime] = useState<Value>(new Date());
+  const {user} = useContext(UserContext)
+
+  if(user.role !== "admin") {
+    return (
+      <div>You cannot access this page</div>
+    )
+  }
 
   const onSubmit = async () => {
     try {

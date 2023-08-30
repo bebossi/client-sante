@@ -32,7 +32,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     streetnumber: "",
     neighborhood: "",
     cep: "",
-    city: "",
+    city: "", 
     complementnumber: "",
   });
 
@@ -80,7 +80,6 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       setSelected({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
-
     } catch (err) {
       console.log(err);
     }
@@ -97,7 +96,6 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     setDistance(results.routes[0].legs[0].distance!.text)
     setDuration(results?.routes[0].legs[0].duration!.text)
   }
-  console.log(selected)
   const calculatedDistance = parseFloat(distance.split(" ")[0]);
 
   if (calculatedDistance >= 2) {
@@ -134,6 +132,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       <div className="h-full w-full flex flex-col ">
         <div className="w-full">
           <Autocomplete
+          
             onLoad={(autocomplete) => {
               autocomplete.setFields(["formatted_address"]);
             }}
