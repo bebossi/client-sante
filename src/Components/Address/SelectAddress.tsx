@@ -39,25 +39,6 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
 
   return (
     <>
-      {/* <Select>
-      <SelectTrigger>
-        <SelectValue
-          placeholder="Select an address"
-        />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-      {user.addresses.map((address: Address) => (
-              <SelectItem key={address.id} value={address.id}  onClick={() => {handleAddressId(address.id);
-              }}>
-                {address.street}, {address.streetNumber}, apto
-                {address.complementNumber} - {address.neighborhood}. CEP
-                {address.CEP}.
-              </SelectItem>
-      ))}
-      </SelectGroup>
-      </SelectContent>
-    </Select> */}
       <Form {...form}>
         <form className="w-2/3 space-y-6">
           <FormField
