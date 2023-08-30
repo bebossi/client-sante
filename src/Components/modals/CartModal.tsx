@@ -193,29 +193,22 @@ const CartModal = () => {
     </div>
   );
 
-  // const footerContent = ( // AVALIAR ISSO TAMBEM
-  //   <div className="flex items-center justify-between  ">
-  //     <p className="font-semibold">Subtotal: </p>
-  //     <p className="font-semibold"> R${cart?.subtotal}</p>
-  //   </div>
-  // );
-
   if (step === STEPS.CHOOSE) {
     bodyContent = (
-      <div className="flex justify-around">
+      <div className="flex justify-around gap-1">
         <div
-          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer"
+          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer w-1/2"
           onClick={() => setStep((value) => value + 1)}
         >
           <CalendarIcon size={50} />
-          <p className="text-xl font-semibold">Pick up at the restaurant</p>
+          <p className="text-lg font-semibold">Pick up at the restaurant</p>
         </div>
         <div
-          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer"
+          className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer w-1/2"
           onClick={() => setStep((value) => value + 2)}
         >
           <Car size={50} />
-          <p className="text-xl font-semibold">Delivery up to 2 km</p>
+          <p className="text-lg font-semibold">Delivery up to 2 km</p>
         </div>
       </div>
     );
@@ -280,10 +273,9 @@ const CartModal = () => {
         actionLabel={actionLabel}
         body={bodyContent}
         onClose={cartModal.onClose}
-        disabled={isLoading}
+        disabled={isLoading || isSelectOpen}
         onSubmit={onSubmit}
         isOpen={cartModal.isOpen}
-        // footer={footerContent}
         secondaryActionLabel={secondaryActionLabel}
         secondaryAction={step === STEPS.PRODUCTS ? undefined : onBack}
       />

@@ -17,7 +17,6 @@ const UserMenu = () => {
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
   console.log(user);
   const toggleOpen = useCallback(() => {
-    console.log(isOpen)
     setIsOpen((value) => !value);
   }, []);
 
@@ -28,7 +27,7 @@ const UserMenu = () => {
     window.location.reload();
   };
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {}, [user, !user]);
 
   return (
     <div className="relative">
@@ -67,7 +66,7 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            { !user || (user && user.role === "guest")  && (
+            {  ((user && user.role === "guest") || !user)  && (
               <>
                 <MenuItem onClick={loginModal.onOpen} label="Entre" />
                 <MenuItem onClick={registerModal.onOpen} label="Cadastre" />
