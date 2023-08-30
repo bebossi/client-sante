@@ -22,11 +22,11 @@ const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
 const libraries: LoadScriptProps["libraries"] = ["places"];
 
 const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
-  const [selected, setSelected] = useState<{lat: number, lng: number}>();
+  const [selectedCoordinates, setSelectedCoordinates] = useState<{lat: number, lng: number}>();
   const [selectedAddress, setSelectedAddress] = useState("");
-   const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
+  //  const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
   const [distance, setDistance] = useState<string>('')
-  const [duration, setDuration] = useState<string>('')
+  // const [duration, setDuration] = useState<string>('')
   const [form, setForm] = useState({
     rua: "",
     numero: "",
@@ -78,7 +78,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       }
       const { lat, lng } = getLatLng(results[0]);
 
-      setSelected({ lat, lng });
+      setSelectedCoordinates({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
     } catch (err) {
       console.log(err);
@@ -89,12 +89,13 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     const directionsService = new google.maps.DirectionsService()
     const results = await directionsService.route({
       origin: { lat: -19.9126701, lng: -43.9207056 } ,
-      destination: selected as { lat: number, lng: number},
+      destination: selectedCoordinates as { lat: number, lng: number},
       travelMode: google.maps.TravelMode.DRIVING,
     })
-    setDirectionsResponse(results)
+     // setDirectionsResponse(results)
+  //  const  directionsResponse = results
     setDistance(results.routes[0].legs[0].distance!.text)
-    setDuration(results?.routes[0].legs[0].duration!.text)
+    // setDuration(results?.routes[0].legs[0].duration!.text)
   }
   const calculatedDistance = parseFloat(distance.split(" ")[0]);
 
@@ -148,7 +149,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
               }}
             />
           </Autocomplete>
-          {selectedAddress && selected && (
+          {selectedAddress && selectedCoordinates && (
             <>
               <form {...form} className="m-2 " name="Map">
                 <input
@@ -203,11 +204,11 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
             </>
           )}
         </div>
-        {selectedAddress && selected && (
+        {selectedAddress && selectedCoordinates && (
           <>
             <GoogleMap
               zoom={11}
-              center={selected}
+              center={selectedCoordinates}
               mapContainerClassName={"map-container"}
               options={{
                 zoomControl: false,
@@ -216,7 +217,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                 fullscreenControl: false,
               }}
             >
-              {selected && <Marker position={selected} />}
+              {selectedCoordinates && <Marker position={selectedCoordinates} />}
             </GoogleMap>
             <Button label="Confirmar endereço" onClick={onSubmit} small />
           </>
