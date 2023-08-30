@@ -17,6 +17,7 @@ const UserMenu = () => {
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
   console.log(user);
   const toggleOpen = useCallback(() => {
+    console.log(isOpen)
     setIsOpen((value) => !value);
   }, []);
 
@@ -66,7 +67,7 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {user && user.role === "guest" && (
+            { !user || (user && user.role === "guest")  && (
               <>
                 <MenuItem onClick={loginModal.onOpen} label="Entre" />
                 <MenuItem onClick={registerModal.onOpen} label="Cadastre" />
@@ -80,8 +81,6 @@ const UserMenu = () => {
                   onClick={() => navigate("/contact")}
                   label="Contato"
                 />
-                <hr />
-                <MenuItem onClick={handleLogout} label="Sair" />
               </>
             )}
             {user && user.role === "admin" && (

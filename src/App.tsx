@@ -14,12 +14,12 @@ import DashboardProduct from "./Pages/ProductAdmin/DashboardProduct";
 import DashBoard from "./Pages/DashBoard";
 import CategoryPage from "./Pages/CategoryPage";
 import ToasterProvider from "./Providers/ToaterProvider";
-import MenuPageCar from "./Pages/MenuPageCar";
 import Home from "./Pages/Home";
 import DashboardOrders from "./Pages/OrderAdmin/DashboardOrders";
 import OrderPage from "./Pages/OrderPage";
 import { UserContextProvider } from "./auth/currentUser";
 import AppointmentsPage from "./Pages/AppointmentsPage";
+import RegisterModal from "./Components/modals/RegisterModal";
 
 function App() {
   return (
@@ -30,12 +30,12 @@ function App() {
             <ToasterProvider />
             <AddToCartModal />
             <LoginModal />
+            <RegisterModal/>
             <CartModal />
             <NavBar />
             <div className="pb-0 pt-28">
               <Routes>
                 <Route path="/menu" element={<MenuPage />} />
-                <Route path="/menuu" element={<MenuPageCar />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/dashboard" element={<DashBoard />} />
                 <Route
