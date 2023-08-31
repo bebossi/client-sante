@@ -1,5 +1,6 @@
 import { createContext,  useState, useEffect } from "react";
 import { api } from "../api";
+import { User } from "../interfaces";
 
 const UserContext = createContext<any>(null);
 
@@ -9,11 +10,13 @@ const UserContext = createContext<any>(null);
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<Object | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  console.log(user)
 
   useEffect(() => {
     async function fetchUser() {
       const response = await api.get("/currentUser");
+      console.log(response.data)
       setUser(response.data);
     }
     if (!user) {
