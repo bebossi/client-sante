@@ -54,9 +54,11 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     }
   }, [selectedAddress]);
 
-  const { value, setValue, clearSuggestions } = usePlacesAutocomplete({
+  const { value, setValue, clearSuggestions, suggestions } = usePlacesAutocomplete({
     callbackName: "MapAddress",
   });
+  console.log("Value:", value);
+console.log("Suggestions:", suggestions);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
     libraries,
@@ -68,6 +70,11 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
   const handleSelect = async (address: string) => {
     try {
+
+      if (!address.toLowerCase().startsWith("rua")) {
+        address = `rua ${address}`;
+      }
+      
       setValue(address, false);
       clearSuggestions();
 
@@ -80,6 +87,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       setSelectedCoordinates({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
+      console.log(results)
     } catch (err) {
       console.log(err);
     }
@@ -135,7 +143,8 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
           <Autocomplete
           
             onLoad={(autocomplete) => {
-              autocomplete.setFields(["formatted_address"]);
+              console.log(autocomplete)
+              autocomplete.setFields(["formatted_address", "name", "address_components"]);
             }}
             onPlaceChanged={() => handleSelect(value)}
             className="w-full"
