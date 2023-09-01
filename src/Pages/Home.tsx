@@ -1,4 +1,16 @@
+import { toast } from "react-hot-toast";
+import useRestaurantIsOpen from "../hooks/useRestaurantIsOpen";
+
 const Home = () => {
+
+  const restaurantIsOpen = useRestaurantIsOpen()
+
+  if (!restaurantIsOpen.isOpen) toast(
+    "Restaurante está fechado, só é possivel fazer pedidos por agendamento para buscar na loja",
+    {
+      duration: 8000,
+    }
+  );
   return (
     <>
       <div
