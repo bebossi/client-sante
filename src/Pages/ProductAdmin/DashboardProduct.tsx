@@ -28,9 +28,7 @@ const DashboardProduct = () => {
     fetchProducts();
   }, []);
 
-  if (!products) {
-    return <div>Sem produtos</div>;
-  }
+
 
   if (isLoading) {
     return (
@@ -53,6 +51,9 @@ const DashboardProduct = () => {
         </svg>
       </div>
     );
+  }
+  if (!products) {
+    return <div>Sem produtos</div>;
   }
 
   return (

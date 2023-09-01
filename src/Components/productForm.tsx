@@ -85,8 +85,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         await api.post(`/create`, data);
         toast.success(toastMessage);
       }
-
-      toast.success(toastMessage);
       navigate("/dashboard");
     } catch (err) {
       toast.error("Something went wrong");

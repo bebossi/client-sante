@@ -11,7 +11,6 @@ const DashBoard = () => {
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
-
   if(user.role !== "admin") {
     return (
       <div>Você não tem acesso a essa página</div>
