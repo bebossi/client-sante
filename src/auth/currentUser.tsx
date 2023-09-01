@@ -11,7 +11,6 @@ const UserContext = createContext<any>(null);
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<User | null>(null);
-  console.log(user)
 
   useEffect(() => {
     async function fetchUser() {

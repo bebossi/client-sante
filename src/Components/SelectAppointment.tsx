@@ -48,7 +48,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
       }
     };
     fecthAppointments();
-  }, []);
+  }, [avaliableAppointments]);
 
   return (
     <div className="flex flex-col justify-center gap-2">

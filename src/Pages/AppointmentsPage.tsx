@@ -22,7 +22,6 @@ const AppointmentsPage = () => {
   const [endTime, setOnEndTime] = useState<Value>(new Date());
   const {user} = useContext(UserContext)
   const restaurantIsOpen = useRestaurantIsOpen()
-  console.log(restaurantIsOpen.isOpen)
 
   if(user.role !== "admin") {
     return (

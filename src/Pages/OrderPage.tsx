@@ -19,12 +19,7 @@ const OrderPage = () => {
     };
     fetchOrder();
   }, []);
-  // const date = new Date(order?.createdAt!);
-  // const formatted = new Intl.DateTimeFormat("pt-BR", {
-  //   timeZone: "America/Sao_Paulo",
-  //   dateStyle: "short",
-  //   timeStyle: "short",
-  // }).format(date);
+
   return (
     <>
       <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
@@ -90,7 +85,7 @@ const OrderPage = () => {
                         {orderProduct.quantity}
                       </p>
                       <p className="text-lg dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
-                        R${order.total}
+                        R${orderProduct.price}
                       </p>
                     </div>
                   </div>
@@ -114,10 +109,10 @@ const OrderPage = () => {
 
                   <div className="flex justify-between items-center w-full">
                     <p className="text-base dark:text-white leading-4 text-gray-800">
-                      Shipping
+                      Delivery
                     </p>
                     <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                      R$8.00
+                      R$0
                     </p>
                   </div>
                 </div>
@@ -126,41 +121,8 @@ const OrderPage = () => {
                     Total
                   </p>
                   <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
-                    R${order?.total}
+                    R${order?.total! + order?.subTotal!}
                   </p>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
-                <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-                  Shipping
-                </h3>
-                <div className="flex justify-between items-start w-full">
-                  <div className="flex justify-center items-center space-x-4">
-                    <div className="w-8 h-8">
-                      <img
-                        className="w-full h-full"
-                        alt="logo"
-                        src="https://i.ibb.co/L8KSdNQ/image-3.png"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-start items-center">
-                      <p className="text-lg leading-6 dark:text-white font-semibold text-gray-800">
-                        DPD Delivery
-                        <br />
-                        <span className="font-normal">
-                          Delivery with 24 Hours
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-lg font-semibold leading-6 dark:text-white text-gray-800">
-                    R$8.00
-                  </p>
-                </div>
-                <div className="w-full flex justify-center items-center">
-                  <button className="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white">
-                    View Carrier Details
-                  </button>
                 </div>
               </div>
             </div>
@@ -209,15 +171,7 @@ const OrderPage = () => {
                       Shipping Address
                     </p>
                     <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                      180 North King Street, Northhampton MA 1060
-                    </p>
-                  </div>
-                  <div className="flex justify-center md:justify-start items-center md:items-start flex-col space-y-4">
-                    <p className="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">
-                      Billing Address
-                    </p>
-                    <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                      {order?.address.street}, {order?.address.streetNumber} -
+                                 {order?.address.street}, {order?.address.streetNumber} -
                       apto {order?.address.complementNumber} -{" "}
                       {order?.address.neighborhood}, {order?.address.CEP}
                     </p>
