@@ -21,7 +21,7 @@ const AppointmentsPage = () => {
 
   if(user.role !== "admin") {
     return (
-      <div>You cannot access this page</div>
+      <div>Você não tem acesso à essa pagina</div>
     )
   }
 
@@ -51,7 +51,7 @@ const AppointmentsPage = () => {
 
   return (
     <div className="flex flex-col justify-center mt-10 p-3 space-y-3">
-      <p className="text-lg font-semibold">Set Start Date with Time</p>
+      <p className="text-lg font-semibold">Slecione uma data e um horário</p>
       <DateTimePicker
         amPmAriaLabel="false"
         onChange={onChangeTime}
@@ -59,7 +59,7 @@ const AppointmentsPage = () => {
         hourPlaceholder="hh"
         minutePlaceholder="mm"
       />
-      <p className="text-lg font-semibold">Set Only End Time</p>
+      <p className="text-lg font-semibold">Selecione apenas o horario, na mesma data</p>
       <DateTimePicker
         amPmAriaLabel="false"
         isCalendarOpen={true}
@@ -70,8 +70,8 @@ const AppointmentsPage = () => {
         disableCalendar
         minDate={valueTime as Date}
       />
-      <Button label="Create avaliable appoitment" onClick={onSubmit}></Button>
-      <p>All Appointments</p>
+      <Button label="Crie um horário para busca e delivery" onClick={onSubmit}></Button>
+      <p>Todos horários criados</p>
       <SelectAppointment/>
     </div>
   );
