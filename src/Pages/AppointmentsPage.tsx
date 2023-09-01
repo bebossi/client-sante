@@ -9,6 +9,9 @@ import { format } from "date-fns-tz";
 import toast from "react-hot-toast";
 import SelectAppointment from "../Components/SelectAppointment";
 import { UserContext } from "../auth/currentUser";
+import useRestaurantIsOpen from "../hooks/useRestaurantIsOpen";
+import { Switch } from "../Components/ui/switch"
+
 
 type ValuePiece = Date | null;
 
@@ -18,6 +21,8 @@ const AppointmentsPage = () => {
   const [valueTime, onChangeTime] = useState<Value>(new Date());
   const [endTime, setOnEndTime] = useState<Value>(new Date());
   const {user} = useContext(UserContext)
+  const restaurantIsOpen = useRestaurantIsOpen()
+  console.log(restaurantIsOpen.isOpen)
 
   if(user.role !== "admin") {
     return (
@@ -51,6 +56,13 @@ const AppointmentsPage = () => {
 
   return (
     <div className="flex flex-col justify-center mt-10 p-3 space-y-3">
+      <div>
+        <p>O restaurante está aberto?</p>
+        <div>
+        {/* {restaurantIsOpen.isOpen } */}
+        <Switch checked={restaurantIsOpen.isOpen} onCheckedChange={restaurantIsOpen.toggleOpen} />
+        </div>
+      </div>
       <p className="text-lg font-semibold">Slecione uma data e um horário</p>
       <DateTimePicker
         amPmAriaLabel="false"
