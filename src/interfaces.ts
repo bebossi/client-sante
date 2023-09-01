@@ -128,3 +128,9 @@ export interface AvailiableAppointment {
   isAvailable: boolean;
   orders: Order[];
 }
+
+export interface isRestaurantOpen {
+  id: string;
+  isOpen: boolean;
+  updatedDate: Date;
+}
