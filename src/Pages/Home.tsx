@@ -9,6 +9,7 @@ const Home = () => {
     "Restaurante está fechado, só é possivel fazer pedidos por agendamento para buscar na loja",
     {
       duration: 8000,
+      position: "bottom-center"
     }
   );
   return (
