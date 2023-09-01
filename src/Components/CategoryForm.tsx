@@ -64,7 +64,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
 
       navigate("/dashboard");
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error("Algo deu errado");
     } finally {
       setLoading(false);
     }
@@ -96,7 +96,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Category name"
+                      placeholder="Nome categoria"
                       {...field}
                     />
                   </FormControl>

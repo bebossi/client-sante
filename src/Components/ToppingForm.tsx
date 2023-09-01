@@ -138,7 +138,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormControl>
                     <Input
                         disabled={loading}
-                      placeholder="Prouct name"
+                      placeholder="Nome topping"
                       {...field}
                     />
                   </FormControl>
@@ -156,7 +156,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
                         disabled={loading}
-                      placeholder="Product description"
+                      placeholder="Descrição topping"
                       {...field}
                     />
                   </FormControl>
@@ -198,7 +198,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                         <SelectValue
                           className=""
                           defaultValue={field.value}
-                          placeholder="Select a product"
+                          placeholder="Selecione um produto"
                         />
                       </SelectTrigger>
                     </FormControl>
