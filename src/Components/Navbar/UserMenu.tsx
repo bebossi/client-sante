@@ -153,6 +153,14 @@ const UserMenu = () => {
                   onClick={() => navigate("/contact")}
                   label="Contato"
                 />
+                 <MenuItem
+                  onClick={() => {
+                    navigate("/orders");
+                    toggleOpen();
+                  }}
+                  label="Pedidos"
+                />
+                <hr/>
                 <MenuItem onClick={handleLogout} label="Sair" />
               </>
             )}

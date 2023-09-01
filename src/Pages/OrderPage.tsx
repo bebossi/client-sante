@@ -7,14 +7,15 @@ import { AuthContext } from "../auth/authContext";
 const OrderPage = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const params = useParams();
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        if(user && user.role === 'admin') {
+        if (user && user.role === "admin") {
           const response = await api.get(`/getOrder/${params.orderId}`);
           setOrder(response.data);
+          console.log(response.data);
         }
         const response = await api.get(`/orderByClient/${params.orderId}`);
         setOrder(response.data);
@@ -175,11 +176,25 @@ const OrderPage = () => {
                     <p className="text-base dark:text-white font-semibold leading-4 text-center md:text-left text-gray-800">
                       Shipping Address
                     </p>
-                    <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
-                                 {order?.address.street}, {order?.address.streetNumber} -
-                      apto {order?.address.complementNumber} -{" "}
-                      {order?.address.neighborhood}, {order?.address.CEP}
-                    </p>
+                    {order?.addressId ? (
+                      <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
+                        {order?.address.street}, {order?.address.streetNumber} -
+                        apto {order?.address.complementNumber} -{" "}
+                        {order?.address.neighborhood}, {order?.address.CEP}
+                      </p>
+                    ) : (
+                      <p>
+                        {order?.avaliableAppointment.startDate
+                          ? new Date(
+                              order.avaliableAppointment.startDate
+                            ).toLocaleString("pt-BR", {
+                              timeZone: "America/Sao_Paulo",
+                              dateStyle: "short",
+                              timeStyle: "short",
+                            })
+                          : "Appointment start date not available"} 
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="flex w-full justify-center items-center md:justify-start md:items-start">

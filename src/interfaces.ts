@@ -79,6 +79,9 @@ export interface Order {
   addressId: string;
   address: Address;
   isPaid: boolean;
+  avaliableAppointmentId: string;
+
+  avaliableAppointment: AvaliableAppointment;
 }
 
 export interface CartToProduct {
@@ -121,7 +124,7 @@ export interface OrderToProductTopping {
   quantity: number;
 }
 
-export interface AvailiableAppointment {
+export interface AvaliableAppointment {
   id: string;
   startDate: Date;
   endTime: string;
