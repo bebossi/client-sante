@@ -20,6 +20,7 @@ import OrderPage from "./Pages/OrderPage";
 import { UserContextProvider } from "./auth/currentUser";
 import AppointmentsPage from "./Pages/AppointmentsPage";
 import RegisterModal from "./Components/modals/RegisterModal";
+import OrdersClientPage from "./Pages/OrdersClientPage";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/category" element={<CategoryPage />} />
                 <Route path="/order/:orderId" element={<OrderPage />} />
                 <Route path="/appointment" element={<AppointmentsPage />} />
+                <Route path="orders" element={<OrdersClientPage/>} />
               </Routes>
             </div>
           </div>

@@ -22,7 +22,6 @@ const DashboardOrders = () => {
     };
     fetchOrders();
   }, []);
-  console.log(orders);
 
   if (isLoading) {
     return (

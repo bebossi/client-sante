@@ -1,17 +1,22 @@
 import { toast } from "react-hot-toast";
 import useRestaurantIsOpen from "../hooks/useRestaurantIsOpen";
+import { useEffect } from "react";
 
 const Home = () => {
 
   const restaurantIsOpen = useRestaurantIsOpen()
 
-  if (!restaurantIsOpen.isOpen) toast(
-    "Restaurante está fechado, só é possivel fazer pedidos por agendamento para buscar na loja",
-    {
-      duration: 8000,
-      position: "bottom-center"
-    }
-  );
+  useEffect(() => {
+    if (!restaurantIsOpen.isOpen) toast(
+      "Restaurante está fechado, só é possivel fazer pedidos por agendamento para buscar na loja",
+      {
+        duration: 8000,
+        position: "bottom-center"
+      }
+    );
+  }, [restaurantIsOpen.isOpen])
+
+
   return (
     <>
       <div

@@ -15,7 +15,6 @@ const UserContext = createContext<any>(null);
   useEffect(() => {
     async function fetchUser() {
       const response = await api.get("/currentUser");
-      console.log(response.data)
       setUser(response.data);
     }
     if (!user) {

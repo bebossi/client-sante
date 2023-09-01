@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Order } from "../interfaces";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../auth/authContext";
 
 const OrderPage = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const params = useParams();
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await api.get(`/getOrder/${params.orderId}`);
-
+        if(user && user.role === 'admin') {
+          const response = await api.get(`/getOrder/${params.orderId}`);
+          setOrder(response.data);
+        }
+        const response = await api.get(`/orderByClient/${params.orderId}`);
         setOrder(response.data);
       } catch (err) {
         console.log(err);
