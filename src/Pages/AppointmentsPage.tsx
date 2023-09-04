@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import SelectAppointment from "../Components/SelectAppointment";
 import { UserContext } from "../auth/currentUser";
 import { Switch } from "../Components/ui/switch";
-import { isRestaurantOpen } from "../interfaces";
+import { RestaurantContext } from "../auth/restaurantContext";
 
 type ValuePiece = Date | null;
 
@@ -19,26 +19,15 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 const AppointmentsPage = () => {
   const [valueTime, onChangeTime] = useState<Value>(new Date());
   const [endTime, setOnEndTime] = useState<Value>(new Date());
-  const [isOpen, setIsOpen] = useState<isRestaurantOpen>();
   const { user } = useContext(UserContext);
+  const restaurantContext = useContext(RestaurantContext);
+  const isOpen = restaurantContext?.isOpen;
 
   if (user && user.role !== "admin") {
     return <div>Você não tem acesso à essa pagina</div>;
   }
 
-  useEffect(() => {
-    const fecthIsOpen = async () => {
-      try {
-        const response = await api.get("/getIsOpen");
-
-        setIsOpen(response.data);
-      } catch (err) {
-        console.log(err);
-        toast.error("Algo deu errado");
-      }
-    };
-    fecthIsOpen();
-  }, [isOpen]);
+  useEffect(() => {}, [isOpen]);
 
   const onSubmit = async () => {
     try {
@@ -66,7 +55,7 @@ const AppointmentsPage = () => {
   const handleIsOpen = async () => {
     try {
       const response = await api.put("/updateIsOpen");
-      toast.success(response.data);     
+      toast.success(response.data);
     } catch (err) {
       toast.error("Algo deu errado");
       console.log(err);
@@ -78,7 +67,7 @@ const AppointmentsPage = () => {
       <div>
         <p>O restaurante está aberto?</p>
         <div>
-          <Switch checked={isOpen?.isOpen} onCheckedChange={handleIsOpen} />
+          <Switch checked={isOpen!} onCheckedChange={handleIsOpen} />
         </div>
       </div>
       <p className="text-lg font-semibold">Slecione uma data e um horário</p>
