@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import useCartModal from "../../hooks/useCartModal";
 import { api } from "../../api";
 import Modal from "./Modal";
-import { Cart, CartToProduct } from "../../interfaces";
+import {  AvaliableAppointment, Cart, CartToProduct } from "../../interfaces";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
@@ -34,10 +34,10 @@ const CartModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
   const [appointmentId, setAppointmentId] = useState("");
+  const [appointment, setAppointment] = useState<AvaliableAppointment | null>(null)
   const [addressId, setAddressId] = useState("");
   const [showSelectAddress, setShowSelectAddress] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-
   const [serachParams] = useSearchParams();
 
   const toggleSelectAddress = () => {
@@ -74,8 +74,8 @@ const CartModal = () => {
       return setStep((value) => value + 2);
     }
     if (step === STEPS.LOCATION && !isOpen) {
-      toast.error("Restaurante está fechado")
-      return 
+      toast.error("Restaurante está fechado");
+      return;
     }
     setStep((value) => value + 1);
   };
@@ -84,8 +84,9 @@ const CartModal = () => {
     setAddressId(addressId);
   };
 
-  const handleAvailiableAppointmentId = (avaliableAppointmentId: string) => {
+  const handleAvailiableAppointmentId = (avaliableAppointmentId: string, appointment?: AvaliableAppointment) => {
     setAppointmentId(avaliableAppointmentId);
+    setAppointment(appointment as AvaliableAppointment);
   };
 
   const handleIsSelectOpen = () => {
@@ -107,7 +108,7 @@ const CartModal = () => {
       window.location = response.data.url;
     } catch (err) {
       console.log(err);
-      toast.error("Algo deu errado")
+      toast.error("Algo deu errado");
     } finally {
       setIsLoading(false);
     }
@@ -236,7 +237,7 @@ const CartModal = () => {
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col  gap-3">
-        {showSelectAddress && user.addresses ? ( 
+        {showSelectAddress && user.addresses ? (
           <>
             <SelectAddress
               user={user}
@@ -269,9 +270,64 @@ const CartModal = () => {
 
   if (step === STEPS.PAYMENT) {
     bodyContent = (
-    <div className="flex flex-col ">
-      
-    </div>
+      <div className="flex flex-col ">
+         {cart?.cartProducts.map((cartProduct) => (
+        <div
+          key={cartProduct.id}
+          className="flex items-center justify-between mb-6"
+        >
+          <div className="flex flex-col items-start justify-between">
+            <div className="flex gap-x-2">
+              <p>{cartProduct.quantity}x</p>
+              <p className="font-semibold text-lg">
+                {cartProduct.product.name}
+              </p>
+            </div>
+            {cartProduct.cartToProductToppings.map((ctpt) => (
+              <div key={ctpt.id} className="flex text-gray-500 gap-x-3">
+                {ctpt.quantity > 0 && (
+                  <>
+                    <p>{ctpt.quantity / cartProduct.quantity}x</p>
+                    <p className="">{ctpt.topping.name}</p>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="flex">
+            <img
+              src={cartProduct.product.image}
+              className="w-20 h-20 rounded-lg shadow-lg"
+            />
+            <IoMdClose
+              className="ml-2 hover:cursor-pointer"
+              size={12}
+              onClick={() => removeProduct(cartProduct)}
+            />
+          </div>
+        </div>
+      ))}
+      <div className="flex items-center justify-between  ">
+        <p className="font-semibold">Subtotal: </p>
+        <p className="font-semibold"> R${cart?.subtotal}</p>
+      </div>
+      <div>
+        {appointment && (
+
+          <p>
+
+            {new Date(appointment.startDate).toLocaleString(
+             "pt-BR",
+             {
+               timeZone: "America/Sao_Paulo",
+               dateStyle: "short",
+               timeStyle: "short",
+             }
+           )}
+          </p>
+)}
+      </div>
+      </div>
     );
   }
 

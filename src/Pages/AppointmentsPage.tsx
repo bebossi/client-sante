@@ -63,14 +63,14 @@ const AppointmentsPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center mt-10 p-3 space-y-3">
+    <div className="flex flex-col justify-center mt-10 p-3 space-y-3 ">
       <div>
-        <p>O restaurante está aberto?</p>
+        <p className="text-4xl font-semibold my-5">O restaurante está aberto?</p>
         <div>
           <Switch checked={isOpen!} onCheckedChange={handleIsOpen} />
         </div>
       </div>
-      <p className="text-lg font-semibold">Slecione uma data e um horário</p>
+      <p className="text-2xl font-semibold py-4">Slecione uma data e um horário</p>
       <DateTimePicker
         amPmAriaLabel="false"
         onChange={onChangeTime}
@@ -78,7 +78,7 @@ const AppointmentsPage = () => {
         hourPlaceholder="hh"
         minutePlaceholder="mm"
       />
-      <p className="text-lg font-semibold">
+      <p className="text-2xl font-semibold">
         Selecione apenas o horario, na mesma data
       </p>
       <DateTimePicker

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AvailiableAppointment } from "../interfaces";
+import { AvaliableAppointment } from "../interfaces";
 import { api } from "../api";
 import {
   Form,
@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 interface AppointmentInfoProps {
-  handleAvailiableAppointmentId?: (avaliableAppointmentId: string) => void;
+  handleAvailiableAppointmentId?: (avaliableAppointmentId: string, appointment?: AvaliableAppointment) => void;
   handleIsSelectOpen?: () => void;
 }
 
@@ -33,7 +33,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
   handleAvailiableAppointmentId,
 }) => {
   const [avaliableAppointments, setAvaliableAppointments] =
-    useState<AvailiableAppointment[]>();
+    useState<AvaliableAppointment[]>();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -48,7 +48,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
       }
     };
     fecthAppointments();
-  }, [avaliableAppointments]);
+  }, []);
 
   return (
     <div className="flex flex-col justify-center gap-2">
@@ -90,8 +90,12 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                   <Select
                     // onOpenChange={handleIsSelectOpen}
                     onValueChange={(newValue) => {
-                      handleAvailiableAppointmentId!(newValue);
+                      const avaliableAppointment = avaliableAppointments?.find((availableAppointment) => {
+                        return availableAppointment.id === newValue
+                       })
+                      handleAvailiableAppointmentId!(newValue, avaliableAppointment);
                       field.onChange(newValue);
+
                     }}
                     value={field.value}
                   >
@@ -102,7 +106,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                     </FormControl>
                     <SelectContent>
                       {avaliableAppointments?.map((avaliableAppointment) => (
-                        <SelectItem value={avaliableAppointment.id}>
+                        <SelectItem key={avaliableAppointment.id} value={avaliableAppointment.id}>
                           <p
                             key={avaliableAppointment.id}
                             className="text-lg font-semibold"
