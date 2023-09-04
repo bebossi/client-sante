@@ -9,13 +9,14 @@ export type OrderColumn = {
   address: Address;
   user: User;
   isPaid: boolean;
-  avaliableAppointment: AvaliableAppointment
+  avaliableAppointment: AvaliableAppointment;
+  status: string;
 };
 
 export const columns: ColumnDef<OrderColumn>[] = [
   {
-    accessorKey: `address.street` || "availableAppointment.startDate",
-    header: "Endereço" || "Agendamento",
+    accessorKey: "status",
+    header: "Status",
   },
   {
     accessorKey: "total",

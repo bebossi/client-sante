@@ -80,6 +80,7 @@ export interface Order {
   address: Address;
   isPaid: boolean;
   avaliableAppointmentId: string;
+  status: string;
 
   avaliableAppointment: AvaliableAppointment;
 }

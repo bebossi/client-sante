@@ -3,12 +3,41 @@ import { Order } from "../interfaces";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../auth/authContext";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../Components/ui/select";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../Components/ui/form";
+import Button from "../Components/Button";
+import toast from "react-hot-toast";
+
+const FormSchema = z.object({
+  status: z.string().min(1),
+});
 
 const OrderPage = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("");
   const params = useParams();
   const { user } = useContext(AuthContext);
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -17,18 +46,32 @@ const OrderPage = () => {
         if (user && user.role === "admin") {
           const response = await api.get(`/getOrder/${params.orderId}`);
           setOrder(response.data);
-          console.log(response.data);
+        } else {
+          const response = await api.get(`/orderByClient/${params.orderId}`);
+          setOrder(response.data);
         }
-        const response = await api.get(`/orderByClient/${params.orderId}`);
-        setOrder(response.data);
       } catch (err) {
         console.log(err);
-      } finally{
+      } finally {
         setIsLoading(false);
       }
     };
-    fetchOrder();
+
+    if (user) {
+      fetchOrder();
+    }
   }, []);
+
+  const handleStatus = async () => {
+    try {
+      await api.put(`/statusOrder/${params.orderId}`, {
+        status: status,
+      });
+      toast.success("Status atualizado com sucesso")
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -70,6 +113,59 @@ const OrderPage = () => {
                 }).format(new Date(order?.createdAt))
               : ""}
           </p>
+
+          {user && user.role === "admin" ? (
+            <div className="flex justify-start items-center">
+              <div>
+              <Form {...form}>
+                <form>
+                  <FormField
+                    control={form.control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
+                          Status:{" "}
+                          <span className="text-sky-600">{order?.status}</span>{" "}
+                        </FormLabel>
+                        <Select
+                          onValueChange={(newValue) => {
+                            field.onChange(newValue);
+                            setStatus(newValue);
+                          }}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Status" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="Preparando pedido">
+                              Preparando pedido
+                            </SelectItem>
+                            <SelectItem value="Saiu para entrega">
+                              Saiu para entrega
+                            </SelectItem>
+                            <SelectItem value="Entregue">Entregue</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </form>
+              </Form>
+              </div>
+              <div className="mx-8">
+                <Button label="Atualize o status" onClick={handleStatus}  />
+              </div>
+            </div>
+          ) : (
+            <h1 className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
+              Status: <span className="text-sky-600">{order?.status}</span>{" "}
+            </h1>
+          )}
         </div>
         <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
           <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
@@ -219,7 +315,7 @@ const OrderPage = () => {
                               dateStyle: "short",
                               timeStyle: "short",
                             })
-                          : "Appointment start date not available"} 
+                          : "Appointment start date not available"}
                       </p>
                     )}
                   </div>
