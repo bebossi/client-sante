@@ -1,21 +1,29 @@
 import { toast } from "react-hot-toast";
-import useRestaurantIsOpen from "../hooks/useRestaurantIsOpen";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { RestaurantContext } from "../auth/restaurantContext";
 
 const Home = () => {
-
-  const restaurantIsOpen = useRestaurantIsOpen()
+  const restaurantContext = useContext(RestaurantContext);
+  const isOpen = restaurantContext?.isOpen;
+  console.log(isOpen);
 
   useEffect(() => {
-    if (!restaurantIsOpen.isOpen) toast(
-      "Restaurante está fechado, só é possivel fazer pedidos por agendamento para buscar na loja",
-      {
-        duration: 8000,
-        position: "bottom-center"
-      }
-    );
-  }, [restaurantIsOpen.isOpen])
-
+    if (isOpen === null) {
+      return;
+    }
+    try {
+      if (!isOpen)
+        toast(
+          "Restaurante está fechado, só é possível fazer pedidos por agendamento para buscar na loja",
+          {
+            duration: 8000,
+            position: "bottom-center",
+          }
+        );
+    } catch (err) {
+      console.log(err);
+    }
+  }, [isOpen]);
 
   return (
     <>
@@ -112,7 +120,8 @@ const Home = () => {
                     Massas
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                   Massas deliciosas, molhos caseiros, carnes com cortes especiais ...... sjfvnjkf vfkjbvkjf v fsjhb
+                    Massas deliciosas, molhos caseiros, carnes com cortes
+                    especiais ...... sjfvnjkf vfkjbvkjf v fsjhb
                   </p>
                 </div>
               </div>
@@ -132,8 +141,10 @@ const Home = () => {
                     Hot dog
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
-          Hot dog , carne especial, molho caseiro, com adicionais a sua escolha, personalixado por voce feito com carionho por nos
-                    </p>
+                    Hot dog , carne especial, molho caseiro, com adicionais a
+                    sua escolha, personalixado por voce feito com carionho por
+                    nos
+                  </p>
                 </div>
               </div>
             </div>

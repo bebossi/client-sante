@@ -21,12 +21,14 @@ import { UserContextProvider } from "./auth/currentUser";
 import AppointmentsPage from "./Pages/AppointmentsPage";
 import RegisterModal from "./Components/modals/RegisterModal";
 import OrdersClientPage from "./Pages/OrdersClientPage";
+import { RestaurantContextProvider } from "./auth/restaurantContext";
 
 function App() {
   return (
     <>
       <AuthContextComponent>
         <UserContextProvider>
+          <RestaurantContextProvider>
           <div>
             <ToasterProvider />
             <AddToCartModal />
@@ -67,6 +69,7 @@ function App() {
               </Routes>
             </div>
           </div>
+          </RestaurantContextProvider>
         </UserContextProvider>
       </AuthContextComponent>
     </>

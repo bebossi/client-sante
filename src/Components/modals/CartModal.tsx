@@ -13,7 +13,7 @@ import Button from "../Button";
 import MapAddress from "../Address/Map";
 import { UserContext } from "../../auth/currentUser";
 import { CalendarIcon, Car } from "lucide-react";
-import useRestaurantIsOpen from "../../hooks/useRestaurantIsOpen";
+import { RestaurantContext } from "../../auth/restaurantContext";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -27,7 +27,8 @@ const CartModal = () => {
   const { user } = useContext(UserContext);
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
-  const restaurantIsOpen = useRestaurantIsOpen();
+  const restaurantContext = useContext(RestaurantContext);
+  const isOpen = restaurantContext?.isOpen;
 
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +73,7 @@ const CartModal = () => {
     if (step === STEPS.APPOINTMENT) {
       return setStep((value) => value + 2);
     }
-    if (step === STEPS.LOCATION && !restaurantIsOpen.isOpen) {
+    if (step === STEPS.LOCATION && !isOpen) {
       toast.error("Restaurante está fechado")
       return 
     }
@@ -247,7 +248,7 @@ const CartModal = () => {
               onClick={toggleSelectAddress}
               outline
               small
-              disabled={isSelectOpen || !restaurantIsOpen.isOpen}
+              disabled={isSelectOpen || !isOpen}
             />
           </>
         ) : (
@@ -258,7 +259,7 @@ const CartModal = () => {
               onClick={toggleSelectAddress}
               outline
               small
-              disabled={!restaurantIsOpen.isOpen}
+              disabled={!isOpen}
             />
           </div>
         )}

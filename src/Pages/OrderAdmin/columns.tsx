@@ -1,29 +1,29 @@
 import { ColumnDef } from "@tanstack/react-table";
-import {   Address, User } from "../../interfaces";
+import { Address, AvaliableAppointment, User } from "../../interfaces";
 import { CellAction } from "./cell-action";
 
 export type OrderColumn = {
   id: string;
-total: number;
-createdAt: Date;
-address: Address;
-user: User;
-isPaid: boolean
-}; 
+  total: number;
+  createdAt: Date;
+  address: Address;
+  user: User;
+  isPaid: boolean;
+  avaliableAppointment: AvaliableAppointment
+};
 
 export const columns: ColumnDef<OrderColumn>[] = [
-
-{
-    accessorKey: `address.street`,
-    header: "Endereço"
-},
+  {
+    accessorKey: `address.street` || "availableAppointment.startDate",
+    header: "Endereço" || "Agendamento",
+  },
   {
     accessorKey: "total",
-    header: "Total"
+    header: "Total",
   },
   {
     accessorKey: "isPaid",
-    header: "Pago"
+    header: "Pago",
   },
   {
     accessorKey: "createdAt",
@@ -31,12 +31,12 @@ export const columns: ColumnDef<OrderColumn>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
       const formatted = new Intl.DateTimeFormat("pt-BR", {
-        timeZone:"America/Sao_Paulo",
+        timeZone: "America/Sao_Paulo",
         dateStyle: "short",
         timeStyle: "short",
-      }).format(date)
- 
-      return <div className="text-right font-medium">{formatted}</div>
+      }).format(date);
+
+      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {

@@ -9,7 +9,6 @@ import { format } from "date-fns-tz";
 import toast from "react-hot-toast";
 import SelectAppointment from "../Components/SelectAppointment";
 import { UserContext } from "../auth/currentUser";
-import useRestaurantIsOpen from "../hooks/useRestaurantIsOpen";
 import { Switch } from "../Components/ui/switch";
 import { isRestaurantOpen } from "../interfaces";
 
@@ -22,7 +21,6 @@ const AppointmentsPage = () => {
   const [endTime, setOnEndTime] = useState<Value>(new Date());
   const [isOpen, setIsOpen] = useState<isRestaurantOpen>();
   const { user } = useContext(UserContext);
-  const restaurantIsOpen = useRestaurantIsOpen()
 
   if (user && user.role !== "admin") {
     return <div>Você não tem acesso à essa pagina</div>;
@@ -68,9 +66,7 @@ const AppointmentsPage = () => {
   const handleIsOpen = async () => {
     try {
       const response = await api.put("/updateIsOpen");
-      toast.success(response.data);
-      restaurantIsOpen.toggleOpen()
-     
+      toast.success(response.data);     
     } catch (err) {
       toast.error("Algo deu errado");
       console.log(err);
@@ -82,7 +78,6 @@ const AppointmentsPage = () => {
       <div>
         <p>O restaurante está aberto?</p>
         <div>
-          {/* <Switch checked={restaurantIsOpen.isOpen} onCheckedChange={restaurantIsOpen.toggleOpen} /> */}
           <Switch checked={isOpen?.isOpen} onCheckedChange={handleIsOpen} />
         </div>
       </div>
