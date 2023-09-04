@@ -323,22 +323,30 @@ const CartModal = () => {
           <p className="font-semibold">Subtotal: </p>
           <p className="font-semibold"> R${cart?.subtotal}</p>
         </div>
-        <div>
+        <div className="mt-4 p-4 border border-gray-300 rounded-lg shadow-md">
           {appointment && (
-            <p>
-              {new Date(appointment.startDate).toLocaleString("pt-BR", {
-                timeZone: "America/Sao_Paulo",
-                dateStyle: "short",
-                timeStyle: "short",
-              })}
-            </p>
+            <div className="mb-4">
+              <h1 className="text-xl font-semibold mb-2">Retirada as:</h1>
+              <p className="text-sm">
+                {new Date(appointment.startDate).toLocaleString("pt-BR", {
+                  timeZone: "America/Sao_Paulo",
+                  dateStyle: "short",
+                  timeStyle: "short",
+                })}
+              </p>
+            </div>
           )}
           {address && (
-            <p>
-              {" "}
-              {address.street}, {address.streetNumber} - apto{" "}
-              {address.complementNumber} - {address.neighborhood}, {address.CEP}
-            </p>
+            <div>
+              <h1 className="text-xl font-semibold mb-2">
+                Endereço de entrega:
+              </h1>
+              <p className="text-sm">
+                {address.street}, {address.streetNumber} - apto
+                {address.complementNumber} - {address.neighborhood},{" "}
+                {address.CEP}
+              </p>
+            </div>
           )}
         </div>
       </div>
