@@ -13,26 +13,30 @@ import usePlacesAutocomplete, {
 import { api } from "../../api";
 import Button from "../Button";
 import { toast } from "react-hot-toast";
+import { Address } from "../../interfaces";
 
 interface MapAddressProps {
-  handleAddressId: (addressId: string) => void;
+  handleAddressId: (addressId: string, selectedAddress?: Address) => void;
 }
 const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
 
 const libraries: LoadScriptProps["libraries"] = ["places"];
 
 const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
-  const [selectedCoordinates, setSelectedCoordinates] = useState<{lat: number, lng: number}>();
+  const [selectedCoordinates, setSelectedCoordinates] = useState<{
+    lat: number;
+    lng: number;
+  }>();
   const [selectedAddress, setSelectedAddress] = useState("");
   //  const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
-  const [distance, setDistance] = useState<string>('')
+  const [distance, setDistance] = useState<string>("");
   // const [duration, setDuration] = useState<string>('')
   const [form, setForm] = useState({
     rua: "",
     numero: "",
     bairro: "",
     cep: "",
-    cidade: "", 
+    cidade: "",
     apartamento: "",
   });
 
@@ -40,7 +44,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     if (selectedAddress) {
       const addressParts = selectedAddress.split(", ");
       const streetNumberAndNeighborhood = addressParts[1].split(" - ");
-      console.log(selectedAddress)
+      console.log(selectedAddress);
 
       setForm({
         rua: addressParts[0],
@@ -50,15 +54,16 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         cidade: addressParts[2],
         apartamento: "",
       });
-      calculateRoute()
+      calculateRoute();
     }
   }, [selectedAddress]);
 
-  const { value, setValue, clearSuggestions, suggestions } = usePlacesAutocomplete({
-    callbackName: "MapAddress",
-  });
+  const { value, setValue, clearSuggestions, suggestions } =
+    usePlacesAutocomplete({
+      callbackName: "MapAddress",
+    });
   console.log("Value:", value);
-console.log("Suggestions:", suggestions);
+  console.log("Suggestions:", suggestions);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
     libraries,
@@ -70,11 +75,10 @@ console.log("Suggestions:", suggestions);
 
   const handleSelect = async (address: string) => {
     try {
-
       if (!address.toLowerCase().startsWith("rua")) {
         address = `rua ${address}`;
       }
-      
+
       setValue(address, false);
       clearSuggestions();
 
@@ -87,24 +91,24 @@ console.log("Suggestions:", suggestions);
 
       setSelectedCoordinates({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
-      console.log(results)
+      console.log(results);
     } catch (err) {
       console.log(err);
     }
   };
 
-    const calculateRoute = async () => {
-    const directionsService = new google.maps.DirectionsService()
+  const calculateRoute = async () => {
+    const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
-      origin: { lat: -19.9126701, lng: -43.9207056 } ,
-      destination: selectedCoordinates as { lat: number, lng: number},
+      origin: { lat: -19.9126701, lng: -43.9207056 },
+      destination: selectedCoordinates as { lat: number; lng: number },
       travelMode: google.maps.TravelMode.DRIVING,
-    })
-     // setDirectionsResponse(results)
-  //  const  directionsResponse = results
-    setDistance(results.routes[0].legs[0].distance!.text)
+    });
+    // setDirectionsResponse(results)
+    //  const  directionsResponse = results
+    setDistance(results.routes[0].legs[0].distance!.text);
     // setDuration(results?.routes[0].legs[0].duration!.text)
-  }
+  };
   const calculatedDistance = parseFloat(distance.split(" ")[0]);
 
   if (calculatedDistance >= 2) {
@@ -119,7 +123,7 @@ console.log("Suggestions:", suggestions);
 
       if (calculatedDistance > 2) {
         toast.error("Distance is bigger than 2km");
-        return; 
+        return;
       }
 
       const response = await api.post("/address", {
@@ -141,10 +145,13 @@ console.log("Suggestions:", suggestions);
       <div className="h-full w-full flex flex-col ">
         <div className="w-full">
           <Autocomplete
-          
             onLoad={(autocomplete) => {
-              console.log(autocomplete)
-              autocomplete.setFields(["formatted_address", "name", "address_components"]);
+              console.log(autocomplete);
+              autocomplete.setFields([
+                "formatted_address",
+                "name",
+                "address_components",
+              ]);
             }}
             onPlaceChanged={() => handleSelect(value)}
             className="w-full"
@@ -173,18 +180,14 @@ console.log("Suggestions:", suggestions);
                   type="number"
                   placeholder="Number"
                   value={form.numero}
-                  onChange={(e) =>
-                    setForm({ ...form, numero: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, numero: e.target.value })}
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
                   placeholder="Neighborhood"
                   value={form.bairro}
-                  onChange={(e) =>
-                    setForm({ ...form, bairro: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, bairro: e.target.value })}
                 />
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
