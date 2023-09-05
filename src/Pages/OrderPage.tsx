@@ -104,7 +104,7 @@ const OrderPage = () => {
             Order #{order?.id}
           </h1>
           <p className="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">
-            Created At{" "}
+            Pedido feito em {""}
             {order?.createdAt
               ? new Intl.DateTimeFormat("pt-BR", {
                   timeZone: "America/Sao_Paulo",
@@ -114,7 +114,7 @@ const OrderPage = () => {
               : ""}
           </p>
 
-          {user && user.role === "admin" ? (
+          {user && user.role === "admin" && order?.status !== "Entregue" ? (
             <div className="flex justify-start items-center">
               <div>
               <Form {...form}>

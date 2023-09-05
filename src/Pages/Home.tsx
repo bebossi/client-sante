@@ -89,7 +89,7 @@ const Home = () => {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="bg-restaurant-pattern">
                   <img
-                    src="/public/açai.jpg"
+                    src="/açai.jpg"
                     alt="Restaurant Logo"
                     className="mx-auto rounded-xl"
                   />
@@ -110,7 +110,7 @@ const Home = () => {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg ">
                 <div className="bg-restaurant-pattern">
                   <img
-                    src="/public/massa.webp"
+                    src="/massa.webp"
                     alt="Restaurant Logo"
                     className="mx-auto rounded-lg"
                   />
@@ -131,7 +131,7 @@ const Home = () => {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="bg-restaurant-pattern">
                   <img
-                    src="/public/hot dog.jpg"
+                    src="/hot dog.jpg"
                     alt="Restaurant Logo"
                     className="mx-auto rounded-lg"
                   />

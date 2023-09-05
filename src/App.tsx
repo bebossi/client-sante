@@ -22,6 +22,7 @@ import AppointmentsPage from "./Pages/AppointmentsPage";
 import RegisterModal from "./Components/modals/RegisterModal";
 import OrdersClientPage from "./Pages/OrdersClientPage";
 import { RestaurantContextProvider } from "./auth/restaurantContext";
+// import OrderFilters from "./Components/OrderFilters";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <RegisterModal />
               <CartModal />
               <NavBar />
+              {/* <OrderFilters/> */}
               <div className="pb-0 pt-28">
                 <Routes>
                   <Route path="/menu" element={<MenuPage />} />

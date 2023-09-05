@@ -3,17 +3,27 @@ import { api } from "../../api";
 import { DataTable } from "../../Components/DataTable/Data-table";
 import { columns } from "./columns";
 import { Order } from "../../interfaces";
+import qs from "query-string";
+import OrderFilters from "../../Components/OrderFilters";
+import {Menu} from "lucide-react"
+
 
 const DashboardOrders = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [isLoading, setIsloading] = useState(false);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
 
   useEffect(() => {
+    const searchParams = qs.parse(location.search);
+
     const fetchOrders = async () => {
       try {
         setIsloading(true);
-        const response = await api.get("/getOrders");
+        const queryString = qs.stringify(searchParams);
+        const response = await api.get(`/filterOrders?${queryString}`);
         setOrders(response.data);
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -21,7 +31,11 @@ const DashboardOrders = () => {
       }
     };
     fetchOrders();
-  }, []);
+  }, [location.search]);
+
+  const toggleFilters = () => {
+    setIsFiltersOpen(!isFiltersOpen);
+  };
 
   if (isLoading) {
     return (
@@ -46,9 +60,14 @@ const DashboardOrders = () => {
     );
   }
   return (
-    <>
-      <DataTable data={orders ?? []} columns={columns} searchKey="createdAt" />
-    </>
+    <div className="fixed w-full">
+  <Menu size={50} onClick={toggleFilters}  />
+    {isFiltersOpen && <OrderFilters/>}
+    {/* <div className={isFiltersOpen ? "blur" : ""}> */}
+      <DataTable data={orders ?? []} columns={columns} searchKey="status" />
+    </div>
+    // </div>
+  
   );
 };
 
