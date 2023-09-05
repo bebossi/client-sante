@@ -21,6 +21,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DateTimePicker from "react-datetime-picker";
 import { Switch } from "./ui/switch";
+import { Value } from "../Pages/AppointmentsPage";
+import { Separator } from "./ui/separator";
 
 const FormSchema = z.object({
   status: z.string().min(1),
@@ -30,19 +32,20 @@ const FormSchema = z.object({
 const OrderFilters = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [isPaid, setIsPaid] = useState<boolean>(false);
+  const [isPaid, setIsPaid] = useState<boolean | null>(null);
   const [status, setStatus] = useState<string | null>(null);
-  const [appointment, setAppointment] = useState();
+  const [appointment, setAppointment] = useState<Value | null>();
 
   useEffect(() => {
     const queryParameters = qs.parse(location.search) as Record<
       string,
       string | null
     >;
+
     console.log(queryParameters);
-    setIsPaid(queryParameters.isPaid === "true" ? true : false);
+    setIsPaid(queryParameters.isPaid === "true" ? true : null);
     setStatus(queryParameters.status || null);
-    //   setAppointment(queryParameters.appointment || null);
+    setAppointment((queryParameters.appointment as Value) || null);
   }, [location.search]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -66,6 +69,11 @@ const OrderFilters = () => {
       appointment,
     };
 
+    console.log(isPaid)
+    if (isPaid === null) {
+        delete updatedQuery.isPaid; 
+      } 
+
     const url = qs.stringifyUrl(
       {
         url: "/dashboard",
@@ -76,18 +84,28 @@ const OrderFilters = () => {
     navigate(url);
   }, [navigate, isPaid, status, appointment, params]);
 
+  const handleResetFilters = () => {
+    setIsPaid(false);
+    setStatus(null);
+    setAppointment(undefined);
+
+    navigate("/dashboard");
+  };
+
   return (
-    <div className="absolute h-full  ">
-      <div className="bg-white p-4 rounded-lg shadow-md ">
-        <h2 className="text-xl font-semibold mb-4">Filters</h2>
-        <div className="space-y-2">
-          <div className="flex items-center">
-            <p className="text-3xl"> Pago</p>
-            <Switch
-                onCheckedChange={(value) => handleSwitchClick(!value)}
-              checked={isPaid as boolean}
-            />
-          </div>
+    <div className="absolute h-full bg-white rounded-lg shadow-md border-[1px] p-2 pl-3 ml-1">
+      <h2 className="text-4xl font-semibold mb-6">Filters</h2>
+      <Separator />
+      <div className="space-y-2">
+        <div className="flex items-center py-3">
+          <p className="text-3xl mr-3"> Pago {""}</p>
+          <Switch
+            onCheckedChange={(value) => handleSwitchClick(!value)}
+            checked={isPaid as boolean}
+          />
+        </div>
+        <Separator />
+        <div className="py-3">
           <Form {...form}>
             <form>
               <FormField
@@ -95,7 +113,7 @@ const OrderFilters = () => {
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
+                    <FormLabel className="text-3xl dark:text-white lg:text-4xl leading-7 lg:leading-9">
                       Status
                     </FormLabel>
                     <Select
@@ -128,19 +146,31 @@ const OrderFilters = () => {
               />
             </form>
           </Form>
-          <div className="flex items-center">
-            <label htmlFor="appointmentFilter" className="text-sm mr-2">
-              Para:
-            </label>
-            <DateTimePicker value={appointment} />
-          </div>
         </div>
+        <Separator />
+        <div className="flex items-center py-3 ">
+          <p className="text-3xl mr-3">Dia</p>
+          <DateTimePicker
+            value={appointment}
+            onChange={setAppointment}
+            disableClock
+          />
+        </div>
+      </div>
+      <Separator />
 
+      <div>
         <button
-          className="bg-blue-500 text-white font-semibold px-4 py-2 mt-4 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+          className="bg-blue-500 text-white font-semibold mx-2 px-4 py-2 mt-10 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
           onClick={onSubmit}
         >
           Apply Filters
+        </button>
+        <button
+          className="bg-gray-300 text-gray-600 font-semibold mx-2 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-200"
+          onClick={handleResetFilters}
+        >
+          Reset Filters
         </button>
       </div>
     </div>

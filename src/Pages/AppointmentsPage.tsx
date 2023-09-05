@@ -14,7 +14,7 @@ import { RestaurantContext } from "../auth/restaurantContext";
 
 type ValuePiece = Date | null;
 
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const AppointmentsPage = () => {
   const [valueTime, onChangeTime] = useState<Value>(new Date());
