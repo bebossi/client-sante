@@ -15,7 +15,7 @@ const UserMenu = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser, setLoggedInToken } = useContext(AuthContext);
-  console.log(user);
+  
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
