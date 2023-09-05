@@ -1,6 +1,6 @@
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../Heading";
@@ -10,11 +10,14 @@ import { toast } from "react-hot-toast";
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Input from "../inputs/Input";
+import { AuthContext } from "../../auth/authContext";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser, setLoggedInToken } = useContext(AuthContext);
+
 
   const {
     register,
@@ -28,11 +31,14 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    await api.post("/signup", data);
+   const response = await api.post("/signup", data);
     setIsLoading(true);
+    const token = response.data.token
+    localStorage.setItem("token", token)
+    setLoggedInToken(token)
+    setUser(response.data)
     registerModal.onClose();
-    loginModal.onOpen();
-    toast.success("registered");
+    toast.success("Usuário registrado e logado com sucesso");
   };
 
   const toogle = useCallback(() => {

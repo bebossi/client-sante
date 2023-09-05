@@ -37,7 +37,7 @@ const LoginModal = () => {
             localStorage.setItem("token", token)
             setLoggedInToken(token)
             setUser(response.data)
-            toast.success("Logged in");
+            toast.success("Usuario logado");
             loginModal.onClose();
         } catch(err){
             console.log(err)
