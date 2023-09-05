@@ -21,7 +21,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <ul className="flex justify-around text-xl gap-x-2 sticky top-30 bg-white lg:text-4xl md:text-3xl sm:text-2xl  pb-4">
+      <ul className="flex justify-around text-xl gap-x-2 sticky top-30 bg-white lg:text-4xl md:text-3xl sm:text-2xl">
         <li
           className={`${
             activeTab === "orders"

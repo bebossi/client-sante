@@ -16,9 +16,10 @@ import SelectAppointment from "../SelectAppointment";
 import SelectAddress from "../Address/SelectAddress";
 import Button from "../Button";
 import MapAddress from "../Address/Map";
-import { UserContext } from "../../auth/currentUser";
 import { CalendarIcon, Car } from "lucide-react";
 import { RestaurantContext } from "../../auth/restaurantContext";
+import useRegisterModal from "../../hooks/useRegisterModal";
+import { AuthContext } from "../../auth/authContext";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -29,9 +30,10 @@ enum STEPS {
 }
 
 const CartModal = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
+  const registerModal = useRegisterModal();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
 
@@ -110,6 +112,12 @@ const CartModal = () => {
       if (step !== STEPS.PAYMENT) {
         return onNext();
       }
+      if (step === STEPS.PAYMENT && user && user.role === "guest") {
+        cartModal.onClose();
+        registerModal.onOpen();
+        return;
+      }
+
       setIsLoading(true);
       const response = await api.post("/testCheckout", {
         avaliableAppointmentId: appointmentId,
@@ -155,6 +163,9 @@ const CartModal = () => {
   }
 
   const actionLabel = useMemo(() => {
+    if (step === STEPS.PAYMENT && user && user.role === "guest") {
+      return "Crie uma conta";
+    }
     if (step === STEPS.PAYMENT) {
       return "Escolher forma de pagamento";
     }

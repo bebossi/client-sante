@@ -67,7 +67,7 @@ const MenuPage = () => {
 
     fetchProducts();
     fetchCategories();
-  }, [ addCartModal, cartModal]);
+  }, [ location.reload, cartModal.isOpen, addCartModal.isOpen]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
