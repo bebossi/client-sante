@@ -8,6 +8,7 @@ import { AuthContext } from "../auth/authContext";
 const DashBoard = () => {
   const [activeTab, setActiveTab] = useState("orders");
   const {user} = useContext(AuthContext)
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -20,50 +21,50 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="flex justify-around text-xl gap-x-2 sticky top-28 bg-white lg:text-4xl md:text-3xl sm:text-2xl">
-        <p
+      <ul className="flex justify-around text-xl gap-x-2 sticky top-30 bg-white lg:text-4xl md:text-3xl sm:text-2xl  pb-4">
+        <li
           className={`${
             activeTab === "orders"
-              ? "border-b-2 border-red-600 text-red-600"
+              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200  rounded-md"
               : ""
-          }`}
+          }  `}
           onClick={() => handleTabClick("orders")}
         >
           Pedidos
-        </p>
-        <p
+        </li>
+        <li
           className={`${
             activeTab === "products"
-              ? "border-b-2 border-red-600 text-red-600"
-              : ""
-          }`}
+            ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+            : ""
+          } `}
           onClick={() => handleTabClick("products")}
         >
           Produtos
-        </p>
-        <p
+        </li>
+        <li
           className={`${
             activeTab === "toppings"
-              ? "border-b-2 border-red-600 text-red-600"
-              : ""
-          }`}
+            ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+            : ""
+          } `}
           onClick={() => handleTabClick("toppings")}
         >
           Toppings
-        </p>
+        </li>
 
-        <p
+        <li
           className={`${
             activeTab === "categories"
-              ? "border-b-2 border-red-600 text-red-600"
-              : ""
-          }`}
+            ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+            : ""
+          } `}
           onClick={() => handleTabClick("categories")}
         >
           Categorias
-        </p>
-      </div>
-      <div>
+        </li>
+      </ul>
+      <div className="mt-2">
         {activeTab === "orders" && <DashboardOrders />}
         {activeTab === "products" && <DashboardProduct />}
         {activeTab === "categories" && <DashboardCategories />}

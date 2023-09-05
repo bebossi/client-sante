@@ -61,7 +61,7 @@ const DashboardOrders = () => {
   }
   return (
     <div className="fixed w-full">
-  <Menu size={50} onClick={toggleFilters}  />
+  <Menu size={50} onClick={toggleFilters} className="hover:cursor-pointer" />
     {isFiltersOpen && <OrderFilters/>}
     {/* <div className={isFiltersOpen ? "blur" : ""}> */}
       <DataTable data={orders ?? []} columns={columns} searchKey="status" />
