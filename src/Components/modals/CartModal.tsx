@@ -19,7 +19,7 @@ import MapAddress from "../Address/Map";
 import { CalendarIcon, Car } from "lucide-react";
 import { RestaurantContext } from "../../auth/restaurantContext";
 import useRegisterModal from "../../hooks/useRegisterModal";
-import { AuthContext } from "../../auth/authContext";
+import { UserContext } from "../../auth/currentUser";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -30,7 +30,7 @@ enum STEPS {
 }
 
 const CartModal = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
   const registerModal = useRegisterModal();
@@ -169,7 +169,8 @@ const CartModal = () => {
     if (step === STEPS.PAYMENT) {
       return "Escolher forma de pagamento";
     }
-    return "Próximo";
+
+      return "Próximo";
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -368,7 +369,7 @@ const CartModal = () => {
     <div>
       <Modal
         title="Carrinho"
-        actionLabel={actionLabel}
+        actionLabel={isLoading && step === STEPS.PAYMENT ? "Enviando pedido..." : actionLabel}
         body={bodyContent}
         onClose={cartModal.onClose}
         disabled={isLoading || isSelectOpen}

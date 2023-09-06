@@ -87,11 +87,11 @@ const Home = () => {
           <div className="flex flex-wrap">
             <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="bg-restaurant-pattern">
+              <div className="max-h-96">
                   <img
                     src="/açai.jpg"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-xl max-h-96"
+                    className="mx-auto rounded-xl max-h-full object-fill"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -100,19 +100,20 @@ const Home = () => {
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
                     Delicious açai served with a creamy blend, topped with fresh
-                    berries and a drizzle of honey.fgtrhtrhtrhrthrthr oihoire  frwoie
+                    berries and a drizzle of honey.fgtrhtrhtrhrthrthr oihoire
+                    frwoieFD NKJBB
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="lg:pt-12 pt-5 w-full md:w-4/12 px-4 text-center">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg ">
-                <div className="bg-restaurant-pattern">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div className="max-h-96">
                   <img
                     src="/massa.webp"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-xl max-h-96"
+                    className="mx-auto rounded-xl max-h-full object-fill"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -129,11 +130,11 @@ const Home = () => {
 
             <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="bg-restaurant-pattern">
+                <div className="max-h-96" >
                   <img
                     src="/hotdog.avif"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-xl max-h-96"
+                    className="mx-auto rounded-xl max-h-full object-fill"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">

@@ -28,9 +28,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     lng: number;
   }>();
   const [selectedAddress, setSelectedAddress] = useState("");
-  //  const [directionsResponse, setDirectionsResponse] = useState<google.maps.DirectionsResult | null>(null);
   const [distance, setDistance] = useState<string>("");
-  // const [duration, setDuration] = useState<string>('')
   const [form, setForm] = useState({
     rua: "",
     numero: "",
@@ -44,7 +42,6 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     if (selectedAddress) {
       const addressParts = selectedAddress.split(", ");
       const streetNumberAndNeighborhood = addressParts[1].split(" - ");
-      console.log(selectedAddress);
 
       setForm({
         rua: addressParts[0],
@@ -58,12 +55,10 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     }
   }, [selectedAddress]);
 
-  const { value, setValue, clearSuggestions, suggestions } =
+  const { value, setValue, clearSuggestions } =
     usePlacesAutocomplete({
       callbackName: "MapAddress",
     });
-  console.log("Value:", value);
-  console.log("Suggestions:", suggestions);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
     libraries,
@@ -84,7 +79,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       const results = await getGeocode({ address });
       if (results.length === 0) {
-        console.log("No results found for the selected address");
+        toast.error("No results found for the selected address");
         return;
       }
       const { lat, lng } = getLatLng(results[0]);
@@ -104,10 +99,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       destination: selectedCoordinates as { lat: number; lng: number },
       travelMode: google.maps.TravelMode.DRIVING,
     });
-    // setDirectionsResponse(results)
-    //  const  directionsResponse = results
     setDistance(results.routes[0].legs[0].distance!.text);
-    // setDuration(results?.routes[0].legs[0].duration!.text)
   };
   const calculatedDistance = parseFloat(distance.split(" ")[0]);
 
@@ -122,7 +114,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       const calculatedDistance = parseFloat(distance.split(" ")[0]);
 
       if (calculatedDistance > 2) {
-        toast.error("Distance is bigger than 2km");
+        toast.error("Distância maior que 2km");
         return;
       }
 
@@ -146,7 +138,6 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         <div className="w-full">
           <Autocomplete
             onLoad={(autocomplete) => {
-              console.log(autocomplete);
               autocomplete.setFields([
                 "formatted_address",
                 "name",
