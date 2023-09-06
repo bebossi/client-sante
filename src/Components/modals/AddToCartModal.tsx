@@ -167,7 +167,7 @@ const AddToCartModal = () => {
     <div>
       <Modal
         title="Detalhes do item"
-        actionLabel={`Adicionar  R$${subtotal}`}
+        actionLabel={ isLoading ? "Adicionando..." : `Adicionar  R$${subtotal}`}
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}

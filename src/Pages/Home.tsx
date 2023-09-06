@@ -91,7 +91,7 @@ const Home = () => {
                   <img
                     src="/açai.jpg"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-xl"
+                    className="mx-auto rounded-xl max-h-96"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -100,7 +100,7 @@ const Home = () => {
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
                     Delicious açai served with a creamy blend, topped with fresh
-                    berries and a drizzle of honey.
+                    berries and a drizzle of honey.fgtrhtrhtrhrthrthr oihoire  frwoie
                   </p>
                 </div>
               </div>
@@ -112,7 +112,7 @@ const Home = () => {
                   <img
                     src="/massa.webp"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-lg"
+                    className="mx-auto rounded-xl max-h-96"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -131,9 +131,9 @@ const Home = () => {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div className="bg-restaurant-pattern">
                   <img
-                    src="/hot dog.jpg"
+                    src="/hotdog.avif"
                     alt="Restaurant Logo"
-                    className="mx-auto rounded-lg"
+                    className="mx-auto rounded-xl max-h-96"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
