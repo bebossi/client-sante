@@ -1,8 +1,10 @@
 import { toast } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../auth/restaurantContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
   console.log(isOpen);
@@ -75,19 +77,22 @@ const Home = () => {
             y="0"
           >
             <polygon
-              className="text-gray-300 fill-current"
+              className="text-red-200 fill-current "
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
       </div>
 
-      <section className="pb-20 bg-gray-300 -mt-24">
+      <section className="pb-20 bg-red-200 -mt-24">
         <div className="container mx-auto px-4 ">
           <div className="flex flex-wrap">
-            <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-              <div className="max-h-96">
+            <div
+              className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
+              onClick={() => navigate("/menu")}
+            >
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
+                <div className="max-h-96">
                   <img
                     src="/açai.jpg"
                     alt="Restaurant Logo"
@@ -107,9 +112,12 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="lg:pt-12 pt-5 w-full md:w-4/12 px-4 text-center">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-              <div className="max-h-96">
+            <div
+              className="lg:pt-12 pt-5 w-full md:w-4/12 px-4 text-center "
+              onClick={() => navigate("/menu")}
+            >
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
+                <div className="max-h-96">
                   <img
                     src="/massa.webp"
                     alt="Restaurant Logo"
@@ -128,9 +136,12 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                <div className="max-h-96" >
+            <div
+              className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
+              onClick={() => navigate("/menu")}
+            >
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
+                <div className="max-h-96">
                   <img
                     src="/hotdog.avif"
                     alt="Restaurant Logo"
@@ -153,9 +164,6 @@ const Home = () => {
 
           <div className="flex flex-wrap items-center mt-32">
             <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
-              <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                <i className="fas fa-user-friends text-xl"></i>
-              </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Quem somos
               </h3>
@@ -249,14 +257,11 @@ const Home = () => {
             </div>
             <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
               <div className="md:pr-12">
-                <div className="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
-                  <i className="fas fa-rocket text-xl"></i>
-                </div>
-                <h3 className="text-3xl font-semibold">A growing company</h3>
+                <h3 className="text-3xl font-semibold">Nossos produtos</h3>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  The extension comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
-                  good to go.
+                  Nossos produtos são selecionados a dedo por nós, gostamos
+                  iorhgoireklgre,re rghtey rhyeyreyeyr eythbenbrf ,btryynbry
+                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
@@ -267,9 +272,7 @@ const Home = () => {
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-gray-600">
-                          Carefully crafted components
-                        </h4>
+                        <h4 className="text-gray-600">Frescos</h4>
                       </div>
                     </div>
                   </li>
@@ -281,7 +284,7 @@ const Home = () => {
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-gray-600">Amazing page examples</h4>
+                        <h4 className="text-gray-600">Qualidade</h4>
                       </div>
                     </div>
                   </li>
@@ -293,7 +296,7 @@ const Home = () => {
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-gray-600">Dynamic components</h4>
+                        <h4 className="text-gray-600">Carinho</h4>
                       </div>
                     </div>
                   </li>
@@ -304,7 +307,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="pt-20 pb-48">
+      {/* <section className="pt-20 pb-48">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center text-center mb-24">
             <div className="w-full lg:w-6/12 px-4">
@@ -463,7 +466,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="pb-20 relative block bg-gray-900">
         <div
@@ -489,13 +492,10 @@ const Home = () => {
         <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
           <div className="flex flex-wrap text-center justify-center">
             <div className="w-full lg:w-6/12 px-4">
-              <h2 className="text-4xl font-semibold text-white">
-                Build something
-              </h2>
+              <h2 className="text-4xl font-semibold text-white">Contatos</h2>
               <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-                Put the potentially record low maximum sea ice extent tihs year
-                down to low ice. According to the National Oceanic and
-                Atmospheric Administration, Ted, Scambos.
+                Trabalhamos para oferecer o melhor serviço possivel ,
+                kjbdvkjds,et ew,tew,tew,t e,t ,ew
               </p>
             </div>
           </div>
@@ -505,23 +505,21 @@ const Home = () => {
                 <i className="fas fa-medal text-xl"></i>
               </div>
               <h6 className="text-xl mt-5 font-semibold text-white">
-                Excelent Services
+                Instagram
               </h6>
               <p className="mt-2 mb-4 text-gray-500">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                Aqui você pode ver um pouco mais do nosso dia a dia,
+                blabalbalbal blaalba da sfl sklb
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
               <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                 <i className="fas fa-poll text-xl"></i>
               </div>
-              <h5 className="text-xl mt-5 font-semibold text-white">
-                Grow your market
-              </h5>
+              <h5 className="text-xl mt-5 font-semibold text-white">Email</h5>
               <p className="mt-2 mb-4 text-gray-500">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                Aqui você pode tirar duvidas, fazer criticas construtivas,
+                sugesto~es bklasbfkjasbfkjdb
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -529,11 +527,11 @@ const Home = () => {
                 <i className="fas fa-lightbulb text-xl"></i>
               </div>
               <h5 className="text-xl mt-5 font-semibold text-white">
-                Launch time
+                Facebook
               </h5>
               <p className="mt-2 mb-4 text-gray-500">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                Aqui temos mldkvkjd vjhbvk revjhefbvk fnvbn kje hjkb nbf hjfe
+                befnb jfenm jhmn
               </p>
             </div>
           </div>
