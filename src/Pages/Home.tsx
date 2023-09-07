@@ -44,7 +44,7 @@ const Home = () => {
         >
           <span
             id="blackOverlay"
-            className="w-full h-full absolute opacity-75 bg-black"
+            className="w-full h-full absolute opacity-75 bg-gray-700"
           ></span>
         </div>
         <div className="container relative mx-auto">
@@ -248,11 +248,11 @@ const Home = () => {
 
         <div className="container mx-auto px-4">
           <div className="items-center flex flex-wrap">
-            <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+            <div className="w-full  md:w-4/12  ">
               <img
                 alt="..."
-                className="max-w-full rounded-lg shadow-lg"
-                src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                className="max-w-full  rounded-lg shadow-lg"
+                src="https://agriculturaemar.com/wp-content/uploads/2019/08/acai-6-1539021465652_v2_750x421-859x639-660x330.jpg"
               />
             </div>
             <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
@@ -261,7 +261,7 @@ const Home = () => {
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
                   Nossos produtos são selecionados a dedo por nós, gostamos
                   iorhgoireklgre,re rghtey rhyeyreyeyr eythbenbrf ,btryynbry
-                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw
+                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw vrenlvtr bjnet bkvtrjb tr bkjrtbjkv trkb trkj bktrjbvjtrjb trkjb ktje bkjt ebkjt bvjkt ebvkjtr 
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
