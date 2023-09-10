@@ -11,24 +11,30 @@ import Button from "../Button"
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
+import { apiURLs } from "../../api";
 
 const LoginModal = () => {
-    const registerModal = useRegisterModal()
-    const loginModal = useLoginModal()
-    const[isLoading, setIsLoading] = useState(false)
-    const { setUser, setLoggedInToken } = useContext(AuthContext);
-
-    const {
-        register,
-        handleSubmit,
-        formState: {errors}
-    } = useForm<FieldValues>({
-        defaultValues: {
-            email: "",
-            password: ""
-        }
-    })
-
+  const registerModal = useRegisterModal()
+  const loginModal = useLoginModal()
+  const[isLoading, setIsLoading] = useState(false)
+  const { setUser, setLoggedInToken } = useContext(AuthContext);
+  
+  const {
+    register,
+    handleSubmit,
+    formState: {errors}
+  } = useForm<FieldValues>({
+    defaultValues: {
+      email: "",
+      password: ""
+    }
+  })
+  
+   const googleAuth = () => {
+     window.open(`${apiURLs["development"]}/auth/google/callback`, "_self");
+   };
+ 
+  
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try{
             const response = await api.post("/login", data)
@@ -81,13 +87,13 @@ const LoginModal = () => {
             outline
             label="Continue com google"
             icon={FcGoogle}
-            onClick={() => {}}
+            onClick={googleAuth}
           />
           <Button
             outline
             label="Continue com gitHub"
             icon={AiFillGithub}
-            onClick={() => {}}
+            onClick={googleAuth}
           />
           <div className="text-neutral-500 text-center mt-4 font-light">
             <div className="justify-center flex flex-row items-center gap-2">

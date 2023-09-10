@@ -6,7 +6,7 @@ function Logo() {
     <div>
       <img
       onClick={() => navigate("/")}
-        className="cursor-pointer"
+        className="cursor-pointer rounded-full"
         height="70"
         width="70"
         src="/sante.jpeg"

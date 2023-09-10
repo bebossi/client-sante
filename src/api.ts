@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const apiURLs = {
+export const apiURLs = {
   development: "http://localhost:4121",
+  production: "",
 };
 
 const api = axios.create({ baseURL: apiURLs["development"] });

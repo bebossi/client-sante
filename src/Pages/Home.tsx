@@ -2,14 +2,27 @@ import { toast } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../auth/restaurantContext";
 import { useNavigate } from "react-router-dom";
+import { api } from "../api";
+
 
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
   console.log(isOpen);
+  const getUser = async () => {
+    try {
+			const  data = await api.get(`/login/success`);
+      console.log(data)
+      // navigate(data.redirectUrl)
+    } catch (err) {
+			console.log(err);
+		}
+   }
 
   useEffect(() => {
+    getUser()
+
     if (isOpen === null) {
       return;
     }
@@ -22,9 +35,9 @@ const Home = () => {
             position: "bottom-center",
           }
         );
-    } catch (err) {
-      console.log(err);
-    }
+      } catch (err) {
+        console.log(err);
+      }
   }, [isOpen]);
 
   return (
@@ -207,13 +220,13 @@ const Home = () => {
                   >
                     <polygon
                       points="-30,95 583,95 583,65"
-                      className="text-pink-600 fill-current"
+                      className="text-red-200 fill-current"
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">
                     Top Notch Services
                   </h4>
-                  <p className="text-md font-light mt-2 text-white">
+                  <p className="text-md font-light mt-2 text-black">
                     The Arctic Ocean freezes every winter and much of the
                     sea-ice then thaws every summer, and that process will
                     continue whatever happens.
