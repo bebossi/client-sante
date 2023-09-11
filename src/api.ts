@@ -5,7 +5,10 @@ export const apiURLs = {
   production: "",
 };
 
-const api = axios.create({ baseURL: apiURLs["development"] });
+const api = axios.create({
+  baseURL: apiURLs["development"],
+  withCredentials: true,
+});
 
 api.interceptors.request.use((config) => {
   // const token = localStorage.getItem("token");

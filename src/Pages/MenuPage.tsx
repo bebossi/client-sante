@@ -25,6 +25,7 @@ const MenuPage = () => {
       try {
         setIsLoading(true)
         const response = await api.get("/getProducts");
+        console.log(response)
 
         setProducts(response.data);
       } catch (err) {
@@ -48,7 +49,8 @@ const MenuPage = () => {
 
     const fetchGuestUser = async () => {
       try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
+        const token = document.cookie.split("=")[1];
         if (!token) {
           const response = await api.post("/guestUser");
           const token = response.data.token;

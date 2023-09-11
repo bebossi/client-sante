@@ -1,5 +1,4 @@
 import {   useCallback, useContext, useState } from "react"
-import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import useLoginModal from "../../hooks/useLoginModal"
 import useRegisterModal from "../../hooks/useRegisterModal"
@@ -91,12 +90,12 @@ const LoginModal = () => {
             icon={FcGoogle}
             onClick={googleAuth}
           />
-          <Button
+          {/* <Button
             outline
             label="Continue com gitHub"
             icon={AiFillGithub}
             onClick={googleAuth}
-          />
+          /> */}
           <div className="text-neutral-500 text-center mt-4 font-light">
             <div className="justify-center flex flex-row items-center gap-2">
               <div>Primeira vez usando nosso app?</div>
