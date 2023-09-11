@@ -2,19 +2,21 @@ import { toast } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../auth/restaurantContext";
 import { useNavigate } from "react-router-dom";
-import { api } from "../api";
+import { AuthContext } from "../auth/authContext";
 
 
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
+  const { user, setLoggedInToken } = useContext(AuthContext);
+
   console.log(isOpen);
+
   const getUser = async () => {
     try {
-			const  data = await api.get(`/login/success`);
-      console.log(data)
-      // navigate(data.redirectUrl)
+      setLoggedInToken(document.cookie.split("=")[1]);
+  
     } catch (err) {
 			console.log(err);
 		}
@@ -38,7 +40,7 @@ const Home = () => {
       } catch (err) {
         console.log(err);
       }
-  }, [isOpen]);
+  }, [isOpen, user]);
 
   return (
     <>

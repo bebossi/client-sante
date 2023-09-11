@@ -40,7 +40,9 @@ const LoginModal = () => {
             const response = await api.post("/login", data)
             setIsLoading(true)
             const token = response.data.token
-            localStorage.setItem("token", token)
+            // localStorage.setItem("token", token)
+            // const storedToken = document.cookie.split("=")[1]
+
             setLoggedInToken(token)
             setUser(response.data)
             toast.success("Usuario logado");

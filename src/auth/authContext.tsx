@@ -8,7 +8,8 @@ function AuthContextComponent(props: any) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
+    // const storedToken = localStorage.getItem("token");
+    const storedToken = document.cookie.split("=")[1]
     
 
     if (!user && storedToken) {

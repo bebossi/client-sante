@@ -21,7 +21,8 @@ const UserMenu = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     setUser(null);
     setLoggedInToken(null);
     window.location.reload();
