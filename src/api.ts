@@ -10,19 +10,21 @@ const api = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.request.use((config) => {
-  // const token = localStorage.getItem("token");
+// api.interceptors.request.use((config) => {
+// const token = localStorage.getItem("token");
 
-  const token = document.cookie.split("=")[1];
+// const token = document.cookie.split("=")[1];
 
-  if (token) {
-    (config as AxiosRequestConfig).headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
-  }
+// const token = Cookies.get("token");
 
-  return config;
-});
+// if (token) {
+//   (config as AxiosRequestConfig).headers = {
+//     ...config.headers,
+//     Authorization: `Bearer ${token}`,
+//   };
+// }
+
+//   return config;
+// });
 
 export { api };

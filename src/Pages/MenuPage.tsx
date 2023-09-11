@@ -25,7 +25,6 @@ const MenuPage = () => {
       try {
         setIsLoading(true)
         const response = await api.get("/getProducts");
-        console.log(response)
 
         setProducts(response.data);
       } catch (err) {
