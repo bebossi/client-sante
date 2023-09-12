@@ -3,11 +3,11 @@ import DashboardCategories from "./CategoryAdmin/DashboardCategories";
 import DashboardProduct from "./ProductAdmin/DashboardProduct";
 import DashboardToppings from "./ToppingAdmin/DashboardTopping";
 import DashboardOrders from "./OrderAdmin/DashboardOrders";
-import { AuthContext } from "../auth/authContext";
+import { UserContext } from "../auth/currentUser";
 
 const DashBoard = () => {
   const [activeTab, setActiveTab] = useState("orders");
-  const {user} = useContext(AuthContext)
+  const {user} = useContext(UserContext)
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);

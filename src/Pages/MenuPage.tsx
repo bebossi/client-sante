@@ -4,7 +4,7 @@ import useAddToCartModal from "../hooks/useAddToCartModal";
 import { Product, Category } from "../interfaces";
 import useCartModal from "../hooks/useCartModal";
 import ProductCard from "../Components/ProductCard";
-import { AuthContext } from "../auth/authContext";
+import { UserContext } from "../auth/currentUser";
 
 const MenuPage = () => {
   const addCartModal = useAddToCartModal();
@@ -18,7 +18,7 @@ const MenuPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
-  const { user, setUser, setLoggedInToken } = useContext(AuthContext);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -48,14 +48,9 @@ const MenuPage = () => {
 
     const fetchGuestUser = async () => {
       try {
-        // const token = localStorage.getItem("token");
-        const token = document.cookie.split("=")[1];
-        if (!token) {
+        if (!user) {
           const response = await api.post("/guestUser");
-          const token = response.data.token;
           setUser(response.data.guestUser);
-          setLoggedInToken(token);
-          localStorage.setItem("token", token);
         }
       } catch (err) {
         console.log(err);

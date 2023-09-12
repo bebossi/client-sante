@@ -10,13 +10,13 @@ import { toast } from "react-hot-toast";
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Input from "../inputs/Input";
-import { AuthContext } from "../../auth/authContext";
+import { UserContext } from "../../auth/currentUser";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser, setLoggedInToken } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
 
 
   const {
@@ -35,7 +35,6 @@ const RegisterModal = () => {
     setIsLoading(true);
     const token = response.data.token
     localStorage.setItem("token", token)
-    setLoggedInToken(token)
     setUser(response.data)
     registerModal.onClose();
     toast.success("Usuário registrado e logado com sucesso");

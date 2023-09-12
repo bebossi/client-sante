@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Order } from "../interfaces";
 import { api } from "../api";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../auth/authContext";
 import {
   Select,
   SelectContent,
@@ -23,6 +22,7 @@ import {
 } from "../Components/ui/form";
 import Button from "../Components/Button";
 import toast from "react-hot-toast";
+import { UserContext } from "../auth/currentUser";
 
 const FormSchema = z.object({
   status: z.string().min(1),
@@ -33,7 +33,7 @@ const OrderPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const params = useParams();
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

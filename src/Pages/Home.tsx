@@ -9,21 +9,12 @@ const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
-  const { user, setLoggedInToken } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   console.log(isOpen);
 
-  // const getUser = async () => {
-  //   try {
-  //     setLoggedInToken(document.cookie.split("=")[1]);
-  
-  //   } catch (err) {
-	// 		console.log(err);
-	// 	}
-  //  }
 
   useEffect(() => {
-    // getUser()
 
     if (isOpen === null) {
       return;
