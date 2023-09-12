@@ -5,7 +5,6 @@ import { AuthContextComponent } from "./auth/authContext";
 import MenuPage from "./Pages/MenuPage";
 import AddToCartModal from "./Components/modals/AddToCartModal";
 import CartModal from "./Components/modals/CartModal";
-import "./App.css";
 import ProductPage from "./Pages/ProductPage";
 import DashboardCategories from "./Pages/CategoryAdmin/DashboardCategories";
 import DashboardToppings from "./Pages/ToppingAdmin/DashboardTopping";
@@ -22,7 +21,6 @@ import AppointmentsPage from "./Pages/AppointmentsPage";
 import RegisterModal from "./Components/modals/RegisterModal";
 import OrdersClientPage from "./Pages/OrdersClientPage";
 import { RestaurantContextProvider } from "./auth/restaurantContext";
-// import OrderFilters from "./Components/OrderFilters";
 
 function App() {
   return (
@@ -37,7 +35,6 @@ function App() {
               <RegisterModal />
               <CartModal />
               <NavBar />
-              {/* <OrderFilters/> */}
               <div className="pb-0 pt-28">
                 <Routes>
                   <Route path="/menu" element={<MenuPage />} />

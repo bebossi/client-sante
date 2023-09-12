@@ -55,10 +55,9 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     }
   }, [selectedAddress]);
 
-  const { value, setValue, clearSuggestions } =
-    usePlacesAutocomplete({
-      callbackName: "MapAddress",
-    });
+  const { value, setValue, clearSuggestions } = usePlacesAutocomplete({
+    callbackName: "MapAddress",
+  });
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
     libraries,

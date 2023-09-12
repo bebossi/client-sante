@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from "react";
 import { api } from "../api";
 
 type IsRestauranOpenType = {
-    isOpen: boolean | null;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean | null>>;
-}
+  isOpen: boolean | null;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean | null>>;
+};
 
 const RestaurantContext = createContext<IsRestauranOpenType | null>(null);
 
@@ -18,7 +18,7 @@ const RestaurantContextProvider = ({
   useEffect(() => {
     const fetchIsOpen = async () => {
       try {
-        const response = await api.get("/getIsOpen", );
+        const response = await api.get("/getIsOpen");
         setIsOpen(response.data.isOpen);
       } catch (err) {
         console.log(err);
@@ -26,7 +26,6 @@ const RestaurantContextProvider = ({
     };
     fetchIsOpen();
   }, [isOpen]);
-  console.log(isOpen)
 
   return (
     <RestaurantContext.Provider value={{ isOpen, setIsOpen }}>

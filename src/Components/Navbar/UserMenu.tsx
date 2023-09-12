@@ -15,7 +15,6 @@ const UserMenu = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
-  console.log(user)
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -129,12 +128,18 @@ const UserMenu = () => {
                   label="Contato"
                 />
                 <MenuItem
-                  onClick={() => {navigate(`/dashboard`); toggleOpen()}}
+                  onClick={() => {
+                    navigate(`/dashboard`);
+                    toggleOpen();
+                  }}
                   label="Dashboard"
                 />
                 <MenuItem
                   label="Agendamento"
-                  onClick={() => {navigate(`/appointment`); toggleOpen()}}
+                  onClick={() => {
+                    navigate(`/appointment`);
+                    toggleOpen();
+                  }}
                 />
                 <MenuItem onClick={handleLogout} label="Sair" />
               </>
@@ -151,14 +156,14 @@ const UserMenu = () => {
                   onClick={() => navigate("/contact")}
                   label="Contato"
                 />
-                 <MenuItem
+                <MenuItem
                   onClick={() => {
                     navigate("/orders");
                     toggleOpen();
                   }}
                   label="Pedidos"
                 />
-                <hr/>
+                <hr />
                 <MenuItem onClick={handleLogout} label="Sair" />
               </>
             )}

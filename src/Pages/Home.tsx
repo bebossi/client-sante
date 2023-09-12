@@ -4,18 +4,13 @@ import { RestaurantContext } from "../auth/restaurantContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../auth/currentUser";
 
-
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
   const { user } = useContext(UserContext);
 
-  console.log(isOpen);
-
-
   useEffect(() => {
-
     if (isOpen === null) {
       return;
     }
@@ -28,9 +23,9 @@ const Home = () => {
             position: "bottom-center",
           }
         );
-      } catch (err) {
-        console.log(err);
-      }
+    } catch (err) {
+      console.log(err);
+    }
   }, [isOpen, user]);
 
   return (
@@ -267,7 +262,9 @@ const Home = () => {
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
                   Nossos produtos são selecionados a dedo por nós, gostamos
                   iorhgoireklgre,re rghtey rhyeyreyeyr eythbenbrf ,btryynbry
-                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw vrenlvtr bjnet bkvtrjb tr bkjrtbjkv trkb trkj bktrjbvjtrjb trkjb ktje bkjt ebkjt bvjkt ebvkjtr 
+                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw vrenlvtr bjnet
+                  bkvtrjb tr bkjrtbjkv trkb trkj bktrjbvjtrjb trkjb ktje bkjt
+                  ebkjt bvjkt ebvkjtr
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
