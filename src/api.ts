@@ -4,12 +4,12 @@ axios.defaults.withCredentials = true;
 
 export const apiURLs = {
   development: "http://localhost:4121",
-  production: "",
+  production: "https://api-sante.onrender.com",
 };
 
 const api = axios.create({
   withCredentials: true,
-  baseURL: apiURLs["development"],
+  baseURL: apiURLs["production"],
 });
 
 api.interceptors.request.use((config) => {
