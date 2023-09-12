@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 export const apiURLs = {
   development: "http://localhost:4121",
@@ -6,25 +8,30 @@ export const apiURLs = {
 };
 
 const api = axios.create({
-  baseURL: apiURLs["development"],
   withCredentials: true,
+  baseURL: apiURLs["development"],
 });
 
-// api.interceptors.request.use((config) => {
-// const token = localStorage.getItem("token");
+api.interceptors.request.use((config) => {
+  // const token = localStorage.getItem("token");
 
-// const token = document.cookie.split("=")[1];
+  // const token = document.cookie.split("=")[1];
 
-// const token = Cookies.get("token");
+  // const token = Cookies.get("token");
 
-// if (token) {
-//   (config as AxiosRequestConfig).headers = {
-//     ...config.headers,
-//     Authorization: `Bearer ${token}`,
-//   };
-// }
+  // if (token) {
+  // (config as AxiosRequestConfig).headers = {
+  //   ...config.headers,
+  //   Authorization: `Bearer `,
+  // };
+  // }
 
-//   return config;
-// });
+  // if (config.headers && config.headers.Authorization) {
+  //   console.log("Authorization Header:", config.headers.Authorization);
+  // } else {
+  //   console.log("Authorization Header not found in the request.");
+  // }
+  return config;
+});
 
 export { api };

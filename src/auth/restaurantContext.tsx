@@ -18,7 +18,7 @@ const RestaurantContextProvider = ({
   useEffect(() => {
     const fetchIsOpen = async () => {
       try {
-        const response = await api.get("/getIsOpen");
+        const response = await api.get("/getIsOpen", );
         setIsOpen(response.data.isOpen);
       } catch (err) {
         console.log(err);

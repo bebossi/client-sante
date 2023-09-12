@@ -2,28 +2,28 @@ import { toast } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../auth/restaurantContext";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../auth/authContext";
+import { UserContext } from "../auth/currentUser";
 
 
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
-  const { user, setLoggedInToken } = useContext(AuthContext);
+  const { user, setLoggedInToken } = useContext(UserContext);
 
   console.log(isOpen);
 
-  const getUser = async () => {
-    try {
-      setLoggedInToken(document.cookie.split("=")[1]);
+  // const getUser = async () => {
+  //   try {
+  //     setLoggedInToken(document.cookie.split("=")[1]);
   
-    } catch (err) {
-			console.log(err);
-		}
-   }
+  //   } catch (err) {
+	// 		console.log(err);
+	// 	}
+  //  }
 
   useEffect(() => {
-    getUser()
+    // getUser()
 
     if (isOpen === null) {
       return;

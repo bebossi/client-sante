@@ -4,19 +4,19 @@ import useLoginModal from "../../hooks/useLoginModal"
 import useRegisterModal from "../../hooks/useRegisterModal"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { api } from "../../api"
-import { AuthContext } from "../../auth/authContext"
 import toast from "react-hot-toast"
 import Button from "../Button"
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
 import { apiURLs } from "../../api";
+import { UserContext } from "../../auth/currentUser";
 
 const LoginModal = () => {
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
   const[isLoading, setIsLoading] = useState(false)
-  const { setUser, setLoggedInToken } = useContext(AuthContext);
+  const {setUser} = useContext(UserContext)
   
   const {
     register,
@@ -38,11 +38,11 @@ const LoginModal = () => {
         try{
             const response = await api.post("/login", data)
             setIsLoading(true)
-            const token = response.data.token
+            // const token = response.data.token
             // localStorage.setItem("token", token)
             // const storedToken = document.cookie.split("=")[1]
 
-            setLoggedInToken(token)
+            // setLoggedInToken(token)
             setUser(response.data)
             toast.success("Usuario logado");
             loginModal.onClose();

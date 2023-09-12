@@ -4,9 +4,9 @@ import { useState, useCallback, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
-import { AuthContext } from "../../auth/authContext";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
+import { UserContext } from "../../auth/currentUser";
 
 const UserMenu = () => {
   const navigate = useNavigate();
@@ -14,17 +14,14 @@ const UserMenu = () => {
   const loginModal = useLoginModal();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser, setLoggedInToken } = useContext(AuthContext);
+  const { user, setUser } = useContext(UserContext);
   console.log(user)
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
 
   const handleLogout = () => {
-    // localStorage.removeItem("token");
-    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     setUser(null);
-    setLoggedInToken(null);
     window.location.reload();
   };
 

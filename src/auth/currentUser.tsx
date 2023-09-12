@@ -11,10 +11,11 @@ const UserContext = createContext<any>(null);
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<User | null>(null);
-
   useEffect(() => {
     async function fetchUser() {
-      const response = await api.get("/currentUser");
+      const response = await api.get("/currentUser", {
+        withCredentials: true
+      });
       setUser(response.data);
     }
     if (!user) {
