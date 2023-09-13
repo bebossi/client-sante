@@ -7,6 +7,7 @@ import useLoginModal from "../../hooks/useLoginModal";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 import { UserContext } from "../../auth/currentUser";
+import { api } from "../../api";
 
 const UserMenu = () => {
   const navigate = useNavigate();
@@ -19,9 +20,15 @@ const UserMenu = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  const handleLogout = () => {
-    setUser(null);
-    window.location.reload();
+  const handleLogout = async () => {
+    try{
+      await api.post("/logout")
+      setUser(null);
+      window.location.reload();
+
+    } catch(err){
+      console.log(err);
+    }
   };
 
   useEffect(() => {}, [user, !user]);

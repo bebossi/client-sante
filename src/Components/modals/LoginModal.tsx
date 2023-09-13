@@ -38,11 +38,7 @@ const LoginModal = () => {
         try{
             const response = await api.post("/login", data)
             setIsLoading(true)
-            // const token = response.data.token
-            // localStorage.setItem("token", token)
-            // const storedToken = document.cookie.split("=")[1]
-
-            // setLoggedInToken(token)
+            
             setUser(response.data)
             toast.success("Usuario logado");
             loginModal.onClose();
@@ -90,12 +86,6 @@ const LoginModal = () => {
             icon={FcGoogle}
             onClick={googleAuth}
           />
-          {/* <Button
-            outline
-            label="Continue com gitHub"
-            icon={AiFillGithub}
-            onClick={googleAuth}
-          /> */}
           <div className="text-neutral-500 text-center mt-4 font-light">
             <div className="justify-center flex flex-row items-center gap-2">
               <div>Primeira vez usando nosso app?</div>
@@ -115,7 +105,7 @@ const LoginModal = () => {
       <Modal
         onSubmit={handleSubmit(onSubmit)}
         title="Login"
-        actionLabel="Continue"
+        actionLabel={isLoading ? "Fazendo login..." :"Continue"}
         onClose={loginModal.onClose}
         isOpen={loginModal.isOpen}
         disabled={isLoading}
