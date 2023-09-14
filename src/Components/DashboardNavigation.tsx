@@ -6,7 +6,18 @@ const DashboardNavigation = () => {
 
   return (
     <div>
+     
       <ul className="flex justify-around text-xl gap-x-2 sticky top-30 bg-white lg:text-4xl md:text-3xl sm:text-2xl">
+      <li
+          className={`${
+            location.pathname.includes("dashboard")
+              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200  rounded-md"
+              : ""
+          }  `}
+          onClick={() => navigate("/dashboard")}
+        >
+          Dashboard
+        </li>
         <li
           className={`${
             location.pathname.includes("dashboardOrders")
