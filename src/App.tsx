@@ -39,7 +39,7 @@ function App() {
                 <Routes>
                   <Route path="/menu" element={<MenuPage />} />
                   <Route path="/" element={<Home />} />
-                  <Route path="/dashboard" element={<DashBoard />} />
+                  <Route path="/dashboardOverview" element={<DashBoard />} />
                   <Route
                     path="/dashboardProduct"
                     element={<DashboardProduct />}
