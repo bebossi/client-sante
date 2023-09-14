@@ -136,7 +136,7 @@ const UserMenu = () => {
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate(`/dashboard`);
+                    navigate(`/dashboardOverview`);
                     toggleOpen();
                   }}
                   label="Dashboard"

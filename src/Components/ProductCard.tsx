@@ -14,7 +14,7 @@ const ProductCard: React.FC<CardProduct> = ({
   onClick
 }) => {
   return (
-    <div onClick={onClick} className="mx-2 mb-4 overflow-hidden rounded-xl border shadow-lg max-h-60 cursor-pointer hover:opacity-60 m-1 ">
+    <div onClick={onClick} className="mx-2 mb-4 overflow-hidden rounded-xl border shadow-lg max-h-60 cursor-pointer m-1 ease-in-out delay-100 hover:scale-95 duration-300 ">
       <div className="flex overflow-hidden bg-white  ">
         <div className="flex w-full flex-col p-1 justify-between sm:w-1/2 sm:p-1 md:p-3 lg:p-4 ">
           <h2 className="text-base font-bold text-gray-700 line-clamp-2 lg:text-2xl  sm:text-xl">{title}</h2>
