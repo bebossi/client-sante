@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { api } from "../../api";
@@ -114,7 +114,7 @@ const AddToCartModal = () => {
         subtitle={addCartModal.product?.description}
         image={addCartModal.product?.image}
       />
-      <p>R${addCartModal.product?.price}</p>
+      <p>A partir de R${addCartModal.product?.price}</p>
       <div className="bg-slate-300 p-4 rounded-md">
         <h1 className="text-lg font-semibold">Adicionais</h1>
         <h2 className="text-sm text-gray-600">Escolha ate 10 adicionais</h2>
@@ -122,7 +122,7 @@ const AddToCartModal = () => {
       <div>
         {addCartModal.product?.toppings?.map((topping) => (
           <div key={topping.id}>
-            <div className="flex justify-between">
+            <div className="flex justify-between py-1">
               <div>
                 <p className="text-base font-mono">{topping.name}</p>
                 <p className="font-semibold">R${topping.price}</p>
@@ -149,7 +149,7 @@ const AddToCartModal = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-x-2 border-black border-[1px] rounded-lg">
+      {/* <div className="flex items-center gap-x-2 border-black border-[1px] rounded-lg">
         <BiMinus
           className="cursor-pointer"
           onClick={() => decreaseQuantity()}
@@ -159,9 +159,17 @@ const AddToCartModal = () => {
           className="mr-2 cursor-pointer "
           onClick={() => increaseQuantity()}
         />
-      </div>
+      </div> */}
     </div>
   );
+  const thirdAction = (
+    <div className="flex py-2 justify-center items-center gap-x-4 border-black border-[1px] rounded-lg w-full h-full text-xl font-semibold">
+      <BiMinus size={30} className="cursor-pointer" onClick={() => decreaseQuantity()} />
+      {quantity}
+      <BiPlus size={28} className="mr-2 cursor-pointer" onClick={() => increaseQuantity()} />
+    </div>
+  );
+  
 
   return (
     <div>
@@ -173,6 +181,7 @@ const AddToCartModal = () => {
         disabled={isLoading}
         onSubmit={onSubmit}
         isOpen={addCartModal.isOpen}
+        thirdAction={thirdAction as any}
       />
     </div>
   );

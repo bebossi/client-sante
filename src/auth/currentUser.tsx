@@ -6,6 +6,7 @@ const UserContext = createContext<any>(null);
 
 function UserContextProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  console.log(user)
   useEffect(() => {
     async function fetchUser() {
       const response = await api.get("/currentUser", {
