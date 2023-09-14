@@ -6,6 +6,7 @@ import { Order } from "../../interfaces";
 import qs from "query-string";
 import OrderFilters from "../../Components/OrderFilters";
 import {Menu} from "lucide-react"
+import DashboardNavigation from "../../Components/DashboardNavigation";
 
 
 const DashboardOrders = () => {
@@ -61,6 +62,7 @@ const DashboardOrders = () => {
   }
   return (
     <div className="fixed w-full">
+      <DashboardNavigation/>
   <Menu size={50} onClick={toggleFilters} className="hover:cursor-pointer" />
     {isFiltersOpen && <OrderFilters/>}
     {/* <div className={isFiltersOpen ? "blur" : ""}> */}

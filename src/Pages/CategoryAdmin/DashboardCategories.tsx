@@ -6,6 +6,7 @@ import { columns } from "../CategoryAdmin/columns";
 import { Button } from "../../Components/ui/button";
 import { cn } from "../../lib/utils";
 import { useNavigate } from "react-router-dom";
+import DashboardNavigation from "../../Components/DashboardNavigation";
 
 const DashboardCategories = () => {
   const navigate = useNavigate();
@@ -53,6 +54,8 @@ const DashboardCategories = () => {
 
   return (
     <>
+          <DashboardNavigation/>
+
       <Button
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/category")}

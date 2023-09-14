@@ -6,6 +6,7 @@ import { columns } from "./columns";
 import { cn } from "../../lib/utils";
 import { Button } from "../../Components/ui/button";
 import { useNavigate } from "react-router-dom";
+import DashboardNavigation from "../../Components/DashboardNavigation";
 
 const DashboardToppings = () => {
   const navigate = useNavigate();
@@ -52,6 +53,8 @@ const DashboardToppings = () => {
   }
   return (
     <>
+          <DashboardNavigation/>
+
       <Button
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/topping")}
