@@ -33,13 +33,22 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const response = await api.post("/signup", data);
-    setIsLoading(true);
-    const token = response.data.token;
-    localStorage.setItem("token", token);
-    setUser(response.data);
-    registerModal.onClose();
-    toast.success("Usuário registrado e logado com sucesso");
+    console.log("clickado")
+    try{
+
+      const response = await api.post("/signup", data);
+      setIsLoading(true);
+      // const token = response.data.token;
+      // localStorage.setItem("token", token);
+      setUser(response.data);
+      registerModal.onClose();
+      toast.success("Usuário registrado e logado com sucesso");
+    } catch(err) {
+      console.log(err);
+      toast.error("Algo deu errado");
+    } finally{
+      setIsLoading(false);
+    }
   };
 
   const toogle = useCallback(() => {
@@ -60,7 +69,7 @@ const RegisterModal = () => {
       />
       <Input
         id="password"
-        label="Password"
+        label="Senha"
         type="password"
         disabled={isLoading}
         register={register}

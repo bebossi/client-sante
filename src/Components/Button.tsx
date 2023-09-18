@@ -21,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+    data-cy={label}
       onClick={onClick}
       disabled={disabled}
       className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition w-full
