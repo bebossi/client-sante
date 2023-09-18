@@ -76,7 +76,7 @@ const OrderFilters = () => {
 
     const url = qs.stringifyUrl(
       {
-        url: "/dashboard",
+        url: "/dashboardOrders",
         query: updatedQuery,
       },
       { skipNull: true },
