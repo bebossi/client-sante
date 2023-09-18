@@ -42,7 +42,7 @@ const CartModal = () => {
   const [cart, setCart] = useState<Cart>();
   const [appointmentId, setAppointmentId] = useState("");
   const [appointment, setAppointment] = useState<AvaliableAppointment | null>(
-    null
+    null,
   );
   const [addressId, setAddressId] = useState("");
   const [address, setAddress] = useState<Address | null>(null);
@@ -97,7 +97,7 @@ const CartModal = () => {
 
   const handleAvailiableAppointmentId = (
     avaliableAppointmentId: string,
-    appointment?: AvaliableAppointment
+    appointment?: AvaliableAppointment,
   ) => {
     setAppointmentId(avaliableAppointmentId);
     setAppointment(appointment as AvaliableAppointment);
@@ -170,7 +170,7 @@ const CartModal = () => {
       return "Escolher forma de pagamento";
     }
 
-      return "Próximo";
+    return "Próximo";
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -369,7 +369,11 @@ const CartModal = () => {
     <div>
       <Modal
         title="Carrinho"
-        actionLabel={isLoading && step === STEPS.PAYMENT ? "Enviando pedido..." : actionLabel}
+        actionLabel={
+          isLoading && step === STEPS.PAYMENT
+            ? "Enviando pedido..."
+            : actionLabel
+        }
         body={bodyContent}
         onClose={cartModal.onClose}
         disabled={isLoading || isSelectOpen}

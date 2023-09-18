@@ -29,8 +29,6 @@ const DashboardProduct = () => {
     fetchProducts();
   }, []);
 
-
-
   if (isLoading) {
     return (
       <div className="animate-spin  flex justify-center items-center">
@@ -59,7 +57,7 @@ const DashboardProduct = () => {
 
   return (
     <>
-          <DashboardNavigation/>
+      <DashboardNavigation />
       <Button
         className={cn(" mx-5 bg-red-500 mt-5 ")}
         onClick={() => navigate("/product")}

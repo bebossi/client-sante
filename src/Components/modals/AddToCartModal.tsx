@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { api } from "../../api";
@@ -35,7 +35,7 @@ const AddToCartModal = () => {
         (topping: Topping) => ({
           topping,
           quantity: 0,
-        })
+        }),
       );
       setToppings(initialToppings);
     }
@@ -56,7 +56,7 @@ const AddToCartModal = () => {
       return;
     }
     const toppingIndex = toppings?.findIndex(
-      (topping) => topping.topping.id === toppingId
+      (topping) => topping.topping.id === toppingId,
     );
 
     if (toppingIndex !== -1) {
@@ -71,7 +71,7 @@ const AddToCartModal = () => {
       return;
     }
     const toppingIndex = toppings?.findIndex(
-      (topping) => topping.topping.id === toppingId
+      (topping) => topping.topping.id === toppingId,
     );
     if (toppingIndex !== -1) {
       const updatedToppings = [...toppings];
@@ -83,12 +83,12 @@ const AddToCartModal = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-    await api.post("/addProduct", {
+      await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,
         quantity: quantity,
       });
-      toast.success("Produto addicionado ao carrinho")
+      toast.success("Produto addicionado ao carrinho");
       addCartModal.onClose();
     } catch (err) {
       console.log(err);
@@ -96,8 +96,6 @@ const AddToCartModal = () => {
       setIsLoading(false);
     }
   };
-
-  
 
   let totalPriceToppings = toppings.reduce((total, topping) => {
     return (total += topping.quantity * topping.topping.price);
@@ -164,18 +162,25 @@ const AddToCartModal = () => {
   );
   const thirdAction = (
     <div className="flex py-2 justify-center items-center gap-x-4 border-black border-[1px] rounded-lg w-full h-full text-xl font-semibold">
-      <BiMinus size={30} className="cursor-pointer" onClick={() => decreaseQuantity()} />
+      <BiMinus
+        size={30}
+        className="cursor-pointer"
+        onClick={() => decreaseQuantity()}
+      />
       {quantity}
-      <BiPlus size={28} className="mr-2 cursor-pointer" onClick={() => increaseQuantity()} />
+      <BiPlus
+        size={28}
+        className="mr-2 cursor-pointer"
+        onClick={() => increaseQuantity()}
+      />
     </div>
   );
-  
 
   return (
     <div>
       <Modal
         title="Detalhes do item"
-        actionLabel={ isLoading ? "Adicionando..." : `Adicionar  R$${subtotal}`}
+        actionLabel={isLoading ? "Adicionando..." : `Adicionar  R$${subtotal}`}
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}

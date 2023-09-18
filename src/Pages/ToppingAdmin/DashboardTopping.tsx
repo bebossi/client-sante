@@ -53,7 +53,7 @@ const DashboardToppings = () => {
   }
   return (
     <>
-          <DashboardNavigation/>
+      <DashboardNavigation />
 
       <Button
         className={cn(" mx-5 bg-red-500 mt-5 ")}

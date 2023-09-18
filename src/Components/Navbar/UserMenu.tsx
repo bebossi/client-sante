@@ -21,12 +21,11 @@ const UserMenu = () => {
   }, []);
 
   const handleLogout = async () => {
-    try{
-      await api.post("/logout")
+    try {
+      await api.post("/logout");
       setUser(null);
       window.location.reload();
-
-    } catch(err){
+    } catch (err) {
       console.log(err);
     }
   };

@@ -10,7 +10,6 @@ const ProductPage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [fetchingProduct, setFetchingProduct] = useState(true);
 
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {

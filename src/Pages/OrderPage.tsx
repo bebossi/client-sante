@@ -67,7 +67,7 @@ const OrderPage = () => {
       await api.put(`/statusOrder/${params.orderId}`, {
         status: status,
       });
-      toast.success("Status atualizado com sucesso")
+      toast.success("Status atualizado com sucesso");
     } catch (err) {
       console.log(err);
     }
@@ -117,48 +117,50 @@ const OrderPage = () => {
           {user && user.role === "admin" && order?.status !== "Entregue" ? (
             <div className="flex justify-start items-center">
               <div>
-              <Form {...form}>
-                <form>
-                  <FormField
-                    control={form.control}
-                    name="status"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-                          Status:{" "}
-                          <span className="text-sky-600">{order?.status}</span>{" "}
-                        </FormLabel>
-                        <Select
-                          onValueChange={(newValue) => {
-                            field.onChange(newValue);
-                            setStatus(newValue);
-                          }}
-                          value={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Status" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="Preparando pedido">
-                              Preparando pedido
-                            </SelectItem>
-                            <SelectItem value="Saiu para entrega">
-                              Saiu para entrega
-                            </SelectItem>
-                            <SelectItem value="Entregue">Entregue</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </form>
-              </Form>
+                <Form {...form}>
+                  <form>
+                    <FormField
+                      control={form.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
+                            Status:{" "}
+                            <span className="text-sky-600">
+                              {order?.status}
+                            </span>{" "}
+                          </FormLabel>
+                          <Select
+                            onValueChange={(newValue) => {
+                              field.onChange(newValue);
+                              setStatus(newValue);
+                            }}
+                            value={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="Preparando pedido">
+                                Preparando pedido
+                              </SelectItem>
+                              <SelectItem value="Saiu para entrega">
+                                Saiu para entrega
+                              </SelectItem>
+                              <SelectItem value="Entregue">Entregue</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </form>
+                </Form>
               </div>
               <div className="mx-8">
-                <Button label="Atualize o status" onClick={handleStatus}  />
+                <Button label="Atualize o status" onClick={handleStatus} />
               </div>
             </div>
           ) : (
@@ -249,9 +251,11 @@ const OrderPage = () => {
                   <p className="text-base dark:text-white font-semibold leading-4 text-gray-800">
                     Total
                   </p>
-                  <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
-                    R${order?.total! + order?.subTotal!}
-                  </p>
+                  {order && (
+                    <p className="text-base dark:text-gray-300 font-semibold leading-4 text-gray-600">
+                      R${order?.total + order?.subTotal}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

@@ -7,7 +7,7 @@ import { Product, Topping } from "../interfaces";
 const ToppingPage = () => {
   const params = useParams();
   const [topping, setTopping] = useState<Topping | null>(null);
-  const [products, setProducts] = useState<Product[] >([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [fetchingTopping, setFetchingTopping] = useState(true);
 
   useEffect(() => {

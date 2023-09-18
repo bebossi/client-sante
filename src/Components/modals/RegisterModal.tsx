@@ -33,11 +33,11 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-   const response = await api.post("/signup", data);
+    const response = await api.post("/signup", data);
     setIsLoading(true);
-    const token = response.data.token
-    localStorage.setItem("token", token)
-    setUser(response.data)
+    const token = response.data.token;
+    localStorage.setItem("token", token);
+    setUser(response.data);
     registerModal.onClose();
     toast.success("Usuário registrado e logado com sucesso");
   };
@@ -79,7 +79,7 @@ const RegisterModal = () => {
         icon={FcGoogle}
         onClick={googleAuth}
       />
-  
+
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Já tem uma conta</div>
@@ -87,7 +87,7 @@ const RegisterModal = () => {
             onClick={toogle}
             className="text-neutral-900 cursor-pointer hover:underline"
           >
-            Login 
+            Login
           </div>
         </div>
       </div>

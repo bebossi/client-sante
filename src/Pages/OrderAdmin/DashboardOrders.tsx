@@ -5,15 +5,13 @@ import { columns } from "./columns";
 import { Order } from "../../interfaces";
 import qs from "query-string";
 import OrderFilters from "../../Components/OrderFilters";
-import {Menu} from "lucide-react"
+import { Menu } from "lucide-react";
 import DashboardNavigation from "../../Components/DashboardNavigation";
-
 
 const DashboardOrders = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [isLoading, setIsloading] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-
 
   useEffect(() => {
     const searchParams = qs.parse(location.search);
@@ -62,14 +60,17 @@ const DashboardOrders = () => {
   }
   return (
     <div className="fixed w-full">
-      <DashboardNavigation/>
-  <Menu size={50} onClick={toggleFilters} className="hover:cursor-pointer" />
-    {isFiltersOpen && <OrderFilters/>}
-    {/* <div className={isFiltersOpen ? "blur" : ""}> */}
+      <DashboardNavigation />
+      <Menu
+        size={50}
+        onClick={toggleFilters}
+        className="hover:cursor-pointer"
+      />
+      {isFiltersOpen && <OrderFilters />}
+      {/* <div className={isFiltersOpen ? "blur" : ""}> */}
       <DataTable data={orders ?? []} columns={columns} searchKey="status" />
     </div>
     // </div>
-  
   );
 };
 

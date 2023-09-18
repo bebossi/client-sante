@@ -8,7 +8,6 @@ interface ButtonProps {
   small?: boolean;
   icon?: IconType;
   children?: React.ReactNode;
-
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   icon: Icon,
-  children
+  children,
 }) => {
   return (
     <button

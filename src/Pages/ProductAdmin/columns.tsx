@@ -1,6 +1,12 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
-import { CartToProduct, Category, OrderToProduct,  Product,  Topping } from "../../interfaces";
+import {
+  CartToProduct,
+  Category,
+  OrderToProduct,
+  Product,
+  Topping,
+} from "../../interfaces";
 
 export type ProductColumn = {
   id: string;
@@ -16,10 +22,9 @@ export type ProductColumn = {
 
   createdAt: Date;
   updatedAt?: Date;
-}; 
+};
 
 export const columns: ColumnDef<Product>[] = [
-
   {
     accessorKey: "name",
     header: "Nome",

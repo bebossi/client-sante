@@ -9,8 +9,7 @@ function AuthContextComponent(props: any) {
 
   useEffect(() => {
     // const storedToken = localStorage.getItem("token");
-    const storedToken = document.cookie.split("=")[1]
-    
+    const storedToken = document.cookie.split("=")[1];
 
     if (!user && storedToken) {
       try {
@@ -35,5 +34,3 @@ function AuthContextComponent(props: any) {
 }
 
 export { AuthContext, AuthContextComponent };
-
-

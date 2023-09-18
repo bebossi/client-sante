@@ -13,14 +13,14 @@ import { api } from "../../api";
 import { useNavigate } from "react-router-dom";
 
 interface CellActionProps {
-  data: ToppingColumn; 
+  data: ToppingColumn;
 }
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const navigate = useNavigate();
 
   const onDelete = async (id: string) => {
     try {
-    await api.delete(`/deleteTopping`, {
+      await api.delete(`/deleteTopping`, {
         data: {
           toppingId: id,
         },

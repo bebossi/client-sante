@@ -20,7 +20,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onDelete = async (id: string) => {
     try {
-     await api.delete(`/delete`, {
+      await api.delete(`/delete`, {
         data: {
           productId: id,
         },

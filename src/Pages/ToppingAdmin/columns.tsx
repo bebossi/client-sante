@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
-import {    Product,    Topping } from "../../interfaces";
+import { Product, Topping } from "../../interfaces";
 
 export type ToppingColumn = {
   id: string;
@@ -10,10 +10,9 @@ export type ToppingColumn = {
   image?: string;
   productId?: string;
   product: Product;
-}; 
+};
 
 export const columns: ColumnDef<Topping>[] = [
-
   {
     accessorKey: "name",
     header: "Nome",

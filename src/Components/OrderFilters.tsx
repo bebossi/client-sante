@@ -69,17 +69,17 @@ const OrderFilters = () => {
       appointment,
     };
 
-    console.log(isPaid)
+    console.log(isPaid);
     if (isPaid === null) {
-        delete updatedQuery.isPaid; 
-      } 
+      delete updatedQuery.isPaid;
+    }
 
     const url = qs.stringifyUrl(
       {
         url: "/dashboard",
         query: updatedQuery,
       },
-      { skipNull: true }
+      { skipNull: true },
     );
     navigate(url);
   }, [navigate, isPaid, status, appointment, params]);

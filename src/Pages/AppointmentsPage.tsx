@@ -36,7 +36,7 @@ const AppointmentsPage = () => {
         "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
         {
           timeZone: "America/Sao_Paulo",
-        }
+        },
       );
       const formattedEndTime = format(endTime as Date, "HH:mm:ss", {
         timeZone: "America/Sao_Paulo",
@@ -65,12 +65,16 @@ const AppointmentsPage = () => {
   return (
     <div className="flex flex-col justify-center mt-10 p-3 space-y-3 ">
       <div>
-        <p className="text-4xl font-semibold my-5">O restaurante está aberto?</p>
+        <p className="text-4xl font-semibold my-5">
+          O restaurante está aberto?
+        </p>
         <div>
           <Switch checked={isOpen!} onCheckedChange={handleIsOpen} />
         </div>
       </div>
-      <p className="text-2xl font-semibold py-4">Slecione uma data e um horário</p>
+      <p className="text-2xl font-semibold py-4">
+        Slecione uma data e um horário
+      </p>
       <DateTimePicker
         amPmAriaLabel="false"
         onChange={onChangeTime}

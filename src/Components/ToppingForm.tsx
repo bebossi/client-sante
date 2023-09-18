@@ -42,7 +42,7 @@ type ToppingFormValues = z.infer<typeof formSchema>;
 
 interface ToppingFormProps {
   initialData: Topping | null;
-  products: Product[] ;
+  products: Product[];
 }
 
 const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
@@ -90,7 +90,6 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
-
     }
   };
 
@@ -137,7 +136,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
                     <Input
-                        disabled={loading}
+                      disabled={loading}
                       placeholder="Nome topping"
                       {...field}
                     />
@@ -155,7 +154,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormControl>
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
-                        disabled={loading}
+                      disabled={loading}
                       placeholder="Descrição topping"
                       {...field}
                     />
@@ -173,7 +172,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                   <FormControl>
                     <Input
                       type="number"
-                        disabled={loading}
+                      disabled={loading}
                       placeholder="9.99"
                       {...field}
                     />
@@ -218,11 +217,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               )}
             />
           </div>
-          <Button
-               disabled={loading}
-            className="ml-auto py-5"
-            type="submit"
-          >
+          <Button disabled={loading} className="ml-auto py-5" type="submit">
             {action}
           </Button>
         </form>

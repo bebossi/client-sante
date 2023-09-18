@@ -11,11 +11,10 @@ import { Edit, MoreHorizontalIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface CellActionProps {
-  data: OrderColumn; 
+  data: OrderColumn;
 }
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const navigate = useNavigate();
-
 
   return (
     <>

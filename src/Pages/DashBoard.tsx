@@ -4,50 +4,52 @@ import DashboardNavigation from "../Components/DashboardNavigation";
 import { api } from "../api";
 import Heading from "../Components/Heading";
 import { Separator } from "../Components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../Components/ui/card";
 import { CreditCard, DollarSign, Package } from "lucide-react";
 import { Overview } from "../Components/Overview";
 
 const DashBoard = () => {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
-  const [totalRevenue, setTotalRevenue] = useState()
-  const [salesCount, setSalesCount] = useState()
-  const [graphRevenue , setGraphRevenue ] = useState()
+  const [totalRevenue, setTotalRevenue] = useState();
+  const [salesCount, setSalesCount] = useState();
+  const [graphRevenue, setGraphRevenue] = useState();
 
   useEffect(() => {
     const fetchTotalRevenue = async () => {
-      try{
-        const response = await api.get("/totalRevenue")
-        setTotalRevenue(response.data.totalRevenue)
-        setSalesCount(response.data.salesCount)
-      } catch(err){
-        console.log(err)
+      try {
+        const response = await api.get("/totalRevenue");
+        setTotalRevenue(response.data.totalRevenue);
+        setSalesCount(response.data.salesCount);
+      } catch (err) {
+        console.log(err);
       }
-    }
+    };
     const fetchGraphRevenue = async () => {
-      try{
-        const response = await api.get("/graphRevenue")
-        setGraphRevenue(response.data)
-      } catch(err){
-        console.log(err)
+      try {
+        const response = await api.get("/graphRevenue");
+        setGraphRevenue(response.data);
+      } catch (err) {
+        console.log(err);
       }
-    }
+    };
 
-    fetchGraphRevenue()
-    fetchTotalRevenue()
-  }, [])
+    fetchGraphRevenue();
+    fetchTotalRevenue();
+  }, []);
 
-
-  if( (user && user.role !== "admin") || !user ) {
-    return (
-      <div>Você não tem acesso a essa página</div>
-    )
+  if ((user && user.role !== "admin") || !user) {
+    return <div>Você não tem acesso a essa página</div>;
   }
 
   return (
     <div className="flex-col">
-      <DashboardNavigation/>
+      <DashboardNavigation />
       <div className="flex-1 space-y-4 p-8 pt-6">
         <Heading title="Dashboard" subtitle="Overview of your store" />
         <Separator />
@@ -74,10 +76,11 @@ const DashBoard = () => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Produtos em Estoque</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Produtos em Estoque
+              </CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-
           </Card>
         </div>
         <Card className="col-span-4">

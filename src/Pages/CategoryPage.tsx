@@ -9,7 +9,7 @@ const CategoryPage = () => {
 
   const [category, setCategory] = useState<Category | null>(null);
   const [fetchingCategory, setfetchingCategory] = useState(true);
-  
+
   useEffect(() => {
     const fetchCategory = async () => {
       try {

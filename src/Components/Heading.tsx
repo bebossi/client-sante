@@ -2,10 +2,15 @@ interface HeadingProps {
   title?: string;
   subtitle?: string;
   center?: boolean;
-  image?: string
+  image?: string;
 }
 
-const Heading: React.FC<HeadingProps> = ({ title, subtitle, center, image }) => {
+const Heading: React.FC<HeadingProps> = ({
+  title,
+  subtitle,
+  center,
+  image,
+}) => {
   return (
     <div className={center ? "text-center" : "text-start"}>
       <img className="w-full max-h-64 rounded-lg" src={image} />

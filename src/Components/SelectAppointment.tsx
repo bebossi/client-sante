@@ -21,7 +21,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 interface AppointmentInfoProps {
-  handleAvailiableAppointmentId?: (avaliableAppointmentId: string, appointment?: AvaliableAppointment) => void;
+  handleAvailiableAppointmentId?: (
+    avaliableAppointmentId: string,
+    appointment?: AvaliableAppointment,
+  ) => void;
   handleIsSelectOpen?: () => void;
 }
 
@@ -67,7 +70,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                       timeZone: "America/Sao_Paulo",
                       dateStyle: "short",
                       timeStyle: "short",
-                    }
+                    },
                   )}
                 </span>
                 <span className="mx-2 text-gray-500">-</span>
@@ -90,12 +93,16 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                   <Select
                     // onOpenChange={handleIsSelectOpen}
                     onValueChange={(newValue) => {
-                      const avaliableAppointment = avaliableAppointments?.find((availableAppointment) => {
-                        return availableAppointment.id === newValue
-                       })
-                      handleAvailiableAppointmentId!(newValue, avaliableAppointment);
+                      const avaliableAppointment = avaliableAppointments?.find(
+                        (availableAppointment) => {
+                          return availableAppointment.id === newValue;
+                        },
+                      );
+                      handleAvailiableAppointmentId!(
+                        newValue,
+                        avaliableAppointment,
+                      );
                       field.onChange(newValue);
-
                     }}
                     value={field.value}
                   >
@@ -106,13 +113,16 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                     </FormControl>
                     <SelectContent>
                       {avaliableAppointments?.map((avaliableAppointment) => (
-                        <SelectItem key={avaliableAppointment.id} value={avaliableAppointment.id}>
+                        <SelectItem
+                          key={avaliableAppointment.id}
+                          value={avaliableAppointment.id}
+                        >
                           <p
                             key={avaliableAppointment.id}
                             className="text-lg font-semibold"
                           >
                             {new Date(
-                              avaliableAppointment.startDate
+                              avaliableAppointment.startDate,
                             ).toLocaleString("pt-BR", {
                               timeZone: "America/Sao_Paulo",
                               dateStyle: "short",

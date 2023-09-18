@@ -35,8 +35,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false);
 
   const title = initialData ? "Editar categoria" : "Criar categoria";
-  const description = initialData ? "Editar categoria" : "Adicione uma categoria";
-  const toastMessage = initialData ? "Categoria atualizada" : "Categoria criada";
+  const description = initialData
+    ? "Editar categoria"
+    : "Adicione uma categoria";
+  const toastMessage = initialData
+    ? "Categoria atualizada"
+    : "Categoria criada";
   const action = initialData ? "Salvar mudanças" : "Criar";
 
   const form = useForm<CategoryFormValues>({

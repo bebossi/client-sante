@@ -21,7 +21,7 @@ const Home = () => {
           {
             duration: 8000,
             position: "bottom-center",
-          }
+          },
         );
     } catch (err) {
       console.log(err);

@@ -2,24 +2,24 @@ import Slider from "react-slick";
 import { Category } from "../interfaces";
 
 interface SliderProps {
-    category: Category
+  category: Category;
 }
 
- const SimpleSlider: React.FC<SliderProps> = ({category}) =>  {
+const SimpleSlider: React.FC<SliderProps> = ({ category }) => {
   var settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
   return (
     <Slider {...settings}>
       <div>
-     <p className="shrink-0">{category.name}</p>
+        <p className="shrink-0">{category.name}</p>
       </div>
     </Slider>
   );
-}
+};
 
-export default SimpleSlider
+export default SimpleSlider;

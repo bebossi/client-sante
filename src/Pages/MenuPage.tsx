@@ -15,7 +15,7 @@ const MenuPage = () => {
   const [selectedCategorySide, setSelectedCategorySide] = useState<
     string | null
   >(null);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
   const { user, setUser } = useContext(UserContext);
@@ -23,26 +23,26 @@ const MenuPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const response = await api.get("/getProducts");
 
         setProducts(response.data);
       } catch (err) {
         console.log(err);
-      } finally{
+      } finally {
         setIsLoading(false);
       }
     };
     const fetchCategories = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const response = await api.get("/getCategories");
 
         setCategories(response.data);
       } catch (err) {
         console.log(err);
-      } finally{
-         setIsLoading(false);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -63,7 +63,7 @@ const MenuPage = () => {
 
     fetchProducts();
     fetchCategories();
-  }, [ location.reload, cartModal.isOpen, addCartModal.isOpen]);
+  }, [location.reload, cartModal.isOpen, addCartModal.isOpen]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
@@ -86,7 +86,7 @@ const MenuPage = () => {
 
   const handleCategoryClick = (categoryId: string) => {
     const categoryElement = document.getElementById(
-      `categorySide-${categoryId}`
+      `categorySide-${categoryId}`,
     );
     if (categoryElement) {
       setSelectedCategorySide(categoryId);
@@ -98,7 +98,6 @@ const MenuPage = () => {
       if (scrollableContainerRef.current) {
         scrollableContainerRef.current.scrollLeft = offsetPosition;
       }
-      
     }
 
     goToProductsOfCategoryId(categoryId);

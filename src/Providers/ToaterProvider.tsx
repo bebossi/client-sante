@@ -1,10 +1,10 @@
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 const ToasterProvider = () => {
   return (
     <div>
-      <Toaster/>
+      <Toaster />
     </div>
-  )
-}
+  );
+};
 
-export default ToasterProvider
+export default ToasterProvider;
