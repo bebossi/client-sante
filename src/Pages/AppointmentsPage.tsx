@@ -36,7 +36,7 @@ const AppointmentsPage = () => {
         "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
         {
           timeZone: "America/Sao_Paulo",
-        },
+        }
       );
       const formattedEndTime = format(endTime as Date, "HH:mm:ss", {
         timeZone: "America/Sao_Paulo",

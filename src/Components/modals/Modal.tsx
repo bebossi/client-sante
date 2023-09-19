@@ -56,11 +56,10 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-    try{
+    try {
       onSubmit();
-
-    } catch(err){
-console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   }, [disabled, onSubmit]);
 
@@ -78,7 +77,10 @@ console.log(err)
 
   return (
     <>
-      <div className="justify-center flex items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 ">
+      <div
+        data-cy="modal"
+        className="justify-center flex items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 "
+      >
         <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-auto mx-auto h-full lg:h-auto md:h-auto ">
           <div
             className={`translate duration-300 w-full 

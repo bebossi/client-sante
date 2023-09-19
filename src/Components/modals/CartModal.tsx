@@ -230,6 +230,7 @@ const CartModal = () => {
     bodyContent = (
       <div className="flex justify-around gap-1">
         <div
+          data-cy="calendar"
           className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer w-1/2"
           onClick={() => setStep((value) => value + 1)}
         >
@@ -237,6 +238,7 @@ const CartModal = () => {
           <p className="text-lg font-semibold">Busque no restaurante</p>
         </div>
         <div
+          data-cy="address"
           className="flex flex-col items-center bg-slate-200 rounded-xl p-5 hover:cursor-pointer w-1/2"
           onClick={() => setStep((value) => value + 2)}
         >

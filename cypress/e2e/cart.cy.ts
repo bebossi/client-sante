@@ -6,8 +6,7 @@ describe("Interact with cart", () => {
   beforeEach(() => {
     login();
   });
-
-  it("should interact with cart", () => {
+  it("should add product with toppings to cart", () => {
     cy.intercept("POST", "/addProduct", {
       statusCode: 200,
     });
@@ -68,7 +67,21 @@ describe("Interact with cart", () => {
         ],
       },
     });
+    cy.intercept("GET", "/getAppointments", {
+      statusCode: 200,
+      body: [
+        {
+          endTime: "21:00:00",
+          id: "4b742b61-315e-49aa-a446-6d2a34ceb50c",
+          isAvailable: true,
+          startDate: "2023-09-19T23:00:00.000Z",
+        },
+      ],
+    });
     cy.intercept("POST", "/guestUser", {
+      statusCode: 200,
+    });
+    cy.intercept("POST", "/testCheckout", {
       statusCode: 200,
     });
 
@@ -90,8 +103,14 @@ describe("Interact with cart", () => {
     cy.get('[data-cy="product-quantity"]').eq(0).should("have.text", "2");
 
     cy.contains("Adicionar").click();
-    // cy.get('[data-cy="menu"]', { timeout: 3000 });
 
-    cy.get('[data-cy="cart-div"]', { timeout: 20000 });
+    cy.get('[data-cy="cart-div"]', { timeout: 20000 }).click();
+    cy.get('[data-cy="modal"]').should("exist");
+    cy.get('[data-cy="Próximo"]').click();
+    cy.get('[data-cy="calendar"]').click();
+    cy.get('[data-cy="appointments"]', { timeout: 3000 }).click();
+    cy.get('[data-cy="appointment"]', { timeout: 3000 }).eq(0).click();
+    cy.get('[data-cy="Próximo"]').click();
+    cy.get('[data-cy="Escolher forma de pagamento"]').click();
   });
 });

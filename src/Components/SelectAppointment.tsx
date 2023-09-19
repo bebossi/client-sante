@@ -23,7 +23,7 @@ import { z } from "zod";
 interface AppointmentInfoProps {
   handleAvailiableAppointmentId?: (
     avaliableAppointmentId: string,
-    appointment?: AvaliableAppointment,
+    appointment?: AvaliableAppointment
   ) => void;
   handleIsSelectOpen?: () => void;
 }
@@ -46,6 +46,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
       try {
         const response = await api.get("/getAppointments");
         setAvaliableAppointments(response.data);
+        console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -70,7 +71,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                       timeZone: "America/Sao_Paulo",
                       dateStyle: "short",
                       timeStyle: "short",
-                    },
+                    }
                   )}
                 </span>
                 <span className="mx-2 text-gray-500">-</span>
@@ -96,17 +97,17 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                       const avaliableAppointment = avaliableAppointments?.find(
                         (availableAppointment) => {
                           return availableAppointment.id === newValue;
-                        },
+                        }
                       );
                       handleAvailiableAppointmentId!(
                         newValue,
-                        avaliableAppointment,
+                        avaliableAppointment
                       );
                       field.onChange(newValue);
                     }}
                     value={field.value}
                   >
-                    <FormControl>
+                    <FormControl data-cy="appointments">
                       <SelectTrigger>
                         <SelectValue placeholder="Select an appointment" />
                       </SelectTrigger>
@@ -118,11 +119,12 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                           value={avaliableAppointment.id}
                         >
                           <p
+                            data-cy="appointment"
                             key={avaliableAppointment.id}
                             className="text-lg font-semibold"
                           >
                             {new Date(
-                              avaliableAppointment.startDate,
+                              avaliableAppointment.startDate
                             ).toLocaleString("pt-BR", {
                               timeZone: "America/Sao_Paulo",
                               dateStyle: "short",
