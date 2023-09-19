@@ -86,7 +86,7 @@ const MenuPage = () => {
 
   const handleCategoryClick = (categoryId: string) => {
     const categoryElement = document.getElementById(
-      `categorySide-${categoryId}`,
+      `categorySide-${categoryId}`
     );
     if (categoryElement) {
       setSelectedCategorySide(categoryId);
@@ -181,6 +181,7 @@ const MenuPage = () => {
       </div>
       {cartModal.cartItems.length > 0 && (
         <div
+          data-cy="cart-div"
           onClick={cartModal.onOpen}
           className="sticky bg-red-600 bottom-0 flex justify-center py-1 hover:cursor-pointer"
         >

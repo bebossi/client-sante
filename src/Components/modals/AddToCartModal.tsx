@@ -35,7 +35,7 @@ const AddToCartModal = () => {
         (topping: Topping) => ({
           topping,
           quantity: 0,
-        }),
+        })
       );
       setToppings(initialToppings);
     }
@@ -56,7 +56,7 @@ const AddToCartModal = () => {
       return;
     }
     const toppingIndex = toppings?.findIndex(
-      (topping) => topping.topping.id === toppingId,
+      (topping) => topping.topping.id === toppingId
     );
 
     if (toppingIndex !== -1) {
@@ -71,7 +71,7 @@ const AddToCartModal = () => {
       return;
     }
     const toppingIndex = toppings?.findIndex(
-      (topping) => topping.topping.id === toppingId,
+      (topping) => topping.topping.id === toppingId
     );
     if (toppingIndex !== -1) {
       const updatedToppings = [...toppings];
@@ -83,11 +83,12 @@ const AddToCartModal = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      await api.post("/addProduct", {
+      const response = await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,
         quantity: quantity,
       });
+      console.log(response.data);
       toast.success("Produto addicionado ao carrinho");
       addCartModal.onClose();
     } catch (err) {
@@ -128,16 +129,18 @@ const AddToCartModal = () => {
               <div className="flex items-center gap-3">
                 <>
                   <BiMinus
+                    data-cy="decreaseTopping"
                     className="cursor-pointer"
                     onClick={() => onSub(topping.id)}
                   />
-                  <p>
+                  <p data-cy="topping-quantity">
                     {toppings?.find((item) => item.topping.id === topping.id)
                       ?.quantity || 0}
                   </p>
                 </>
 
                 <BiPlus
+                  data-cy="increaseTopping"
                   className="mr-2 cursor-pointer "
                   onClick={() => onAdd(topping.id)}
                 />
@@ -163,12 +166,14 @@ const AddToCartModal = () => {
   const thirdAction = (
     <div className="flex py-2 justify-center items-center gap-x-4 border-black border-[1px] rounded-lg w-full h-full text-xl font-semibold">
       <BiMinus
+        data-cy="decreaseQuantity"
         size={30}
         className="cursor-pointer"
         onClick={() => decreaseQuantity()}
       />
-      {quantity}
+      <p data-cy="product-quantity">{quantity}</p>
       <BiPlus
+        data-cy="increaseQuantity"
         size={28}
         className="mr-2 cursor-pointer"
         onClick={() => increaseQuantity()}

@@ -42,7 +42,7 @@ const CartModal = () => {
   const [cart, setCart] = useState<Cart>();
   const [appointmentId, setAppointmentId] = useState("");
   const [appointment, setAppointment] = useState<AvaliableAppointment | null>(
-    null,
+    null
   );
   const [addressId, setAddressId] = useState("");
   const [address, setAddress] = useState<Address | null>(null);
@@ -97,7 +97,7 @@ const CartModal = () => {
 
   const handleAvailiableAppointmentId = (
     avaliableAppointmentId: string,
-    appointment?: AvaliableAppointment,
+    appointment?: AvaliableAppointment
   ) => {
     setAppointmentId(avaliableAppointmentId);
     setAppointment(appointment as AvaliableAppointment);
@@ -156,7 +156,7 @@ const CartModal = () => {
       setCart(response.data);
     };
     fetchCart();
-  }, [cartModal, addCartModal, cartModal.cartItems]);
+  }, [cartModal, addCartModal]);
 
   if (cart) {
     cartModal.cartItems = cart.cartProducts;

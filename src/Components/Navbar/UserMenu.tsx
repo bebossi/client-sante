@@ -33,9 +33,10 @@ const UserMenu = () => {
   useEffect(() => {}, [user, !user]);
 
   return (
-    <div className="relative" >
+    <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
+          data-cy="menu"
           onClick={() => navigate("/menu")}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
@@ -57,7 +58,7 @@ const UserMenu = () => {
           Contato
         </div>
         <div
-        data-cy="userMenu"
+          data-cy="userMenu"
           onClick={toggleOpen}
           className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
         >
@@ -72,10 +73,18 @@ const UserMenu = () => {
           <div className="flex flex-col cursor-pointer">
             {((user && user.role === "guest") || !user) && (
               <>
-                <MenuItem data-cy="entre" onClick={loginModal.onOpen} label="Entre" />
-                <MenuItem data-cy="cadastre" onClick={registerModal.onOpen} label="Cadastre" />
                 <MenuItem
-                data-cy="menu"
+                  data-cy="entre"
+                  onClick={loginModal.onOpen}
+                  label="Entre"
+                />
+                <MenuItem
+                  data-cy="cadastre"
+                  onClick={registerModal.onOpen}
+                  label="Cadastre"
+                />
+                <MenuItem
+                  data-cy="menu"
                   onClick={() => {
                     navigate("/menu");
                     toggleOpen();
@@ -90,7 +99,6 @@ const UserMenu = () => {
                   label="Quem somos"
                 />
                 <MenuItem
-                
                   onClick={() => {
                     navigate("/doubts");
                     toggleOpen();
@@ -109,7 +117,7 @@ const UserMenu = () => {
             {user && user.role === "admin" && (
               <>
                 <MenuItem
-                data-cy="menu"
+                  data-cy="menu"
                   onClick={() => {
                     navigate("/menu");
                     toggleOpen();

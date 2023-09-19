@@ -15,6 +15,7 @@ const ProductCard: React.FC<CardProduct> = ({
 }) => {
   return (
     <div
+      data-cy="card-product"
       onClick={onClick}
       className="mx-2 mb-4 overflow-hidden rounded-xl border shadow-lg max-h-60 cursor-pointer m-1 ease-in-out delay-100 hover:scale-95 duration-300 "
     >
