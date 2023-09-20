@@ -367,7 +367,6 @@ const CartModal = () => {
       </div>
     );
   }
-  console.log(address);
   return (
     <div>
       <Modal

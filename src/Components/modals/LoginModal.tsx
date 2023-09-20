@@ -34,26 +34,25 @@ const LoginModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-
     try {
-
       const response = await api.post("/login", data);
       console.log(response);
       setIsLoading(true);
       setUser(response.data);
       toast.success("Usuario logado");
       loginModal.onClose();
+      window.location.reload();
     } catch (err) {
       toast.error("Algo deu errado");
       console.log(err);
-    } finally{
+    } finally {
       setIsLoading(false);
     }
   };
 
   const toogle = useCallback(() => {
     loginModal.onClose();
-    registerModal.onOpen(); 
+    registerModal.onOpen();
   }, [loginModal, registerModal]);
 
   const bodyContent = (

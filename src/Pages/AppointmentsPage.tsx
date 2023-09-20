@@ -54,8 +54,8 @@ const AppointmentsPage = () => {
 
   const handleIsOpen = async () => {
     try {
-      const response = await api.put("/updateIsOpen");
-      toast.success(response.data);
+      await api.put("/updateIsOpen");
+      toast.success("Atualizado");
     } catch (err) {
       toast.error("Algo deu errado");
       console.log(err);
@@ -63,19 +63,27 @@ const AppointmentsPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center mt-10 p-3 space-y-3 ">
+    <div
+      data-cy="appointment-page"
+      className="flex flex-col justify-center mt-10 p-3 space-y-3 "
+    >
       <div>
         <p className="text-4xl font-semibold my-5">
           O restaurante está aberto?
         </p>
         <div>
-          <Switch checked={isOpen!} onCheckedChange={handleIsOpen} />
+          <Switch
+            data-cy="updateIsOpen"
+            checked={isOpen!}
+            onCheckedChange={handleIsOpen}
+          />
         </div>
       </div>
       <p className="text-2xl font-semibold py-4">
         Slecione uma data e um horário
       </p>
       <DateTimePicker
+        data-cy="date-time"
         amPmAriaLabel="false"
         onChange={onChangeTime}
         value={valueTime}

@@ -78,9 +78,6 @@ describe("Interact with cart", () => {
   //       },
   //     ],
   //   });
-  //   cy.intercept("POST", "/guestUser", {
-  //     statusCode: 200,
-  //   });
   //   cy.intercept("POST", "/testCheckout", {
   //     statusCode: 200,
   //   });
@@ -186,9 +183,7 @@ describe("Interact with cart", () => {
         },
       ],
     });
-    cy.intercept("POST", "/guestUser", {
-      statusCode: 200,
-    });
+
     cy.intercept("POST", "/testCheckout", {
       statusCode: 200,
     });
@@ -237,8 +232,5 @@ describe("Interact with cart", () => {
 
     cy.get('[data-cy="Próximo"]', { timeout: 3000 }).click();
     cy.get('[data-cy="deliveryAddress"]', { timeout: 10000 });
-    // cy.get('[data-cy="appointment"]', { timeout: 3000 }).eq(0).click();
-    // cy.get('[data-cy="Próximo"]').click();
-    // cy.get('[data-cy="Escolher forma de pagamento"]').click();
   });
 });
