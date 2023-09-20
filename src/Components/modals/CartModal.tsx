@@ -155,6 +155,7 @@ const CartModal = () => {
       const response = await api.get("/cart");
       setCart(response.data);
     };
+    isOpen;
     fetchCart();
   }, [cartModal, addCartModal]);
 
@@ -351,7 +352,7 @@ const CartModal = () => {
             </div>
           )}
           {address && (
-            <div>
+            <div data-cy="deliveryAddress">
               <h1 className="text-xl font-semibold mb-2">
                 Endereço de entrega:
               </h1>
@@ -366,7 +367,7 @@ const CartModal = () => {
       </div>
     );
   }
-
+  console.log(address);
   return (
     <div>
       <Modal

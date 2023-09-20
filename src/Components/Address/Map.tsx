@@ -5,7 +5,7 @@ import {
   Autocomplete,
   LoadScriptProps,
 } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -37,6 +37,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     cidade: "",
     apartamento: "",
   });
+  const addressRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (selectedAddress) {
@@ -66,6 +67,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
+  // console.log("value", value);
 
   const handleSelect = async (address: string) => {
     try {
@@ -75,8 +77,10 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       setValue(address, false);
       clearSuggestions();
+      const result = addressRef.current?.value as string;
 
-      const results = await getGeocode({ address });
+      const results = await getGeocode({ address: result });
+
       if (results.length === 0) {
         toast.error("No results found for the selected address");
         return;
@@ -85,11 +89,11 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       setSelectedCoordinates({ lat, lng });
       setSelectedAddress(results[0].formatted_address);
-      console.log(results);
     } catch (err) {
       console.log(err);
     }
   };
+  // console.log(selectedAddress);
 
   const calculateRoute = async () => {
     const directionsService = new google.maps.DirectionsService();
@@ -124,13 +128,12 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         complementNumber: Number(form.apartamento) || "",
         CEP: Number(cleanedCEP),
       });
-      handleAddressId(response.data.id);
+      handleAddressId(response.data.id, response.data);
       toast.success("Address added");
     } catch (err) {
       console.log(err);
     }
   };
-
   return (
     <>
       <div className="h-full w-full flex flex-col ">
@@ -147,7 +150,8 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
             className="w-full"
           >
             <input
-              onClick={() => handleSelect}
+              ref={addressRef}
+              data-cy="create-address"
               className="w-full border-[1px] border-black rounded-lg"
               placeholder="Procure um endereço"
               onChange={(e) => {
@@ -155,6 +159,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
               }}
             />
           </Autocomplete>
+
           {selectedAddress && selectedCoordinates && (
             <>
               <form {...form} className="m-2 " name="Map">
