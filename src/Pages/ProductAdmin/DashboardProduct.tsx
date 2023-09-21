@@ -4,7 +4,6 @@ import { api } from "../../api";
 import { Product } from "../../interfaces";
 import { columns } from "./columns";
 import { Button } from "../../Components/ui/button";
-import { cn } from "../../lib/utils";
 import { useNavigate } from "react-router-dom";
 import DashboardNavigation from "../../Components/DashboardNavigation";
 
@@ -58,10 +57,7 @@ const DashboardProduct = () => {
   return (
     <>
       <DashboardNavigation />
-      <Button
-        className={cn(" mx-5 bg-red-500 mt-5 ")}
-        onClick={() => navigate("/product")}
-      >
+      <Button variant="destructive" onClick={() => navigate("/product")}>
         Adicione novo produto
       </Button>
       <DataTable columns={columns} data={products ?? []} searchKey={"name"} />

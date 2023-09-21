@@ -10,7 +10,7 @@ const DashboardNavigation = () => {
         <li
           className={`${
             location.pathname.includes("dashboardOverview")
-              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200  rounded-md"
+              ? "shadow-md bg-red-900 p-2 rounded-lg text-white"
               : ""
           }  `}
           onClick={() => navigate("/dashboardOverview")}
@@ -20,7 +20,7 @@ const DashboardNavigation = () => {
         <li
           className={`${
             location.pathname.includes("dashboardOrders")
-              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200  rounded-md"
+              ? "shadow-md bg-red-900 p-2 rounded-lg text-white"
               : ""
           }  `}
           onClick={() => navigate("/dashboardOrders")}
@@ -30,7 +30,7 @@ const DashboardNavigation = () => {
         <li
           className={`${
             location.pathname.includes("dashboardProduct")
-              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+              ? "shadow-md bg-red-900 p-2 rounded-lg text-white"
               : ""
           } `}
           onClick={() => navigate("/dashboardProduct")}
@@ -40,7 +40,7 @@ const DashboardNavigation = () => {
         <li
           className={`${
             location.pathname.includes("dashboardToppings")
-              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+              ? "shadow-md bg-red-900 p-2 rounded-lg text-white"
               : ""
           } `}
           onClick={() => navigate("/dashboardToppings")}
@@ -51,7 +51,7 @@ const DashboardNavigation = () => {
         <li
           className={`${
             location.pathname.includes("dashboardCategories")
-              ? " border-b-2 border-red-600 text-red-600 shadow-md bg-gray-200 p-2 rounded-md"
+              ? "shadow-md bg-red-900 p-2 rounded-lg text-white"
               : ""
           } `}
           onClick={() => navigate("/dashboardCategories")}

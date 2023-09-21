@@ -3,7 +3,6 @@ import { DataTable } from "../../Components/DataTable/Data-table";
 import { api } from "../../api";
 import { Topping } from "../../interfaces";
 import { columns } from "./columns";
-import { cn } from "../../lib/utils";
 import { Button } from "../../Components/ui/button";
 import { useNavigate } from "react-router-dom";
 import DashboardNavigation from "../../Components/DashboardNavigation";
@@ -55,10 +54,7 @@ const DashboardToppings = () => {
     <>
       <DashboardNavigation />
 
-      <Button
-        className={cn(" mx-5 bg-red-500 mt-5 ")}
-        onClick={() => navigate("/topping")}
-      >
+      <Button variant="destructive" onClick={() => navigate("/topping")}>
         Adicione novo topping
       </Button>
       <DataTable columns={columns} data={toppings ?? []} searchKey={"name"} />
