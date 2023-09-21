@@ -240,7 +240,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
            */}
           </div>
           <Button
-            //    disabled={loading}
+            data-cy="submit"
+            disabled={loading}
             className="ml-auto py-5"
             type="submit"
           >

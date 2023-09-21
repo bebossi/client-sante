@@ -43,4 +43,27 @@ describe("testing admin", () => {
     cy.get('[data-cy="updateIsOpen"]').click();
     cy.contains("Atualizado").should("exist");
   });
+
+  it("interact with dashboard", () => {
+    cy.intercept("GET", "/currentUser", {
+      statusCode: 200,
+      body: {
+        role: "admin",
+      },
+    });
+    cy.intercept("PUT", "/updateProduct/*", {
+      statusCode: 200,
+    });
+
+    cy.get('[data-cy="userMenu"]').click();
+    cy.get('[data-cy="Dashboard"]').click();
+    cy.contains("Produtos").click();
+    cy.get("#radix-\\:r2\\:").click();
+    cy.contains("Atualizar").click();
+    cy.contains("Editar").should("exist");
+    cy.get("#\\:rr\\:-form-item").click().type(" atualizado");
+    cy.get("#\\:rv\\:-form-item").click().type("20");
+    cy.get('[data-cy="submit"]').click();
+    cy.contains("Produto atualizado").should("exist");
+  });
 });
