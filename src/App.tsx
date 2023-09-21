@@ -21,6 +21,7 @@ import AppointmentsPage from "./Pages/AppointmentsPage";
 import RegisterModal from "./Components/modals/RegisterModal";
 import OrdersClientPage from "./Pages/OrdersClientPage";
 import { RestaurantContextProvider } from "./auth/restaurantContext";
+import { ProtectedRoute } from "./Components/ProtectedRoute";
 
 function App() {
   return (
@@ -39,34 +40,59 @@ function App() {
                 <Routes>
                   <Route path="/menu" element={<MenuPage />} />
                   <Route path="/" element={<Home />} />
-                  <Route path="/dashboardOverview" element={<DashBoard />} />
+                  <Route
+                    path="/dashboardOverview"
+                    element={<ProtectedRoute component={DashBoard} />}
+                  />
                   <Route
                     path="/dashboardProduct"
-                    element={<DashboardProduct />}
+                    element={<ProtectedRoute component={DashboardProduct} />}
                   />
                   <Route
                     path="/dashboardCategories"
-                    element={<DashboardCategories />}
+                    element={<ProtectedRoute component={DashboardCategories} />}
                   />
+
                   <Route
                     path="/dashboardToppings"
-                    element={<DashboardToppings />}
+                    element={<ProtectedRoute component={DashboardToppings} />}
                   />
                   <Route
                     path="/dashboardOrders"
-                    element={<DashboardOrders />}
+                    element={<ProtectedRoute component={DashboardOrders} />}
                   />
-                  <Route path="/product/:productId" element={<ProductPage />} />
-                  <Route path="/product" element={<ProductPage />} />
-                  <Route path="/topping/:toppingId" element={<ToppingPage />} />
-                  <Route path="/topping" element={<ToppingPage />} />
+                  <Route
+                    path="/product/:productId"
+                    element={<ProtectedRoute component={ProductPage} />}
+                  />
+                  <Route
+                    path="/product"
+                    element={<ProtectedRoute component={ProductPage} />}
+                  />
+                  <Route
+                    path="/topping/:toppingId"
+                    element={<ProtectedRoute component={ToppingPage} />}
+                  />
+                  <Route
+                    path="/topping"
+                    element={<ProtectedRoute component={ToppingPage} />}
+                  />
                   <Route
                     path="/category/:categoryId"
-                    element={<CategoryPage />}
+                    element={<ProtectedRoute component={CategoryPage} />}
                   />
-                  <Route path="/category" element={<CategoryPage />} />
-                  <Route path="/order/:orderId" element={<OrderPage />} />
-                  <Route path="/appointment" element={<AppointmentsPage />} />
+                  <Route
+                    path="/category"
+                    element={<ProtectedRoute component={CategoryPage} />}
+                  />
+                  <Route
+                    path="/order/:orderId"
+                    element={<ProtectedRoute component={OrderPage} />}
+                  />
+                  <Route
+                    path="/appointment"
+                    element={<ProtectedRoute component={AppointmentsPage} />}
+                  />
                   <Route path="orders" element={<OrdersClientPage />} />
                 </Routes>
               </div>
