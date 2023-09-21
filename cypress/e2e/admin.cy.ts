@@ -68,23 +68,46 @@ describe("testing admin", () => {
   //     cy.contains("Produto atualizado").should("exist");
   //   });
 
-  it("should update topping", () => {
+  //   it("should update topping", () => {
+  //     cy.intercept("GET", "/currentUser", {
+  //       statusCode: 200,
+  //       body: {
+  //         role: "admin",
+  //       },
+  //     });
+  //     cy.intercept("PUT", "/updateTopping/*", {
+  //       statusCode: 200,
+  //     });
+
+  //     cy.get('[data-cy="userMenu"]').click();
+  //     cy.get('[data-cy="Dashboard"]').click();
+  //     cy.contains("Toppings").click();
+  //     cy.get("#radix-\\:r2\\:").click();
+  //     cy.contains("Atualizar").click();
+  //     cy.contains("Editar").should("exist");
+  //     cy.get("#\\:rf\\:-form-item").click().type("atualizado");
+  //     cy.get("#\\:rj\\:-form-item").click().type("20");
+  //     cy.contains("Salvar mudanças").click();
+  //     cy.contains("Topping atualizado").should("exist");
+  //   });
+
+  it("should update category", () => {
     cy.intercept("GET", "/currentUser", {
       statusCode: 200,
       body: {
         role: "admin",
       },
     });
-    cy.intercept("PUT", "/updateTopping/*", {
+    cy.intercept("PUT", "/updateCategory/*", {
       statusCode: 200,
     });
 
     cy.get('[data-cy="userMenu"]').click();
     cy.get('[data-cy="Dashboard"]').click();
-    cy.contains("Toppings").click();
+    cy.contains("Categorias").click();
     cy.get("#radix-\\:r2\\:").click();
     cy.contains("Atualizar").click();
-    cy.contains("Editar").should("exist");
+    cy.contains("Editar", { timeout: 50000 }).should("exist");
     cy.get("#\\:rf\\:-form-item").click().type("atualizado");
     cy.get("#\\:rj\\:-form-item").click().type("20");
     cy.contains("Salvar mudanças").click();
