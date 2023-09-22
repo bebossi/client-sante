@@ -29,7 +29,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
         if (!error && result && result.event === "success") {
           onChange(result.info.secure_url);
         }
-      },
+      }
     );
 
     setUploadWidget(widget);
@@ -43,6 +43,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
 
   return (
     <div
+      data-cy="image-upload"
       onClick={handleUploadClick}
       className="relative cursor-pointer hover:opacity-70 transition border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600"
     >

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api";
-import ToppingForm from "../Components/ToppingForm";
+import ToppingForm from "../Components/Forms/ToppingForm";
 import { Product, Topping } from "../interfaces";
 
 const ToppingPage = () => {

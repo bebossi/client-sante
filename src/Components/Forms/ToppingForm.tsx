@@ -1,8 +1,8 @@
-import { api } from "../api";
-import { Separator } from "./ui/separator";
+import { api } from "../../api";
+import { Separator } from "../ui/separator";
 import { Trash } from "lucide-react";
-import { Button } from "../Components/ui/button";
-import { Input } from "../Components/ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import {
   Form,
   FormControl,
@@ -10,14 +10,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../Components/ui/form";
+} from "../ui/form";
 import * as z from "zod";
-import { Category, Product } from "../interfaces";
+import { Product, Topping } from "../../interfaces";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import Heading from "../Components/Heading";
-import ImageUpload from "./image-upload";
+import Heading from "../Heading";
+import ImageUpload from "../image-upload";
 import { useNavigate } from "react-router-dom";
 import {
   Select,
@@ -27,7 +27,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../ui/select";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -35,32 +35,30 @@ const formSchema = z.object({
   description: z.string().min(1),
   image: z.string().min(1),
   price: z.coerce.number().min(1),
-  categoryId: z.string().min(1),
+  productId: z.string().min(1),
 });
 
-type ProductFormValues = z.infer<typeof formSchema>;
+type ToppingFormValues = z.infer<typeof formSchema>;
 
-interface ProductFormProps {
-  initialData: Product | null;
-  categories: Category[];
+interface ToppingFormProps {
+  initialData: Topping | null;
+  products: Product[];
 }
-const ProductForm: React.FC<ProductFormProps> = ({
-  initialData,
-  categories,
-}) => {
+
+const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  if (!initialData && !categories) {
-    return <div>Loading</div>;
+  if (!initialData && !products) {
+    return <div>Loading...</div>;
   }
 
-  const title = initialData ? "Editar produto" : "Criar produto";
-  const description = initialData ? "Editar produto" : "Adicione um produto";
-  const toastMessage = initialData ? "Produto atualizado" : "Produto criado";
+  const title = initialData ? "Editar topping" : "Criar topping";
+  const description = initialData ? "Editar topping" : "Adicionar topping";
+  const toastMessage = initialData ? "Topping atualizado" : "Topping criado";
   const action = initialData ? "Salvar mudanças" : "Criar";
 
-  const form = useForm<ProductFormValues>({
+  const form = useForm<ToppingFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData
       ? {
@@ -71,20 +69,22 @@ const ProductForm: React.FC<ProductFormProps> = ({
           description: "",
           image: "",
           price: 0,
-          categoryId: "",
+          productId: "",
         },
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
+  const onSubmit = async (data: ToppingFormValues) => {
     try {
       setLoading(true);
+
       if (initialData) {
-        await api.put(`/updateProduct/${initialData.id}`, data);
+        await api.put(`/updateTopping/${initialData.id}`, data);
         toast.success(toastMessage);
       } else {
-        await api.post(`/create`, data);
+        await api.post(`/createTopping`, data);
         toast.success(toastMessage);
       }
+
       navigate("/dashboard");
     } catch (err) {
       toast.error("Something went wrong");
@@ -94,8 +94,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
   };
 
   return (
-    <>
-      <div className="flex items-center justify-between">
+    <div className="p-1">
+      <div className="flex items-center justify-between ">
         <Heading title={title} subtitle={description} />
         {initialData && (
           <Button variant="destructive" size="sm">
@@ -137,7 +137,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Prouct name"
+                      placeholder="Nome topping"
                       {...field}
                     />
                   </FormControl>
@@ -155,7 +155,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <textarea
                       className="h-20 line-clamp-4 w-full border-slate-200 border-[1px] rounded-md overflow-y-auto"
                       disabled={loading}
-                      placeholder="Product description"
+                      placeholder="Descrição topping"
                       {...field}
                     />
                   </FormControl>
@@ -183,30 +183,30 @@ const ProductForm: React.FC<ProductFormProps> = ({
             />
             <FormField
               control={form.control}
-              name="categoryId"
+              name="productId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Categoria</FormLabel>
+                  <FormLabel>Produto</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="border-[1px]">
+                      <SelectTrigger className="border-[1px] h-auto w-auto">
                         <SelectValue
                           className=""
                           defaultValue={field.value}
-                          placeholder="Select a category"
+                          placeholder="Selecione um produto"
                         />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="">
+                    <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Categorias</SelectLabel>
-                        {categories?.map((category) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.name}
+                        <SelectLabel>Produtos</SelectLabel>
+                        {products?.map((product) => (
+                          <SelectItem key={product.id} value={product.id}>
+                            {product.name}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -216,41 +216,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* <FormField
-              control={form.control}
-              name="isFeatured"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Featured</FormLabel>
-                    <FormDescription>
-                      This product will appear in the home page
-                    </FormDescription>
-                  </div>
-                </FormItem>
-              )}
-            />
-           */}
           </div>
-          <Button
-            data-cy="submit"
-            disabled={loading}
-            className="ml-auto py-5"
-            type="submit"
-          >
+          <Button disabled={loading} className="ml-auto py-5" type="submit">
             {action}
           </Button>
         </form>
       </Form>
-    </>
+    </div>
   );
 };
 
-export default ProductForm;
+export default ToppingForm;

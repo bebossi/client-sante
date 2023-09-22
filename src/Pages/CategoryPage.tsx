@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api";
 import { Category } from "../interfaces";
-import CategoryForm from "../Components/CategoryForm";
+import CategoryForm from "../Components/Forms/CategoryForm";
 
 const CategoryPage = () => {
   const params = useParams();

@@ -1,8 +1,8 @@
-import { api } from "../api";
-import { Separator } from "./ui/separator";
+import { api } from "../../api";
+import { Separator } from "../ui/separator";
 import { Trash } from "lucide-react";
-import { Button } from "../Components/ui/button";
-import { Input } from "../Components/ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import {
   Form,
   FormControl,
@@ -10,13 +10,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../Components/ui/form";
+} from "../ui/form";
 import * as z from "zod";
-import { Category } from "../interfaces";
+import { Category } from "../../interfaces";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import Heading from "../Components/Heading";
+import Heading from "../Heading";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
