@@ -109,7 +109,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
               )}
             />
           </div>
-          <Button disabled={loading} className="ml-auto py-5" type="submit">
+          <Button
+            data-cy="submit"
+            disabled={loading}
+            className="ml-auto py-5"
+            type="submit"
+          >
             {action}
           </Button>
         </form>

@@ -195,7 +195,6 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                     <FormControl>
                       <SelectTrigger className="border-[1px] h-auto w-auto">
                         <SelectValue
-                          className=""
                           defaultValue={field.value}
                           placeholder="Selecione um produto"
                         />
@@ -205,7 +204,11 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                       <SelectGroup>
                         <SelectLabel>Produtos</SelectLabel>
                         {products?.map((product) => (
-                          <SelectItem key={product.id} value={product.id}>
+                          <SelectItem
+                            data-cy={product.name}
+                            key={product.id}
+                            value={product.id}
+                          >
                             {product.name}
                           </SelectItem>
                         ))}
@@ -217,7 +220,12 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
               )}
             />
           </div>
-          <Button disabled={loading} className="ml-auto py-5" type="submit">
+          <Button
+            data-cy="submit"
+            disabled={loading}
+            className="ml-auto py-5"
+            type="submit"
+          >
             {action}
           </Button>
         </form>
