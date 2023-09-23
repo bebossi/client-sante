@@ -11,32 +11,30 @@ const ToppingPage = () => {
   const [fetchingTopping, setFetchingTopping] = useState(true);
 
   useEffect(() => {
-    const fetchTopping = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get(`/getTopping/${params.toppingId}`);
-        setTopping(response.data);
+        const [productsResponse, toppingResponse] = await Promise.all([
+          api.get("/getProducts"),
+          params.toppingId
+            ? api.get(`/getTopping/${params.toppingId}`)
+            : Promise.resolve(null),
+        ]);
+
+        setProducts(productsResponse.data);
+
+        if (params.toppingId) {
+          setTopping(toppingResponse?.data);
+        }
+
         setFetchingTopping(false);
       } catch (err) {
         console.log(err);
       }
     };
 
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get(`/getProducts`);
-        setProducts(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchProducts();
+    fetchData();
+  }, [params.toppingId]);
 
-    if (params.toppingId) {
-      fetchTopping();
-    } else {
-      setFetchingTopping(false);
-    }
-  }, []);
   return (
     <>
       {fetchingTopping ? (

@@ -11,33 +11,32 @@ const ProductPage = () => {
   const [fetchingProduct, setFetchingProduct] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get(`/getProduct/${params.productId}`);
-        setProduct(response.data);
+        const [categoriesResponse] = await Promise.all([
+          api.get("/getCategories"),
+          params.productId
+            ? api.get(`/getProduct/${params.productId}`)
+            : Promise.resolve(null),
+        ]);
+
+        setCategories(categoriesResponse.data);
+
+        if (params.productId) {
+          const productResponse = await api.get(
+            `/getProduct/${params.productId}`
+          );
+          setProduct(productResponse.data);
+        }
+
         setFetchingProduct(false);
       } catch (err) {
         console.log(err);
       }
     };
 
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("/getCategories");
-
-        setCategories(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchCategories();
-    if (params.productId) {
-      fetchProduct();
-    } else {
-      setFetchingProduct(false);
-    }
-  }, []);
+    fetchData();
+  }, [params.productId]);
 
   return (
     <>

@@ -21,26 +21,22 @@ const DashBoard = () => {
   const [graphRevenue, setGraphRevenue] = useState();
 
   useEffect(() => {
-    const fetchTotalRevenue = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get("/totalRevenue");
-        setTotalRevenue(response.data.totalRevenue);
-        setSalesCount(response.data.salesCount);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    const fetchGraphRevenue = async () => {
-      try {
-        const response = await api.get("/graphRevenue");
-        setGraphRevenue(response.data);
+        const [totalRevenueResponse, graphRevenueResponse] = await Promise.all([
+          api.get("/totalRevenue"),
+          api.get("/graphRevenue"),
+        ]);
+
+        setTotalRevenue(totalRevenueResponse.data.totalRevenue);
+        setSalesCount(totalRevenueResponse.data.salesCount);
+        setGraphRevenue(graphRevenueResponse.data);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchGraphRevenue();
-    fetchTotalRevenue();
+    fetchData();
   }, []);
 
   if ((user && user.role !== "admin") || !user) {

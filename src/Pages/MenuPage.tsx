@@ -21,49 +21,31 @@ const MenuPage = () => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await api.get("/getProducts");
 
-        setProducts(response.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    const fetchCategories = async () => {
-      try {
-        setIsLoading(true);
-        const response = await api.get("/getCategories");
+        const [productsResponse, categoriesResponse] = await Promise.all([
+          api.get("/getProducts"),
+          api.get("/getCategories"),
+        ]);
 
-        setCategories(response.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+        setProducts(productsResponse.data);
+        setCategories(categoriesResponse.data);
 
-    const fetchGuestUser = async () => {
-      try {
         if (!user) {
-          const response = await api.post("/guestUser");
-          setUser(response.data.guestUser);
+          const guestUserResponse = await api.post("/guestUser");
+          setUser(guestUserResponse.data.guestUser);
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    if (!user) {
-      fetchGuestUser();
-    }
-
-    fetchProducts();
-    fetchCategories();
-  }, [location.reload, cartModal.isOpen, addCartModal.isOpen]);
+    fetchData();
+  }, [location.reload, cartModal.isOpen, addCartModal.isOpen, user]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
