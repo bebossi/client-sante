@@ -65,7 +65,26 @@ Normal Users: Can interact with the menu, add products to the cart, and place or
 
 Guest: Created when a user visits the menu page without being logged in. Guests can interact with the cart and save their products to a database cart. When they log in or sign up, their cart is automatically updated with the products they saved.
 
-Admin Dashboard
+### Social Login
+
+Users can sign up or log in using social login with google.
+
+### Cart Functionality
+
+Users can interact with their cart, adding products, specifying quantities, and adding toppings if available.
+Cart information is stored securely in the database for each user.
+
+### Delivery Service
+
+This project supports delivery services. Orders placed within a 2-kilometer radius of the restaurant location are eligible for free delivery.
+Users can create a new address for themselves using the Google Maps API and Places Autocomplete library, or they can select an address that they have already created and saved in the database.
+
+### Appointment Booking
+
+This project supports appointment booking. Customers can reserve a specific time for their order pickup or delivery, ensuring that their meal is ready exactly when they need it.
+
+### Admin Dashboard
+
 Admin users have access to a dashboard with the following information:
 
 ### Monthly sales statistics.
@@ -75,28 +94,10 @@ Guest Users
 When normal users access the menu page without logging in, a guest user profile is created in the database.
 Guest users can interact with the menu and save their cart information in the database.
 
-### Social Login
-
-Users can sign up or log in using social login (e.g., OAuth) methods.
-Upon social login, the guest user profile is updated to a normal user with email and password, and their cart information is retained.
-
-### Cart Functionality
-
-Normal users can interact with their cart, adding products, specifying quantities, and adding toppings if available.
-Cart information is stored securely in the database for each user.
-
 ### End-to-End Testing
 
 End-to-end testing is performed using Cypress in the client to ensure the application functions as expected.
 Test scripts and procedures are provided for quality assurance.
-
-### Delivery Service
-
-We understand the importance of convenience for our customers. To enhance your dining experience, we offer a free delivery service for orders placed within a 2-kilometer radius of our restaurant location. This service ensures that your favorite Sante dishes can be enjoyed from the comfort of your home or office.
-
-### Appointment Booking
-
-At Sante, we believe in providing our customers with the utmost convenience. For those who prefer a planned dining experience, our appointment booking feature allows you to reserve a specific time for your order pickup or delivery. This ensures that your meal is ready exactly when you need it.
 
 ## License
 
