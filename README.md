@@ -14,20 +14,29 @@
 
 ## Introduction
 
-Santê is a restaurant located in Brazil. At Sante, we take pride in offering a delightful culinary experience featuring a delectable menu that includes açai, pasta, hotdogs, and an array of refreshing beverages. This README serves as a comprehensive guide to our restaurant project.
+Santê is a restaurant located in Belo Horizonte, Minas Gerais, Brazil. This website was developed to improve the range of the restaurant and to make it easier for customers to learn about the restaurant and its offerings.
+
+Customers can use the website to:
+
+View the restaurant's complete menu with toppings and prices
+Schedule an appointment to get their order
+Pay for their order securely and conveniently
 
 ## Installation
 
 ```bash
-Copy code
-git clone <repository_url>
+git clone https://github.com/bebossi/client-sante.git
+
 Navigate to the project directory:
+cd client-sante
 
-cd client-sante || cd api-sante
 Install dependencies for both the server and client:
-
 npm install
+
 Set up your database and configure the environment variables for authentication methods, social login, and other project-specific settings.
+add an .env file and set this keys:
+VITE_APP_GOOGLE_MAPS_API_KEY=
+
 npm run dev
 
 ```
@@ -36,22 +45,32 @@ npm run dev
 
 ### Authentication
 
-The project utilizes multiple authentication methods, including:
+The project uses multiple authentication methods to protect your data, including:
 
-### Cookies HttpOnly:
+#### Cookies (HttpOnly):
 
-Secure authentication using HttpOnly cookies for session management.
+Session management cookies that cannot be accessed by JavaScript, making them more secure.
 
-### JWT Tokens:
+#### JWT tokens:
 
-JSON Web Tokens are used for secure user authentication and authorization.
+Secure user authentication and authorization tokens that can be used to access protected resources.
 
 ### User Roles
 
-The system supports two user roles:
+#### The system supports three user roles:
 
-Admin Users: Have access to protected areas, including management of products, categories, orders, and toppings.
-Normal Users: Can interact with the menu, add products to the cart, and place orders.
+##### Admin Users:
+
+Have access to protected areas, including management of products, categories, orders, and toppings.
+
+##### Normal Users:
+
+Can interact with the menu, add products to the cart, and place orders.
+
+##### Guest:
+
+Created when a user visits the menu page without being logged in. Guests can interact with the cart and save their products to a database cart. When they log in or sign up, their cart is automatically updated with the products they saved.
+
 Admin Dashboard
 Admin users have access to a dashboard with the following information:
 

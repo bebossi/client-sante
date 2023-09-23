@@ -21,7 +21,7 @@ const Home = () => {
           {
             duration: 8000,
             position: "bottom-center",
-          },
+          }
         );
     } catch (err) {
       console.log(err);
@@ -78,14 +78,14 @@ const Home = () => {
             y="0"
           >
             <polygon
-              className="text-red-200 fill-current "
+              className="text-red-400 fill-current "
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
         </div>
       </div>
 
-      <section className="pb-20 bg-red-200 -mt-24">
+      <section className="pb-20 bg-red-400 -mt-24">
         <div className="container mx-auto px-4 ">
           <div className="flex flex-wrap">
             <div
@@ -168,13 +168,13 @@ const Home = () => {
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Quem somos
               </h3>
-              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-900">
                 Somos um casal que ama a gastronomia, e decidimos iniciar essa
                 jornada de levar a melhor comida para a mesa da sua csa nbdvkjhg
                 khgk hgkjrhg kjebkjgekj ganoihgoihagoi hourt uoir tuoreit hroi
                 thirut joiyhroiyhroiy oiryhaio
               </p>
-              <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
+              <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-900">
                 Somos um casal que ama a gastronomia, e decidimos iniciar essa
                 jornada de levar a melhor comida para a mesa da sua csa nbdvkjhg
                 khgk hgkjrhg kjebkjgekj ganoihgoihagoi hourt uoir tuoreit hroi
@@ -208,7 +208,7 @@ const Home = () => {
                   >
                     <polygon
                       points="-30,95 583,95 583,65"
-                      className="text-red-200 fill-current"
+                      className="text-red-400 fill-current"
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">

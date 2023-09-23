@@ -5,6 +5,7 @@ import { Product, Category } from "../interfaces";
 import useCartModal from "../hooks/useCartModal";
 import ProductCard from "../Components/ProductCard";
 import { UserContext } from "../auth/currentUser";
+import { ShoppingBag } from "lucide-react";
 
 const MenuPage = () => {
   const addCartModal = useAddToCartModal();
@@ -165,9 +166,11 @@ const MenuPage = () => {
         <div
           data-cy="cart-div"
           onClick={cartModal.onOpen}
-          className="sticky bg-red-600 bottom-0 flex justify-center py-1 hover:cursor-pointer"
+          // className="sticky bottom-0 bg-white rounded-full "
+          className={`sticky bg-red-600 bottom-0 flex justify-center items-center py-1 hover:cursor-pointer`}
         >
-          <p className="font-semibold text-lg text-white">Ver carrinho</p>
+          <p className="font-semibold text-lg text-white px-2">Ver carrinho</p>
+          <ShoppingBag />
         </div>
       )}
     </div>
