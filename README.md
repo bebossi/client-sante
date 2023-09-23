@@ -60,7 +60,9 @@ Secure user authentication and authorization tokens that can be used to access p
 #### The system supports three user roles:
 
 Admin Users: Have access to protected areas, including management of products, categories, orders, and toppings.
+
 Normal Users: Can interact with the menu, add products to the cart, and place orders.
+
 Guest: Created when a user visits the menu page without being logged in. Guests can interact with the cart and save their products to a database cart. When they log in or sign up, their cart is automatically updated with the products they saved.
 
 Admin Dashboard
