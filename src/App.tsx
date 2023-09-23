@@ -85,10 +85,7 @@ function App() {
                     path="/category"
                     element={<ProtectedRoute component={CategoryPage} />}
                   />
-                  <Route
-                    path="/order/:orderId"
-                    element={<ProtectedRoute component={OrderPage} />}
-                  />
+                  <Route path="/order/:orderId" element={<OrderPage />} />
                   <Route
                     path="/appointment"
                     element={<ProtectedRoute component={AppointmentsPage} />}

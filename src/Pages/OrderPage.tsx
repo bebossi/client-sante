@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Order } from "../interfaces";
 import { api } from "../api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -34,6 +34,7 @@ const OrderPage = () => {
   const [status, setStatus] = useState("");
   const params = useParams();
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -194,17 +195,19 @@ const OrderPage = () => {
                       </h3>
                       <div className="flex justify-start items-start flex-col space-y-2">
                         {orderProduct.orderToProductTopping.map(
-                          (orderTopping) => (
-                            <p
-                              key={orderTopping.id}
-                              className="text-md dark:text-white leading-none text-gray-800"
-                            >
-                              <span className="dark:text-gray-500 text-gray-500 mx-1">
-                                X {orderTopping.quantity}
-                              </span>
-                              {orderTopping.topping.name}
-                            </p>
-                          )
+                          (orderTopping) =>
+                            orderTopping.quantity !== 0 &&
+                            orderTopping && (
+                              <p
+                                key={orderTopping.id}
+                                className="text-md dark:text-white leading-none text-gray-800"
+                              >
+                                <span className="dark:text-gray-500 text-gray-500 mx-1">
+                                  X {orderTopping.quantity}
+                                </span>
+                                {orderTopping.topping.name}
+                              </p>
+                            )
                         )}
                       </div>
                     </div>
@@ -262,21 +265,24 @@ const OrderPage = () => {
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
             <h3 className="text-xl dark:text-white font-semibold leading-5 text-gray-800">
-              Customer
+              Cliente
             </h3>
             <div className="flex flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0">
               <div className="flex flex-col justify-start items-start flex-shrink-0">
                 <div className="flex justify-center w-full md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
-                  <img
-                    src="https://i.ibb.co/5TSg7f6/Rectangle-18.png"
+                  {/* <img
+                    src={user.image}
                     alt="avatar"
-                  />
+                  /> */}
                   <div className="flex justify-start items-start flex-col space-y-2">
                     <p className="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">
-                      David Kent
+                      {user.name}
                     </p>
-                    <p className="text-sm dark:text-gray-300 leading-5 text-gray-600">
-                      10 Previous Orders
+                    <p
+                      onClick={() => navigate("/orders")}
+                      className="text-sm dark:text-gray-300 leading-5 text-gray-600 hover:cursor-pointer"
+                    >
+                      Pedidos
                     </p>
                   </div>
                 </div>
@@ -293,7 +299,7 @@ const OrderPage = () => {
                     alt="email"
                   />
                   <p className="cursor-pointer text-sm leading-5 ">
-                    david89@gmail.com
+                    {user.email}
                   </p>
                 </div>
               </div>
