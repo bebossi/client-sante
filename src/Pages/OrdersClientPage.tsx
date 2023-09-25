@@ -31,7 +31,7 @@ const OrdersClientPage = () => {
       }
     };
     fetchOrders();
-  }, []);
+  }, [location.search]);
 
   const toggleFilters = () => {
     setIsFiltersOpen(!isFiltersOpen);

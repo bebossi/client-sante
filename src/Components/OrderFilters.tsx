@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import qs from "query-string";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -31,7 +31,8 @@ const FormSchema = z.object({
 
 const OrderFilters = () => {
   const navigate = useNavigate();
-  const params = useParams();
+  const location = useLocation();
+  // const params = useParams();
   const [isPaid, setIsPaid] = useState<boolean | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [appointment, setAppointment] = useState<Value | null>();
@@ -42,7 +43,6 @@ const OrderFilters = () => {
       string | null
     >;
 
-    console.log(queryParameters);
     setIsPaid(queryParameters.isPaid === "true" ? true : null);
     setStatus(queryParameters.status || null);
     setAppointment((queryParameters.appointment as Value) || null);
@@ -56,40 +56,51 @@ const OrderFilters = () => {
   };
 
   const onSubmit = useCallback(async () => {
-    let currentQuery = {};
+    // let currentQuery = {};
 
-    if (params) {
-      currentQuery = qs.parse(params.toString());
-    }
+    const queryParameters = qs.parse(location.search) as Record<
+      string,
+      string | null
+    >;
 
+    // if (params) {
+    //   currentQuery = qs.parse(params.toString());
+    // }
+
+    // const updatedQuery: any = {
+    //   // ...currentQuery,
+    //   queryParameters,
+    //   isPaid,
+    //   status,
+    //   appointment,
+    // };
     const updatedQuery: any = {
-      ...currentQuery,
-      isPaid,
+      ...queryParameters,
+      isPaid: isPaid !== null ? isPaid.toString() : undefined,
       status,
-      appointment,
+      appointment: appointment ? appointment.toString() : undefined,
     };
 
-    console.log(isPaid);
     if (isPaid === null) {
       delete updatedQuery.isPaid;
     }
 
     const url = qs.stringifyUrl(
       {
-        url: "/dashboardOrders",
+        url: location.pathname,
         query: updatedQuery,
       },
-      { skipNull: true },
+      { skipNull: true }
     );
     navigate(url);
-  }, [navigate, isPaid, status, appointment, params]);
+  }, [navigate, isPaid, status, appointment, location.search]);
 
   const handleResetFilters = () => {
     setIsPaid(false);
     setStatus(null);
     setAppointment(undefined);
 
-    navigate("/dashboard");
+    navigate(location.pathname);
   };
 
   return (
