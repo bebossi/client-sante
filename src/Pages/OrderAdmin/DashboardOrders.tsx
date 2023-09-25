@@ -7,6 +7,7 @@ import qs from "query-string";
 import OrderFilters from "../../Components/OrderFilters";
 import { Menu } from "lucide-react";
 import DashboardNavigation from "../../Components/DashboardNavigation";
+import toast from "react-hot-toast";
 
 const DashboardOrders = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
@@ -25,6 +26,7 @@ const DashboardOrders = () => {
         console.log(response.data);
       } catch (err) {
         console.log(err);
+        toast.error("Algo deu errado");
       } finally {
         setIsloading(false);
       }
