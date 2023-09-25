@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api";
 import { Category, Product } from "../interfaces";
-import ProductForm from "../Components/Forms/productForm";
+import ProductForm from "../Components/Forms/ProductForm";
 
 const ProductPage = () => {
   const params = useParams();
