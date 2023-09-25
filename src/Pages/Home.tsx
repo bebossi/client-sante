@@ -34,9 +34,11 @@ const Home = () => {
   return (
     <>
       <div
+        data-aos="zoom-in-down"
+        data-aos-duration="2000"
         className="relative pt-16 pb-32 flex content-center items-center justify-center"
         style={{
-          minHeight: "75vh",
+          minHeight: "85vh",
         }}
       >
         <div
@@ -67,6 +69,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+
         <div
           className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
           style={{ height: "70px" }}
@@ -92,6 +95,8 @@ const Home = () => {
         <div className="container mx-auto px-4 ">
           <div className="flex flex-wrap">
             <div
+              data-aos="zoom-in-left"
+              data-aos-duration="2000"
               className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
               onClick={() => navigate("/menu")}
             >
@@ -101,7 +106,6 @@ const Home = () => {
                     src="/açai.jpg"
                     alt="Restaurant Logo"
                     className="mx-auto rounded-xl max-h-full object-fill"
-                    // className="mx-auto rounded-xl max-h-full object-fill transform hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -118,6 +122,8 @@ const Home = () => {
             </div>
 
             <div
+              data-aos="zoom-in-down"
+              data-aos-duration="2000"
               className="lg:pt-12 pt-5 w-full md:w-4/12 px-4 text-center "
               onClick={() => navigate("/menu")}
             >
@@ -142,6 +148,8 @@ const Home = () => {
             </div>
 
             <div
+              data-aos="zoom-in-right"
+              data-aos-duration="2000"
               className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
               onClick={() => navigate("/menu")}
             >
@@ -167,10 +175,12 @@ const Home = () => {
             </div>
           </div>
 
-          {/* <div className="opacity-0 hover:opacity-100 transition-opacity duration-300"> */}
-
           <div className="flex flex-wrap items-center mt-32">
-            <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
+            <div
+              data-aos="flip-left"
+              data-aos-duration="2000"
+              className="w-full md:w-5/12 px-4 mr-auto ml-auto"
+            >
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Quem somos
               </h3>
@@ -194,7 +204,11 @@ const Home = () => {
               </a>
             </div>
 
-            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+            <div
+              data-aos="flip-right"
+              data-aos-duration="2000"
+              className="w-full md:w-4/12 px-4 mr-auto ml-auto"
+            >
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-l">
                 <img
                   alt="..."
@@ -232,7 +246,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative py-20">
+      <section data-aos="fade-up" className="relative py-20">
         <div
           className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
           style={{ height: "80px" }}
@@ -498,7 +512,10 @@ const Home = () => {
           </svg>
         </div>
 
-        <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
+        <div
+          data-aos="fade-up"
+          className="container mx-auto px-4 lg:pt-24 lg:pb-64"
+        >
           <div className="flex flex-wrap text-center justify-center">
             <div className="w-full lg:w-6/12 px-4">
               <h2 className="text-4xl font-semibold text-white">Contatos</h2>
