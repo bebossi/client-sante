@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../auth/currentUser";
+import { useEffect, useState } from "react";
 import DashboardNavigation from "../Components/DashboardNavigation";
 import { api } from "../api";
 import Heading from "../Components/Heading";
@@ -14,8 +13,6 @@ import { CreditCard, DollarSign, Package } from "lucide-react";
 import { Overview } from "../Components/Overview";
 
 const DashBoard = () => {
-  const { user } = useContext(UserContext);
-
   const [totalRevenue, setTotalRevenue] = useState();
   const [salesCount, setSalesCount] = useState();
   const [graphRevenue, setGraphRevenue] = useState();
@@ -38,10 +35,6 @@ const DashBoard = () => {
 
     fetchData();
   }, []);
-
-  if ((user && user.role !== "admin") || !user) {
-    return <div>Você não tem acesso a essa página</div>;
-  }
 
   return (
     <div className="flex-col">

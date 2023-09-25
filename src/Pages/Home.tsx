@@ -3,12 +3,15 @@ import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../auth/restaurantContext";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../auth/currentUser";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
   const { user } = useContext(UserContext);
+  AOS.init();
 
   useEffect(() => {
     if (isOpen === null) {
@@ -98,6 +101,7 @@ const Home = () => {
                     src="/açai.jpg"
                     alt="Restaurant Logo"
                     className="mx-auto rounded-xl max-h-full object-fill"
+                    // className="mx-auto rounded-xl max-h-full object-fill transform hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="px-4 py-5 flex-auto">
@@ -162,6 +166,8 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          {/* <div className="opacity-0 hover:opacity-100 transition-opacity duration-300"> */}
 
           <div className="flex flex-wrap items-center mt-32">
             <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
