@@ -9,7 +9,7 @@ export const apiURLs = {
 
 const api = axios.create({
   withCredentials: true,
-  baseURL: apiURLs["production"],
+  baseURL: apiURLs["development"],
 });
 
 api.interceptors.request.use((config) => {
