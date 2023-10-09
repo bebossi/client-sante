@@ -37,19 +37,28 @@ const UserMenu = () => {
       <div className="flex flex-row items-center gap-3">
         <div
           data-cy="menu"
-          onClick={() => navigate("/menu")}
+          onClick={() => {
+            navigate("/menu");
+            toggleOpen();
+          }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Cardápio
         </div>
         <div
-          onClick={() => navigate("/menuu")}
+          onClick={() => {
+            navigate("/menuu");
+            toggleOpen();
+          }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Quem somos
         </div>
         <div
-          onClick={() => navigate("/map")}
+          onClick={() => {
+            navigate("/map");
+            setIsOpen(false);
+          }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Dúvidas
@@ -164,14 +173,32 @@ const UserMenu = () => {
             )}
             {user && user.role === "user" && (
               <>
-                <MenuItem onClick={() => navigate("/menu")} label="Cardápio" />
                 <MenuItem
-                  onClick={() => navigate("/menuu")}
+                  onClick={() => {
+                    navigate("/menu");
+                    toggleOpen();
+                  }}
+                  label="Cardápio"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/menuu");
+                    toggleOpen();
+                  }}
                   label="Quem somos"
                 />
-                <MenuItem onClick={() => navigate("/doubts")} label="Dúvidas" />
                 <MenuItem
-                  onClick={() => navigate("/contact")}
+                  onClick={() => {
+                    navigate("/doubts");
+                    toggleOpen();
+                  }}
+                  label="Dúvidas"
+                />
+                <MenuItem
+                  onClick={() => {
+                    navigate("/contact");
+                    toggleOpen();
+                  }}
                   label="Contato"
                 />
                 <MenuItem
