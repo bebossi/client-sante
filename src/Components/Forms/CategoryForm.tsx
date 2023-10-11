@@ -66,7 +66,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
         toast.success(toastMessage);
       }
 
-      navigate("/dashboard");
+      navigate("/dashboardOverview");
     } catch (err) {
       toast.error("Algo deu errado");
     } finally {

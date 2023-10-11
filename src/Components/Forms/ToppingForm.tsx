@@ -85,7 +85,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
         toast.success(toastMessage);
       }
 
-      navigate("/dashboard");
+      navigate("/dashboardOverview");
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
