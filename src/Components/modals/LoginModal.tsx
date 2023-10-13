@@ -10,7 +10,7 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
 import { apiURLs } from "../../api";
-import { UserContext } from "../../auth/currentUser";
+import { UserContext } from "../../Contexts/currentUser";
 
 const LoginModal = () => {
   const registerModal = useRegisterModal();

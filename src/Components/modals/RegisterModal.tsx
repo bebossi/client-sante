@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Input from "../inputs/Input";
-import { UserContext } from "../../auth/currentUser";
+import { UserContext } from "../../Contexts/currentUser";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -33,9 +33,8 @@ const RegisterModal = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("clickado")
-    try{
-
+    console.log("clickado");
+    try {
       const response = await api.post("/signup", data);
       setIsLoading(true);
       // const token = response.data.token;
@@ -43,10 +42,10 @@ const RegisterModal = () => {
       setUser(response.data);
       registerModal.onClose();
       toast.success("Usuário registrado e logado com sucesso");
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       toast.error("Algo deu errado");
-    } finally{
+    } finally {
       setIsLoading(false);
     }
   };

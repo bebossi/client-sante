@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../auth/currentUser";
+import { UserContext } from "../Contexts/currentUser";
 
 interface ProtectedRouteProps {
   component: React.ComponentType<any>;

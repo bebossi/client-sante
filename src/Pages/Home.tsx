@@ -1,8 +1,8 @@
 import { toast } from "react-hot-toast";
 import { useContext, useEffect } from "react";
-import { RestaurantContext } from "../auth/restaurantContext";
+import { RestaurantContext } from "../Contexts/restaurantContext";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../auth/currentUser";
+import { UserContext } from "../Contexts/currentUser";
 import AOS from "aos";
 import "aos/dist/aos.css";
 

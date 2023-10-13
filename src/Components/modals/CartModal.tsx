@@ -11,15 +11,16 @@ import {
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import useAddToCartModal from "../../hooks/useAddToCartModal";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SelectAppointment from "../SelectAppointment";
 import SelectAddress from "../Address/SelectAddress";
 import Button from "../Button";
 import MapAddress from "../Address/Map";
 import { CalendarIcon, Car } from "lucide-react";
-import { RestaurantContext } from "../../auth/restaurantContext";
+import { RestaurantContext } from "../../Contexts/restaurantContext";
 import useRegisterModal from "../../hooks/useRegisterModal";
-import { UserContext } from "../../auth/currentUser";
+import { UserContext } from "../../Contexts/currentUser";
+import { MercadoPagoContext } from "../../Contexts/mercadoPagoContext";
 
 enum STEPS {
   PRODUCTS = 0,
@@ -30,12 +31,20 @@ enum STEPS {
 }
 
 const CartModal = () => {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
   const registerModal = useRegisterModal();
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
+
+  const mercadoPagoContext = useContext(MercadoPagoContext);
+  if (!mercadoPagoContext) {
+    return null;
+  }
+
+  const { setOrderData, setPreferenceId } = mercadoPagoContext;
 
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,9 +133,13 @@ const CartModal = () => {
         avaliableAppointmentId: appointmentId,
         addressId: addressId,
       });
+
+      setPreferenceId(response.data.data.id);
+      setOrderData(response.data.actualOrder);
       toast.success("Pedido enviado");
       cartModal.onClose();
-      window.location = response.data.url;
+      navigate("/checkout");
+      // window.location = response.data.url;
     } catch (err) {
       console.log(err);
       toast.error("Algo deu errado");

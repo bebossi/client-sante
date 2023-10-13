@@ -6,7 +6,7 @@ import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
 import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
-import { UserContext } from "../../auth/currentUser";
+import { UserContext } from "../../Contexts/currentUser";
 import { api } from "../../api";
 
 const UserMenu = () => {

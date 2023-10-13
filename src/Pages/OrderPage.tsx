@@ -22,7 +22,7 @@ import {
 } from "../Components/ui/form";
 import Button from "../Components/Button";
 import toast from "react-hot-toast";
-import { UserContext } from "../auth/currentUser";
+import { UserContext } from "../Contexts/currentUser";
 
 const FormSchema = z.object({
   status: z.string().min(1),
