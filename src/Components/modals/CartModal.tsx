@@ -119,7 +119,8 @@ const CartModal = () => {
       }
 
       setIsLoading(true);
-      const response = await api.post("/testCheckout", {
+      // const response = await api.post("/testCheckout", {
+      const response = await api.post("/testMercadoPago", {
         avaliableAppointmentId: appointmentId,
         addressId: addressId,
       });

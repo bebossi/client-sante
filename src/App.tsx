@@ -22,6 +22,7 @@ import RegisterModal from "./Components/modals/RegisterModal";
 import OrdersClientPage from "./Pages/OrdersClientPage";
 import { RestaurantContextProvider } from "./auth/restaurantContext";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
+import CheckoutPage from "./Pages/CheckoutPage";
 
 function App() {
   return (
@@ -90,7 +91,8 @@ function App() {
                     path="/appointment"
                     element={<ProtectedRoute component={AppointmentsPage} />}
                   />
-                  <Route path="orders" element={<OrdersClientPage />} />
+                  <Route path="/orders" element={<OrdersClientPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
                 </Routes>
               </div>
             </div>

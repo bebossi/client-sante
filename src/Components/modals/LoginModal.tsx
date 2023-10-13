@@ -30,7 +30,8 @@ const LoginModal = () => {
   });
 
   const googleAuth = () => {
-    window.open(`${apiURLs["production"]}/auth/google/callback`, "_self");
+    // window.open(`${apiURLs["production"]}/auth/google/callback`, "_self");
+    window.open(`${apiURLs["development"]}/auth/google/callback`, "_self");
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
