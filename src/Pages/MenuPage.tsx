@@ -46,7 +46,7 @@ const MenuPage = () => {
     };
 
     fetchData();
-  }, [location.reload, cartModal.isOpen, addCartModal.isOpen, user]);
+  }, []);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);

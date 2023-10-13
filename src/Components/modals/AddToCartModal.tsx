@@ -91,6 +91,7 @@ const AddToCartModal = () => {
       console.log(response.data);
       toast.success("Produto addicionado ao carrinho");
       addCartModal.onClose();
+      window.location.reload();
     } catch (err) {
       console.log(err);
     } finally {

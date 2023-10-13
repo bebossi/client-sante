@@ -169,9 +169,9 @@ const CartModal = () => {
       const response = await api.get("/cart");
       setCart(response.data);
     };
-    isOpen;
+    // isOpen;
     fetchCart();
-  }, [cartModal, addCartModal]);
+  }, [cartModal, addCartModal.isOpen]);
 
   if (cart) {
     cartModal.cartItems = cart.cartProducts;
