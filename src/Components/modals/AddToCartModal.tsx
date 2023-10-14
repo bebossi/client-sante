@@ -82,10 +82,10 @@ const AddToCartModal = () => {
     }
   };
 
-  const onSubmit = async () => {
+  const addProductToCart = async () => {
     try {
       setIsLoading(true);
-
+      console.log(user);
       if (!user) {
         const guestUserResponse = await api.post("/guestUser");
         setUser(guestUserResponse.data.guestUser);
@@ -96,10 +96,10 @@ const AddToCartModal = () => {
         toppings: toppings,
         quantity: quantity,
       });
-      console.log(response.data);
+      // console.log(response.data);
       toast.success("Produto addicionado ao carrinho");
       addCartModal.onClose();
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     } finally {
@@ -198,7 +198,7 @@ const AddToCartModal = () => {
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}
-        onSubmit={onSubmit}
+        onSubmit={addProductToCart}
         isOpen={addCartModal.isOpen}
         thirdAction={thirdAction as any}
       />

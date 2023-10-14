@@ -27,9 +27,12 @@ const PaymentPage = () => {
     );
   };
   useEffect(() => {
-    initMercadoPago(import.meta.env.VITE_APP_MERCADO_PAGO_PUBLIC_KEY, {
-      locale: "pt-BR",
-    });
+    initMercadoPago(
+      import.meta.env.VITE_APP_MERCADO_PAGO_PUBLIC_KEY as string,
+      {
+        locale: "pt-BR",
+      }
+    );
   }, []);
 
   return (

@@ -133,7 +133,7 @@ const CartModal = () => {
         avaliableAppointmentId: appointmentId,
         addressId: addressId,
       });
-
+      console.log(response.data);
       setPreferenceId(response.data.data.id);
       setOrderData(response.data.actualOrder);
       toast.success("Pedido enviado");
