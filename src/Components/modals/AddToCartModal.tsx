@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { api } from "../../api";
@@ -6,6 +6,7 @@ import useAddToCartModal from "../../hooks/useAddToCartModal";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { Topping } from "../../interfaces";
 import toast from "react-hot-toast";
+import { UserContext } from "../../Contexts/currentUser";
 
 interface ToppingProps {
   topping: Topping;
@@ -14,6 +15,7 @@ interface ToppingProps {
 
 const AddToCartModal = () => {
   const addCartModal = useAddToCartModal();
+  const { user, setUser } = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
@@ -83,6 +85,12 @@ const AddToCartModal = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
+
+      if (!user) {
+        const guestUserResponse = await api.post("/guestUser");
+        setUser(guestUserResponse.data.guestUser);
+      }
+
       const response = await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,

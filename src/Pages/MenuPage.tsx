@@ -1,10 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import useAddToCartModal from "../hooks/useAddToCartModal";
 import { Product, Category } from "../interfaces";
 import useCartModal from "../hooks/useCartModal";
 import ProductCard from "../Components/ProductCard";
-import { UserContext } from "../Contexts/currentUser";
 import { ShoppingBag } from "lucide-react";
 
 const MenuPage = () => {
@@ -19,7 +18,6 @@ const MenuPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
-  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,11 +31,6 @@ const MenuPage = () => {
 
         setProducts(productsResponse.data);
         setCategories(categoriesResponse.data);
-
-        if (!user) {
-          const guestUserResponse = await api.post("/guestUser");
-          setUser(guestUserResponse.data.guestUser);
-        }
       } catch (err) {
         console.log(err);
       } finally {
