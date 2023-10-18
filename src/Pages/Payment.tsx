@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { MercadoPagoContext } from "../Contexts/mercadoPagoContext";
 
@@ -10,21 +10,10 @@ const PaymentPage = () => {
 
   const { orderData, preferenceId } = mercadoPagoContext;
 
-  const [isReady, setIsReady] = useState(false);
-
-  const handleOnReady = () => {
-    setIsReady(true);
-  };
-
   const renderCheckoutButton = (preferenceId: string) => {
     if (!preferenceId) return null;
 
-    return (
-      <Wallet
-        initialization={{ preferenceId: preferenceId }}
-        onReady={handleOnReady}
-      />
-    );
+    return <Wallet initialization={{ preferenceId: preferenceId }} />;
   };
   useEffect(() => {
     initMercadoPago(
@@ -36,14 +25,6 @@ const PaymentPage = () => {
   }, []);
 
   return (
-    // <div id={import.meta.env.VITE_APP_ID_MP}>
-    //   <Wallet
-    //     initialization={{
-    //       preferenceId: import.meta.env.VITE_APP_ID_MP,
-    //       redirectMode: "blank",
-    //     }}
-    //   />
-    // </div>
     <div className="p-4">
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-2xl font-semibold">Checkout Payment</h2>
