@@ -91,12 +91,11 @@ const AddToCartModal = () => {
         setUser(guestUserResponse.data.guestUser);
       }
 
-      const response = await api.post("/addProduct", {
+      await api.post("/addProduct", {
         productId: addCartModal?.product?.id,
         toppings: toppings,
         quantity: quantity,
       });
-      // console.log(response.data);
       toast.success("Produto addicionado ao carrinho");
       addCartModal.onClose();
       // window.location.reload();

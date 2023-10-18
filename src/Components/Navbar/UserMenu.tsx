@@ -39,7 +39,7 @@ const UserMenu = () => {
           data-cy="menu"
           onClick={() => {
             navigate("/menu");
-            toggleOpen();
+            setIsOpen(false);
           }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
@@ -48,7 +48,7 @@ const UserMenu = () => {
         <div
           onClick={() => {
             navigate("/menuu");
-            toggleOpen();
+            setIsOpen(false);
           }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
