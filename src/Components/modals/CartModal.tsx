@@ -171,7 +171,7 @@ const CartModal = () => {
     };
     // isOpen;
     fetchCart();
-  }, [cartModal, addCartModal.isOpen]);
+  }, [cartModal.cartItems, addCartModal.isOpen]);
 
   if (cart) {
     cartModal.cartItems = cart.cartProducts;

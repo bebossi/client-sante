@@ -39,7 +39,7 @@ const MenuPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [cartModal.cartItems.length]);
 
   const handleProductClick = (product: Product) => {
     addCartModal.onOpen(product);
@@ -159,7 +159,6 @@ const MenuPage = () => {
         <div
           data-cy="cart-div"
           onClick={cartModal.onOpen}
-          // className="sticky bottom-0 bg-white rounded-full "
           className={`sticky bg-red-600 bottom-0 flex justify-center items-center py-1 hover:cursor-pointer`}
         >
           <p className="font-semibold text-lg text-white px-2">Ver carrinho</p>
