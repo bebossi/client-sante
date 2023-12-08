@@ -62,9 +62,13 @@ const Home = () => {
                   Casa Santê para você
                 </h1>
                 <p className="mt-4 text-lg text-gray-300">
-                  Nossos pratos são feitos com carinho, atenção ndkjvnf fbhbvf
-                  ve gtegteg rgwg frwg regrwgrw rwgtrwt twretrwt etwtewt tewtew
-                  jbeiufbjehr rhiehtnkje tewt htihkewytiewht w
+                  Descubra uma experiência gastronômica única no coração da
+                  cidade (Santa tereza)! Na Casa Santê, unimos a tradição de
+                  sabores autênticos com a conveniência de um extenso menu que
+                  agrada a todos os paladares. Para tornar sua experiência ainda
+                  mais conveniente, oferecemos entrega gratuita em um raio de
+                  2km a partir do nosso restaurante. Aproveite o conforto de
+                  sabores excepcionais entregues à sua porta!
                 </p>
               </div>
             </div>
@@ -114,9 +118,9 @@ const Home = () => {
                     Açais
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    Delicious açai served with a creamy blend, topped with fresh
-                    berries and a drizzle of honey.fgtrhtrhtrhrthrthr oihoire
-                    frwoieFD NKJBB
+                    Deleite-se com nossos bowls de açaí premium, preparados com
+                    frutas frescas e coberturas irresistíveis. Uma explosão de
+                    sabor tropical em cada colher!
                   </p>
                 </div>
               </div>
@@ -141,8 +145,10 @@ const Home = () => {
                     Massas
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    Massas deliciosas, molhos caseiros, carnes com cortes
-                    especiais ...... sjfvnjkf vfkjbvkjf v fsjhb
+                    Viaje pela Itália em cada garfada! Nossas massas artesanais
+                    são preparadas com ingredientes de alta qualidade,
+                    proporcionando uma experiência culinária que aquece o
+                    coração.
                   </p>
                 </div>
               </div>
@@ -167,9 +173,10 @@ const Home = () => {
                     Hot dog
                   </h6>
                   <p className="mt-2 mb-4 text-gray-600">
-                    Hot dog , carne especial, molho caseiro, com adicionais a
-                    sua escolha, personalixado por voce feito com carionho por
-                    nos
+                    Nossos hot dogs são uma obra-prima para os amantes de
+                    sabores audaciosos. Escolha entre uma variedade de
+                    combinações deliciosas, onde cada mordida é uma experiência
+                    única.
                   </p>
                 </div>
               </div>
@@ -183,19 +190,49 @@ const Home = () => {
               className="w-full md:w-5/12 px-4 mr-auto ml-auto"
             >
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                Quem somos
+                Quem Somos - Casa Santê Quem Somos - Casa Santê Bem-vindos à
+                Casa Santê, o lugar onde as tradições italianas se encontram com
+                a ousadia dos sabores tropicais! Somos um casal apaixonado,
+                enraizado em nossas origens italianas, mas que encontrou no
+                Brasil a inspiração para criar uma experiência gastronômica
+                única.
               </h3>
               <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-900">
-                Somos um casal que ama a gastronomia, e decidimos iniciar essa
-                jornada de levar a melhor comida para a mesa da sua csa nbdvkjhg
-                khgk hgkjrhg kjebkjgekj ganoihgoihagoi hourt uoir tuoreit hroi
-                thirut joiyhroiyhroiy oiryhaio
+                Casa Santê Bem-vindos à Casa Santê, o lugar onde as tradições
+                italianas se encontram com a ousadia dos sabores tropicais!
+                Somos um casal apaixonado, enraizado em nossas origens
+                italianas, mas que encontrou no Brasil a inspiração para criar
+                uma experiência gastronômica única.
+              </p>
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-900">
+                História de Amor e Sabor: Crescemos em meio ao aroma
+                irresistível de massas frescas e receitas de família
+                transmitidas de geração em geração. A Casa Santê é a
+                materialização do nosso amor pela culinária, uma fusão de nossas
+                raízes italianas com a vibrante diversidade culinária
+                brasileira. Aventuras Gastronômicas: Somos amantes de aventuras,
+                e isso se reflete em cada prato que servimos. Das ruelas
+                pitorescas da Itália às praias tropicais do Brasil, nossa
+                jornada culinária é uma viagem de sabores e experiências que
+                queremos compartilhar com você. Açaí Tropical: O açaí representa
+                a tropicalidade e energia do Brasil, algo que incorporamos em
+                nossos pratos. Nossos bowls de açaí são uma homenagem à
+                exuberância da natureza e à vitalidade que ela nos proporciona.
+                Hot Dogs Artesanais: A praticidade do hot dog é uma celebração
+                da diversidade culinária brasileira. Na Casa Santê,
+                transformamos esse clássico em algo especial, com combinações
+                únicas e ingredientes selecionados para criar uma explosão de
+                sabores em cada mordida. Amor na Cozinha: A Casa Santê é o
+                resultado da combinação perfeita de amor e paixão pela
+                culinária. Cada prato é preparado com cuidado e dedicação,
+                refletindo não apenas nossas habilidades na cozinha, mas também
+                o amor que temos um pelo outro.
               </p>
               <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-900">
-                Somos um casal que ama a gastronomia, e decidimos iniciar essa
-                jornada de levar a melhor comida para a mesa da sua csa nbdvkjhg
-                khgk hgkjrhg kjebkjgekj ganoihgoihagoi hourt uoir tuoreit hroi
-                thirut joiyhroiyhroiy oiryhaio
+                Junte-se a nós na Casa Santê, onde cada refeição é uma
+                celebração da vida, da cultura e do amor. Experimente a
+                autenticidade dos sabores italianos e a ousadia dos pratos
+                tropicais, tudo em um ambiente acolhedor e cheio de charme.
               </p>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
