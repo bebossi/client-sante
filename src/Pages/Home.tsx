@@ -1,10 +1,10 @@
-import { toast } from "react-hot-toast";
-import { useContext, useEffect } from "react";
-import { RestaurantContext } from "../Contexts/restaurantContext";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../Contexts/currentUser";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { toast } from 'react-hot-toast';
+import { useContext, useEffect } from 'react';
+import { RestaurantContext } from '../Contexts/restaurantContext';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../Contexts/currentUser';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,10 +21,10 @@ const Home = () => {
     try {
       if (!isOpen)
         toast(
-          "Restaurante está fechado, só é possível fazer pedidos por agendamento para buscar na loja",
+          'Restaurante está fechado, só é possível fazer pedidos por agendamento para buscar na loja',
           {
             duration: 8000,
-            position: "bottom-center",
+            position: 'bottom-center',
           }
         );
     } catch (err) {
@@ -39,7 +39,7 @@ const Home = () => {
         data-aos-duration="2000"
         className="relative pt-16 pb-32 flex content-center items-center justify-center"
         style={{
-          minHeight: "85vh",
+          minHeight: '85vh',
         }}
       >
         <div
@@ -77,7 +77,7 @@ const Home = () => {
 
         <div
           className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
-          style={{ height: "70px" }}
+          style={{ height: '70px' }}
         >
           <svg
             className="absolute bottom-0 overflow-hidden"
@@ -103,7 +103,7 @@ const Home = () => {
               data-aos="zoom-in-left"
               data-aos-duration="2000"
               className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
-              onClick={() => navigate("/menu")}
+              onClick={() => navigate('/menu')}
             >
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
                 <div className="max-h-96">
@@ -130,7 +130,7 @@ const Home = () => {
               data-aos="zoom-in-down"
               data-aos-duration="2000"
               className="lg:pt-12 pt-5 w-full md:w-4/12 px-4 text-center "
-              onClick={() => navigate("/menu")}
+              onClick={() => navigate('/menu')}
             >
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
                 <div className="max-h-96">
@@ -158,7 +158,7 @@ const Home = () => {
               data-aos="zoom-in-right"
               data-aos-duration="2000"
               className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center mt-6 "
-              onClick={() => navigate("/menu")}
+              onClick={() => navigate('/menu')}
             >
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg hover:cursor-pointer">
                 <div className="max-h-96">
@@ -190,12 +190,7 @@ const Home = () => {
               className="w-full md:w-5/12 px-4 mr-auto ml-auto"
             >
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                Quem Somos - Casa Santê Quem Somos - Casa Santê Bem-vindos à
-                Casa Santê, o lugar onde as tradições italianas se encontram com
-                a ousadia dos sabores tropicais! Somos um casal apaixonado,
-                enraizado em nossas origens italianas, mas que encontrou no
-                Brasil a inspiração para criar uma experiência gastronômica
-                única.
+                Quem Somos - Casa Santê Quem Somos -
               </h3>
               <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-900">
                 Casa Santê Bem-vindos à Casa Santê, o lugar onde as tradições
@@ -241,45 +236,6 @@ const Home = () => {
                 Veja nosso instagram
               </a>
             </div>
-
-            <div
-              data-aos="flip-right"
-              data-aos-duration="2000"
-              className="w-full md:w-4/12 px-4 mr-auto ml-auto"
-            >
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-l">
-                <img
-                  alt="..."
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
-                  className="w-full align-middle rounded-t-lg"
-                />
-                <blockquote className="relative p-8 mb-4">
-                  <svg
-                    preserveAspectRatio="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 583 95"
-                    className="absolute left-0 w-full block"
-                    style={{
-                      height: "95px",
-                      top: "-94px",
-                    }}
-                  >
-                    <polygon
-                      points="-30,95 583,95 583,65"
-                      className="text-red-400 fill-current"
-                    ></polygon>
-                  </svg>
-                  <h4 className="text-xl font-bold text-white">
-                    Top Notch Services
-                  </h4>
-                  <p className="text-md font-light mt-2 text-black">
-                    The Arctic Ocean freezes every winter and much of the
-                    sea-ice then thaws every summer, and that process will
-                    continue whatever happens.
-                  </p>
-                </blockquote>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -287,7 +243,7 @@ const Home = () => {
       <section data-aos="fade-up" className="relative py-20">
         <div
           className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-          style={{ height: "80px" }}
+          style={{ height: '80px' }}
         >
           <svg
             className="absolute bottom-0 overflow-hidden"
@@ -318,11 +274,12 @@ const Home = () => {
               <div className="md:pr-12">
                 <h3 className="text-3xl font-semibold">Nossos produtos</h3>
                 <p className="mt-4 text-lg leading-relaxed text-gray-600">
-                  Nossos produtos são selecionados a dedo por nós, gostamos
-                  iorhgoireklgre,re rghtey rhyeyreyeyr eythbenbrf ,btryynbry
-                  brtb rthb,rtnh rt,tr ,h trh tr,h rt,ht htrw vrenlvtr bjnet
-                  bkvtrjb tr bkjrtbjkv trkb trkj bktrjbvjtrjb trkjb ktje bkjt
-                  ebkjt bvjkt ebvkjtr
+                  Na Casa Santê, acreditamos que a essência de uma experiência
+                  gastronômica excepcional reside na qualidade e frescor dos
+                  ingredientes que utilizamos. Somos apaixonados por oferecer
+                  aos nossos clientes uma jornada culinária única, onde cada
+                  prato é uma celebração dos sabores puros e autênticos da
+                  natureza.
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
@@ -370,7 +327,7 @@ const Home = () => {
       <section className="pb-20 relative block bg-gray-900">
         <div
           className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
-          style={{ height: "80px" }}
+          style={{ height: '80px' }}
         >
           <svg
             className="absolute bottom-0 overflow-hidden"
@@ -392,10 +349,6 @@ const Home = () => {
           <div className="flex flex-wrap text-center justify-center">
             <div className="w-full lg:w-6/12 px-4">
               <h2 className="text-4xl font-semibold text-white">Contatos</h2>
-              <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
-                Trabalhamos para oferecer o melhor serviço possivel ,
-                kjbdvkjds,et ew,tew,tew,t e,t ,ew
-              </p>
             </div>
           </div>
           <div className="flex flex-wrap mt-12 justify-center">
@@ -407,8 +360,7 @@ const Home = () => {
                 Instagram
               </h6>
               <p className="mt-2 mb-4 text-gray-500">
-                Aqui você pode ver um pouco mais do nosso dia a dia,
-                blabalbalbal blaalba da sfl sklb
+                Aqui você pode ver um pouco mais do nosso dia a dia
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -418,7 +370,7 @@ const Home = () => {
               <h5 className="text-xl mt-5 font-semibold text-white">Email</h5>
               <p className="mt-2 mb-4 text-gray-500">
                 Aqui você pode tirar duvidas, fazer criticas construtivas,
-                sugesto~es bklasbfkjasbfkjdb
+                sugestões
               </p>
             </div>
             <div className="w-full lg:w-3/12 px-4 text-center">
@@ -429,8 +381,8 @@ const Home = () => {
                 Facebook
               </h5>
               <p className="mt-2 mb-4 text-gray-500">
-                Aqui temos mldkvkjd vjhbvk revjhefbvk fnvbn kje hjkb nbf hjfe
-                befnb jfenm jhmn
+                {/* Aqui temos mldkvkjd vjhbvk revjhefbvk fnvbn kje hjkb nbf hjfe
+                befnb jfenm jhmn */}
               </p>
             </div>
           </div>

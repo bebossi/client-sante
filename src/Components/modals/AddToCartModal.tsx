@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import Modal from "./Modal";
-import Heading from "../Heading";
-import { api } from "../../api";
-import useAddToCartModal from "../../hooks/useAddToCartModal";
-import { BiMinus, BiPlus } from "react-icons/bi";
-import { Topping } from "../../interfaces";
-import toast from "react-hot-toast";
-import { UserContext } from "../../Contexts/currentUser";
+import { useContext, useEffect, useState } from 'react';
+import Modal from './Modal';
+import Heading from '../Heading';
+import { api } from '../../api';
+import useAddToCartModal from '../../hooks/useAddToCartModal';
+import { BiMinus, BiPlus } from 'react-icons/bi';
+import { Topping } from '../../interfaces';
+import toast from 'react-hot-toast';
+import { UserContext } from '../../Contexts/currentUser';
 
 interface ToppingProps {
   topping: Topping;
@@ -15,7 +15,7 @@ interface ToppingProps {
 
 const AddToCartModal = () => {
   const addCartModal = useAddToCartModal();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
@@ -23,10 +23,10 @@ const AddToCartModal = () => {
 
   useEffect(() => {
     if (addCartModal.isOpen === true) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     }
     if (addCartModal.isOpen === false) {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
   }, [addCartModal.isOpen]);
 
@@ -85,20 +85,16 @@ const AddToCartModal = () => {
   const addProductToCart = async () => {
     try {
       setIsLoading(true);
-      console.log(user);
-      if (!user) {
-        const guestUserResponse = await api.post("/guestUser");
-        setUser(guestUserResponse.data.guestUser);
-      }
 
-      await api.post("/addProduct", {
-        productId: addCartModal?.product?.id,
-        toppings: toppings,
-        quantity: quantity,
-      });
-      toast.success("Produto addicionado ao carrinho");
+      user &&
+        (await api.post('/addProduct', {
+          productId: addCartModal?.product?.id,
+          toppings: toppings,
+          quantity: quantity,
+        }));
+
+      toast.success('Produto addicionado ao carrinho');
       addCartModal.onClose();
-      // window.location.reload();
     } catch (err) {
       console.log(err);
     } finally {
@@ -106,7 +102,7 @@ const AddToCartModal = () => {
     }
   };
 
-  let totalPriceToppings = toppings.reduce((total, topping) => {
+  const totalPriceToppings = toppings.reduce((total, topping) => {
     return (total += topping.quantity * topping.topping.price);
   }, 0);
 
@@ -193,13 +189,13 @@ const AddToCartModal = () => {
     <div>
       <Modal
         title="Detalhes do item"
-        actionLabel={isLoading ? "Adicionando..." : `Adicionar  R$${subtotal}`}
+        actionLabel={isLoading ? 'Adicionando...' : `Adicionar  R$${subtotal}`}
         body={bodyContent}
         onClose={addCartModal.onClose}
         disabled={isLoading}
         onSubmit={addProductToCart}
         isOpen={addCartModal.isOpen}
-        thirdAction={thirdAction as any}
+        thirdAction={() => thirdAction as JSX.Element}
       />
     </div>
   );

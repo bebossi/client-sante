@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { api } from "../api";
-import useAddToCartModal from "../hooks/useAddToCartModal";
-import { Product, Category } from "../interfaces";
-import useCartModal from "../hooks/useCartModal";
-import ProductCard from "../Components/ProductCard";
-import { ShoppingBag } from "lucide-react";
+import { useContext, useEffect, useRef, useState } from 'react';
+import { api } from '../api';
+import useAddToCartModal from '../hooks/useAddToCartModal';
+import { Product, Category } from '../interfaces';
+import useCartModal from '../hooks/useCartModal';
+import ProductCard from '../Components/ProductCard';
+import { ShoppingBag } from 'lucide-react';
+import { UserContext } from '../Contexts/currentUser';
 
 const MenuPage = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const addCartModal = useAddToCartModal();
   const cartModal = useCartModal();
   const [products, setProducts] = useState<Product[]>();
@@ -18,15 +21,14 @@ const MenuPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const scrollableContainerRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
 
         const [productsResponse, categoriesResponse] = await Promise.all([
-          api.get("/getProducts"),
-          api.get("/getCategories"),
+          api.get('/getProducts'),
+          api.get('/getCategories'),
         ]);
 
         setProducts(productsResponse.data);
@@ -41,7 +43,11 @@ const MenuPage = () => {
     fetchData();
   }, [cartModal.cartItems.length]);
 
-  const handleProductClick = (product: Product) => {
+  const handleProductClick = async (product: Product) => {
+    if (!user) {
+      const guestUserResponse = await api.post('/guestUser');
+      setUser(guestUserResponse.data.guestUser);
+    }
     addCartModal.onOpen(product);
   };
 
@@ -55,7 +61,7 @@ const MenuPage = () => {
 
       window.scrollBy({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -120,8 +126,8 @@ const MenuPage = () => {
                 className={`text-lg font-semibold lg:text-2xl sm:text-xl md:text-2xl
                   ${
                     selectedCategory && selectedCategorySide === category.id
-                      ? "border-b-2 border-red-600 text-red-600"
-                      : ""
+                      ? 'border-b-2 border-red-600 text-red-600'
+                      : ''
                   }`}
               >
                 {category.name}
