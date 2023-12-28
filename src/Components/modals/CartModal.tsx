@@ -1,26 +1,26 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import useCartModal from "../../hooks/useCartModal";
-import { api } from "../../api";
-import Modal from "./Modal";
+import { useContext, useEffect, useMemo, useState } from 'react';
+import useCartModal from '../../hooks/useCartModal';
+import { api } from '../../api';
+import Modal from './Modal';
 import {
   Address,
   AvaliableAppointment,
   Cart,
   CartToProduct,
-} from "../../interfaces";
-import toast from "react-hot-toast";
-import { IoMdClose } from "react-icons/io";
-import useAddToCartModal from "../../hooks/useAddToCartModal";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import SelectAppointment from "../SelectAppointment";
-import SelectAddress from "../Address/SelectAddress";
-import Button from "../Button";
-import MapAddress from "../Address/Map";
-import { CalendarIcon, Car } from "lucide-react";
-import { RestaurantContext } from "../../Contexts/restaurantContext";
-import useRegisterModal from "../../hooks/useRegisterModal";
-import { UserContext } from "../../Contexts/currentUser";
-import { MercadoPagoContext } from "../../Contexts/mercadoPagoContext";
+} from '../../interfaces';
+import toast from 'react-hot-toast';
+import { IoMdClose } from 'react-icons/io';
+import useAddToCartModal from '../../hooks/useAddToCartModal';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import SelectAppointment from '../SelectAppointment';
+import SelectAddress from '../Address/SelectAddress';
+import Button from '../Button';
+import MapAddress from '../Address/Map';
+import { CalendarIcon, Car } from 'lucide-react';
+import { RestaurantContext } from '../../Contexts/restaurantContext';
+import useRegisterModal from '../../hooks/useRegisterModal';
+import { UserContext } from '../../Contexts/currentUser';
+import { MercadoPagoContext } from '../../Contexts/mercadoPagoContext';
 
 enum STEPS {
   PRODUCTS = 0,
@@ -36,24 +36,16 @@ const CartModal = () => {
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
   const registerModal = useRegisterModal();
-  const restaurantContext = useContext(RestaurantContext);
-  const isOpen = restaurantContext?.isOpen;
-
-  const mercadoPagoContext = useContext(MercadoPagoContext);
-  if (!mercadoPagoContext) {
-    return null;
-  }
-
-  const { setOrderData, setPreferenceId } = mercadoPagoContext;
+  const { isOpen } = useContext(RestaurantContext)!;
 
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
-  const [appointmentId, setAppointmentId] = useState("");
+  const [appointmentId, setAppointmentId] = useState('');
   const [appointment, setAppointment] = useState<AvaliableAppointment | null>(
     null
   );
-  const [addressId, setAddressId] = useState("");
+  const [addressId, setAddressId] = useState('');
   const [address, setAddress] = useState<Address | null>(null);
   const [showSelectAddress, setShowSelectAddress] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -64,22 +56,55 @@ const CartModal = () => {
   };
 
   useEffect(() => {
-    if (serachParams.get("success")) {
-      toast.success("Pagamento efetuado com sucesso.");
+    if (serachParams.get('success')) {
+      toast.success('Pagamento efetuado com sucesso.');
     }
-    if (serachParams.get("canceled")) {
-      toast.error("Algo deu errado, tente novamente.");
+    if (serachParams.get('canceled')) {
+      toast.error('Algo deu errado, tente novamente.');
     }
   }, [serachParams]);
 
   useEffect(() => {
     if (cartModal.isOpen === true) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     }
     if (cartModal.isOpen === false) {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
-  }, []);
+  }, [cartModal.isOpen]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const response = await api.get('/cart');
+      setCart(response.data);
+    };
+    fetchCart();
+  }, [cartModal.cartItems, addCartModal.isOpen]);
+
+  const actionLabel = useMemo(() => {
+    if (step === STEPS.PAYMENT && user && user.role === 'guest') {
+      return 'Crie uma conta';
+    }
+    if (step === STEPS.PAYMENT) {
+      return 'Escolher forma de pagamento';
+    }
+
+    return 'Próximo';
+  }, [step, user]);
+
+  const secondaryActionLabel = useMemo(() => {
+    if (step === STEPS.PRODUCTS) {
+      return undefined;
+    }
+
+    return 'Voltar';
+  }, [step]);
+
+  const mercadoPagoContext = useContext(MercadoPagoContext);
+  if (!mercadoPagoContext) {
+    return null;
+  }
+  const { setOrderData, setPreferenceId } = mercadoPagoContext;
 
   const onBack = () => {
     if (step === STEPS.LOCATION) {
@@ -93,7 +118,7 @@ const CartModal = () => {
       return setStep((value) => value + 2);
     }
     if (step === STEPS.LOCATION && !isOpen) {
-      toast.error("Restaurante está fechado");
+      toast.error('Restaurante está fechado');
       return;
     }
     setStep((value) => value + 1);
@@ -121,7 +146,7 @@ const CartModal = () => {
       if (step !== STEPS.PAYMENT) {
         return onNext();
       }
-      if (step === STEPS.PAYMENT && user && user.role === "guest") {
+      if (step === STEPS.PAYMENT && user && user.role === 'guest') {
         cartModal.onClose();
         registerModal.onOpen();
         return;
@@ -129,20 +154,19 @@ const CartModal = () => {
 
       setIsLoading(true);
       // const response = await api.post("/testCheckout", {
-      const response = await api.post("/testMercadoPago", {
+      const response = await api.post('/testMercadoPago', {
         avaliableAppointmentId: appointmentId,
         addressId: addressId,
       });
       console.log(response.data);
       setPreferenceId(response.data.data.id);
       setOrderData(response.data.actualOrder);
-      toast.success("Pedido enviado");
+      toast.success('Pedido enviado');
       cartModal.onClose();
-      navigate("/checkout");
-      // window.location = response.data.url;
+      navigate('/checkout');
     } catch (err) {
       console.log(err);
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
     } finally {
       setIsLoading(false);
     }
@@ -151,50 +175,23 @@ const CartModal = () => {
   const removeProduct = async (ctp: CartToProduct) => {
     try {
       setIsLoading(true);
-      await api.delete("/removeProduct", {
+      await api.delete('/removeProduct', {
         data: {
           productId: ctp.productId,
           cartProductId: ctp.id,
         },
       });
-      toast.success("product deleted successfully");
+      toast.success('product deleted successfully');
     } catch (err) {
       console.log(err);
     } finally {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    const fetchCart = async () => {
-      const response = await api.get("/cart");
-      setCart(response.data);
-    };
-    // isOpen;
-    fetchCart();
-  }, [cartModal.cartItems, addCartModal.isOpen]);
 
   if (cart) {
     cartModal.cartItems = cart.cartProducts;
   }
-
-  const actionLabel = useMemo(() => {
-    if (step === STEPS.PAYMENT && user && user.role === "guest") {
-      return "Crie uma conta";
-    }
-    if (step === STEPS.PAYMENT) {
-      return "Escolher forma de pagamento";
-    }
-
-    return "Próximo";
-  }, [step]);
-
-  const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.PRODUCTS) {
-      return undefined;
-    }
-
-    return "Voltar";
-  }, [step]);
 
   let bodyContent = (
     <div>
@@ -357,10 +354,10 @@ const CartModal = () => {
             <div className="mb-4">
               <h1 className="text-xl font-semibold mb-2">Retirada as:</h1>
               <p className="text-sm">
-                {new Date(appointment.startDate).toLocaleString("pt-BR", {
-                  timeZone: "America/Sao_Paulo",
-                  dateStyle: "short",
-                  timeStyle: "short",
+                {new Date(appointment.startDate).toLocaleString('pt-BR', {
+                  timeZone: 'America/Sao_Paulo',
+                  dateStyle: 'short',
+                  timeStyle: 'short',
                 })}
               </p>
             </div>
@@ -372,7 +369,7 @@ const CartModal = () => {
               </h1>
               <p className="text-sm">
                 {address.street}, {address.streetNumber} - apto
-                {address.complementNumber} - {address.neighborhood},{" "}
+                {address.complementNumber} - {address.neighborhood},{' '}
                 {address.CEP}
               </p>
             </div>
@@ -387,7 +384,7 @@ const CartModal = () => {
         title="Carrinho"
         actionLabel={
           isLoading && step === STEPS.PAYMENT
-            ? "Enviando pedido..."
+            ? 'Enviando pedido...'
             : actionLabel
         }
         body={bodyContent}

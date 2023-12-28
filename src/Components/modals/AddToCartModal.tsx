@@ -154,17 +154,6 @@ const AddToCartModal = () => {
           </div>
         ))}
       </div>
-      {/* <div className="flex items-center gap-x-2 border-black border-[1px] rounded-lg">
-        <BiMinus
-          className="cursor-pointer"
-          onClick={() => decreaseQuantity()}
-        />
-        {quantity}
-        <BiPlus
-          className="mr-2 cursor-pointer "
-          onClick={() => increaseQuantity()}
-        />
-      </div> */}
     </div>
   );
   const thirdAction = (

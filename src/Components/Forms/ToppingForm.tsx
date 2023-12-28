@@ -1,8 +1,8 @@
-import { api } from "../../api";
-import { Separator } from "../ui/separator";
-import { Trash } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { api } from '../../api';
+import { Separator } from '../ui/separator';
+import { Trash } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 import {
   Form,
   FormControl,
@@ -10,15 +10,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import * as z from "zod";
-import { Product, Topping } from "../../interfaces";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-import Heading from "../Heading";
-import ImageUpload from "../image-upload";
-import { useNavigate } from "react-router-dom";
+} from '../ui/form';
+import * as z from 'zod';
+import { Product, Topping } from '../../interfaces';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
+import Heading from '../Heading';
+import ImageUpload from '../image-upload';
+import { useNavigate } from 'react-router-dom';
 import {
   Select,
   SelectContent,
@@ -27,8 +27,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { useState } from "react";
+} from '../ui/select';
+import { useState } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -49,14 +49,10 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  if (!initialData && !products) {
-    return <div>Loading...</div>;
-  }
-
-  const title = initialData ? "Editar topping" : "Criar topping";
-  const description = initialData ? "Editar topping" : "Adicionar topping";
-  const toastMessage = initialData ? "Topping atualizado" : "Topping criado";
-  const action = initialData ? "Salvar mudanças" : "Criar";
+  const title = initialData ? 'Editar topping' : 'Criar topping';
+  const description = initialData ? 'Editar topping' : 'Adicionar topping';
+  const toastMessage = initialData ? 'Topping atualizado' : 'Topping criado';
+  const action = initialData ? 'Salvar mudanças' : 'Criar';
 
   const form = useForm<ToppingFormValues>({
     resolver: zodResolver(formSchema),
@@ -65,13 +61,17 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
           ...initialData,
         }
       : {
-          name: "",
-          description: "",
-          image: "",
+          name: '',
+          description: '',
+          image: '',
           price: 0,
-          productId: "",
+          productId: '',
         },
   });
+
+  if (!initialData && !products) {
+    return <div>Loading...</div>;
+  }
 
   const onSubmit = async (data: ToppingFormValues) => {
     try {
@@ -85,9 +85,9 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
         toast.success(toastMessage);
       }
 
-      navigate("/dashboardOverview");
+      navigate('/dashboardOverview');
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     } finally {
       setLoading(false);
     }

@@ -1,12 +1,12 @@
-import Slider from "react-slick";
-import { Category } from "../interfaces";
+import Slider from 'react-slick';
+import { Category } from '../interfaces';
 
 interface SliderProps {
   category: Category;
 }
 
 const SimpleSlider: React.FC<SliderProps> = ({ category }) => {
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,

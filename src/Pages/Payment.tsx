@@ -1,15 +1,8 @@
-import { useContext, useEffect } from "react";
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { MercadoPagoContext } from "../Contexts/mercadoPagoContext";
+import { useContext, useEffect } from 'react';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { MercadoPagoContext } from '../Contexts/mercadoPagoContext';
 
 const PaymentPage = () => {
-  const mercadoPagoContext = useContext(MercadoPagoContext);
-  if (!mercadoPagoContext) {
-    return null;
-  }
-
-  const { orderData, preferenceId } = mercadoPagoContext;
-
   const renderCheckoutButton = (preferenceId: string) => {
     if (!preferenceId) return null;
 
@@ -19,10 +12,15 @@ const PaymentPage = () => {
     initMercadoPago(
       import.meta.env.VITE_APP_MERCADO_PAGO_PUBLIC_KEY as string,
       {
-        locale: "pt-BR",
+        locale: 'pt-BR',
       }
     );
   }, []);
+  const mercadoPagoContext = useContext(MercadoPagoContext);
+  if (!mercadoPagoContext) {
+    return null;
+  }
+  const { orderData, preferenceId } = mercadoPagoContext;
 
   return (
     <div className="p-4">
@@ -36,17 +34,17 @@ const PaymentPage = () => {
             <h2 className="text-lg font-semibold">Summary</h2>
             <div className="mt-2">
               <p className="text-gray-700">
-                Price:{" "}
+                Price:{' '}
                 <span className="font-semibold">${orderData?.subTotal}</span>
               </p>
               <p className="text-gray-700">
-                Book X{" "}
+                Book X{' '}
                 <span className="font-semibold">{orderData?.isPaid}</span>
               </p>
             </div>
             <div className="mt-4">
               <p className="text-xl font-semibold">
-                Total:{" "}
+                Total:{' '}
                 <span className="font-semibold">${orderData?.status}</span>
               </p>
             </div>

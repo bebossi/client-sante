@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import DateTimePicker from "react-datetime-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
-import "react-calendar/dist/Calendar.css";
-import "react-clock/dist/Clock.css";
-import { api } from "../api";
-import Button from "../Components/Button";
-import { format } from "date-fns-tz";
-import toast from "react-hot-toast";
-import SelectAppointment from "../Components/SelectAppointment";
-import { UserContext } from "../Contexts/currentUser";
-import { Switch } from "../Components/ui/switch";
-import { RestaurantContext } from "../Contexts/restaurantContext";
+import { useContext, useEffect, useState } from 'react';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import { api } from '../api';
+import Button from '../Components/Button';
+import { format } from 'date-fns-tz';
+import toast from 'react-hot-toast';
+import SelectAppointment from '../Components/SelectAppointment';
+import { UserContext } from '../Contexts/currentUser';
+import { Switch } from '../Components/ui/switch';
+import { RestaurantContext } from '../Contexts/restaurantContext';
 
 type ValuePiece = Date | null;
 
@@ -19,15 +19,14 @@ export type Value = ValuePiece | [ValuePiece, ValuePiece];
 const AppointmentsPage = () => {
   const [valueTime, onChangeTime] = useState<Value>(new Date());
   const [endTime, setOnEndTime] = useState<Value>(new Date());
-  const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext)!;
   const restaurantContext = useContext(RestaurantContext);
   const isOpen = restaurantContext?.isOpen;
 
-  if (user && user.role !== "admin") {
+  useEffect(() => {}, [isOpen]);
+  if (user && user.role !== 'admin') {
     return <div>Você não tem acesso à essa pagina</div>;
   }
-
-  useEffect(() => {}, [isOpen]);
 
   const onSubmit = async () => {
     try {
@@ -35,29 +34,29 @@ const AppointmentsPage = () => {
         valueTime as Date,
         "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
         {
-          timeZone: "America/Sao_Paulo",
+          timeZone: 'America/Sao_Paulo',
         }
       );
-      const formattedEndTime = format(endTime as Date, "HH:mm:ss", {
-        timeZone: "America/Sao_Paulo",
+      const formattedEndTime = format(endTime as Date, 'HH:mm:ss', {
+        timeZone: 'America/Sao_Paulo',
       });
-      await api.post("/createAppointment", {
+      await api.post('/createAppointment', {
         startDate: formattedDate,
         endTime: formattedEndTime,
       });
-      toast.success("Horário criado");
+      toast.success('Horário criado');
     } catch (err) {
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
       console.log(err);
     }
   };
 
   const handleIsOpen = async () => {
     try {
-      await api.put("/updateIsOpen");
-      toast.success("Atualizado");
+      await api.put('/updateIsOpen');
+      toast.success('Atualizado');
     } catch (err) {
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
       console.log(err);
     }
   };

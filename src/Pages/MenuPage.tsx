@@ -8,7 +8,7 @@ import { ShoppingBag } from 'lucide-react';
 import { UserContext } from '../Contexts/currentUser';
 
 const MenuPage = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext)!;
 
   const addCartModal = useAddToCartModal();
   const cartModal = useCartModal();

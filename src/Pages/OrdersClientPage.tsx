@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { Order } from "../interfaces";
-import { toast } from "react-hot-toast";
-import { api } from "../api";
-import { DataTable } from "../Components/DataTable/Data-table";
-import { columns } from "./OrderAdmin/columns";
-import qs from "query-string";
-import { Menu } from "lucide-react";
-import OrderFilters from "../Components/OrderFilters";
+import { useEffect, useState } from 'react';
+import { Order } from '../interfaces';
+import { toast } from 'react-hot-toast';
+import { api } from '../api';
+import { DataTable } from '../Components/DataTable/Data-table';
+import { columns } from './OrderAdmin/columns';
+import qs from 'query-string';
+import { Menu } from 'lucide-react';
+import OrderFilters from '../Components/OrderFilters';
 
 const OrdersClientPage = () => {
   const [orders, setOrders] = useState<Order[] | null>();
@@ -25,13 +25,13 @@ const OrdersClientPage = () => {
         setOrders(response.data);
       } catch (err) {
         console.log(err);
-        toast.error("Algo deu errado");
+        toast.error('Algo deu errado');
       } finally {
         setIsloading(false);
       }
     };
     fetchOrders();
-  }, [location.search]);
+  }, []);
 
   const toggleFilters = () => {
     setIsFiltersOpen(!isFiltersOpen);

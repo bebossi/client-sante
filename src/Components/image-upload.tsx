@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { TbPhotoPlus } from "react-icons/tb";
-import { Image, Transformation } from "cloudinary-react";
-import { cn } from "../lib/utils";
+import { useCallback, useEffect, useState } from 'react';
+import { TbPhotoPlus } from 'react-icons/tb';
+import { Image, Transformation } from 'cloudinary-react';
+import { cn } from '../lib/utils';
 
 interface ImageUploadProps {
   onChange: (value: string) => void;
@@ -14,19 +14,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
   useEffect(() => {
     const widget = (window as any).cloudinary.createUploadWidget(
       {
-        cloudName: "dnhy6fqpj",
-        uploadPreset: "wkeratdy",
-        sources: ["local", "url"],
+        cloudName: 'dnhy6fqpj',
+        uploadPreset: 'wkeratdy',
+        sources: ['local', 'url'],
         multiple: false,
         cropping: false,
-        resourceType: "image",
-        clientAllowedFormats: ["png", "jpeg", "jpg"],
+        resourceType: 'image',
+        clientAllowedFormats: ['png', 'jpeg', 'jpg'],
         maxFileSize: 10000000,
         maxImageFileSize: 10000000,
         maxVideoFileSize: 10000000,
       },
       (error: any, result: any) => {
-        if (!error && result && result.event === "success") {
+        if (!error && result && result.event === 'success') {
           onChange(result.info.secure_url);
         }
       }
@@ -39,7 +39,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
     if (uploadWidget) {
       uploadWidget.open();
     }
-  }, [value, uploadWidget]);
+  }, [uploadWidget]);
 
   return (
     <div
@@ -51,7 +51,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       <div className="font-semibold text-lg">Click to upload</div>
       {value && (
         <div className="absolute inset-0 w-full h-full">
-          <Image className={cn("w-full h-full object-fill")} src={value}>
+          <Image className={cn('w-full h-full object-fill')} src={value}>
             <Transformation width="100" height="100" crop="fill" />
           </Image>
         </div>

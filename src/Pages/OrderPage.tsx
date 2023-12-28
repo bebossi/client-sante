@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react";
-import { Order } from "../interfaces";
-import { api } from "../api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { Order } from '../interfaces';
+import { api } from '../api';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../Components/ui/select";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '../Components/ui/select';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -19,10 +19,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../Components/ui/form";
-import Button from "../Components/Button";
-import toast from "react-hot-toast";
-import { UserContext } from "../Contexts/currentUser";
+} from '../Components/ui/form';
+import Button from '../Components/Button';
+import toast from 'react-hot-toast';
+import { UserContext } from '../Contexts/currentUser';
 
 const FormSchema = z.object({
   status: z.string().min(1),
@@ -31,9 +31,9 @@ const FormSchema = z.object({
 const OrderPage = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
   const params = useParams();
-  const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext)!;
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -44,7 +44,7 @@ const OrderPage = () => {
     const fetchOrder = async () => {
       setIsLoading(true);
       try {
-        if (user && user.role === "admin") {
+        if (user && user.role === 'admin') {
           const response = await api.get(`/getOrder/${params.orderId}`);
           setOrder(response.data);
         } else {
@@ -61,14 +61,14 @@ const OrderPage = () => {
     if (user) {
       fetchOrder();
     }
-  }, []);
+  }, [params.orderId, user]);
 
   const handleStatus = async () => {
     try {
       await api.put(`/statusOrder/${params.orderId}`, {
         status: status,
       });
-      toast.success("Status atualizado com sucesso");
+      toast.success('Status atualizado com sucesso');
     } catch (err) {
       console.log(err);
     }
@@ -105,17 +105,17 @@ const OrderPage = () => {
             Order #{order?.id}
           </h1>
           <p className="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">
-            Pedido feito em {""}
+            Pedido feito em {''}
             {order?.createdAt
-              ? new Intl.DateTimeFormat("pt-BR", {
-                  timeZone: "America/Sao_Paulo",
-                  dateStyle: "short",
-                  timeStyle: "short",
+              ? new Intl.DateTimeFormat('pt-BR', {
+                  timeZone: 'America/Sao_Paulo',
+                  dateStyle: 'short',
+                  timeStyle: 'short',
                 }).format(new Date(order?.createdAt))
-              : ""}
+              : ''}
           </p>
 
-          {user && user.role === "admin" && order?.status !== "Entregue" ? (
+          {user && user.role === 'admin' && order?.status !== 'Entregue' ? (
             <div className="flex justify-start items-center">
               <div>
                 <Form {...form}>
@@ -126,10 +126,10 @@ const OrderPage = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-                            Status:{" "}
+                            Status:{' '}
                             <span className="text-sky-600">
                               {order?.status}
-                            </span>{" "}
+                            </span>{' '}
                           </FormLabel>
                           <Select
                             onValueChange={(newValue) => {
@@ -166,7 +166,7 @@ const OrderPage = () => {
             </div>
           ) : (
             <h1 className="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-              Status: <span className="text-sky-600">{order?.status}</span>{" "}
+              Status: <span className="text-sky-600">{order?.status}</span>{' '}
             </h1>
           )}
         </div>
@@ -276,10 +276,10 @@ const OrderPage = () => {
                   /> */}
                   <div className="flex justify-start items-start flex-col space-y-2">
                     <p className="text-base dark:text-white font-semibold leading-4 text-left text-gray-800">
-                      {user.name}
+                      {user?.name}
                     </p>
                     <p
-                      onClick={() => navigate("/orders")}
+                      onClick={() => navigate('/orders')}
                       className="text-sm dark:text-gray-300 leading-5 text-gray-600 hover:cursor-pointer"
                     >
                       Pedidos
@@ -299,7 +299,7 @@ const OrderPage = () => {
                     alt="email"
                   />
                   <p className="cursor-pointer text-sm leading-5 ">
-                    {user.email}
+                    {user?.email}
                   </p>
                 </div>
               </div>
@@ -312,7 +312,7 @@ const OrderPage = () => {
                     {order?.addressId ? (
                       <p className="w-48 lg:w-full dark:text-gray-300 xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">
                         {order?.address.street}, {order?.address.streetNumber} -
-                        apto {order?.address.complementNumber} -{" "}
+                        apto {order?.address.complementNumber} -{' '}
                         {order?.address.neighborhood}, {order?.address.CEP}
                       </p>
                     ) : (
@@ -320,12 +320,12 @@ const OrderPage = () => {
                         {order?.avaliableAppointment.startDate
                           ? new Date(
                               order.avaliableAppointment.startDate
-                            ).toLocaleString("pt-BR", {
-                              timeZone: "America/Sao_Paulo",
-                              dateStyle: "short",
-                              timeStyle: "short",
+                            ).toLocaleString('pt-BR', {
+                              timeZone: 'America/Sao_Paulo',
+                              dateStyle: 'short',
+                              timeStyle: 'short',
                             })
-                          : "Appointment start date not available"}
+                          : 'Appointment start date not available'}
                       </p>
                     )}
                   </div>

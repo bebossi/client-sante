@@ -1,8 +1,8 @@
-import { api } from "../../api";
-import { Separator } from "../ui/separator";
-import { Trash } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { api } from '../../api';
+import { Separator } from '../ui/separator';
+import { Trash } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 import {
   Form,
   FormControl,
@@ -10,15 +10,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import * as z from "zod";
-import { Category, Product } from "../../interfaces";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-import Heading from "../Heading";
-import ImageUpload from "../image-upload";
-import { useNavigate } from "react-router-dom";
+} from '../ui/form';
+import * as z from 'zod';
+import { Category, Product } from '../../interfaces';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
+import Heading from '../Heading';
+import ImageUpload from '../image-upload';
+import { useNavigate } from 'react-router-dom';
 import {
   Select,
   SelectContent,
@@ -27,8 +27,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
-import { useState } from "react";
+} from '../ui/select';
+import { useState } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -51,14 +51,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  if (!initialData && !categories) {
-    return <div>Loading</div>;
-  }
-
-  const title = initialData ? "Editar produto" : "Criar produto";
-  const description = initialData ? "Editar produto" : "Adicione um produto";
-  const toastMessage = initialData ? "Produto atualizado" : "Produto criado";
-  const action = initialData ? "Salvar mudanças" : "Criar";
+  const title = initialData ? 'Editar produto' : 'Criar produto';
+  const description = initialData ? 'Editar produto' : 'Adicione um produto';
+  const toastMessage = initialData ? 'Produto atualizado' : 'Produto criado';
+  const action = initialData ? 'Salvar mudanças' : 'Criar';
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
@@ -67,13 +63,17 @@ const ProductForm: React.FC<ProductFormProps> = ({
           ...initialData,
         }
       : {
-          name: "",
-          description: "",
-          image: "",
+          name: '',
+          description: '',
+          image: '',
           price: 0,
-          categoryId: "",
+          categoryId: '',
         },
   });
+
+  if (!initialData && !categories) {
+    return <div>Loading</div>;
+  }
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
@@ -85,9 +85,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
         await api.post(`/create`, data);
         toast.success(toastMessage);
       }
-      navigate("/dashboardOverview");
+      navigate('/dashboardOverview');
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     } finally {
       setLoading(false);
     }

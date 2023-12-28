@@ -1,15 +1,15 @@
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useContext, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Modal from "./Modal";
-import Heading from "../Heading";
-import Button from "../Button";
-import { api, apiURLs } from "../../api";
-import { toast } from "react-hot-toast";
-import useLoginModal from "../../hooks/useLoginModal";
-import useRegisterModal from "../../hooks/useRegisterModal";
-import Input from "../inputs/Input";
-import { UserContext } from "../../Contexts/currentUser";
+import { FcGoogle } from 'react-icons/fc';
+import { useCallback, useContext, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import Modal from './Modal';
+import Heading from '../Heading';
+import Button from '../Button';
+import { api, apiURLs } from '../../api';
+import { toast } from 'react-hot-toast';
+import useLoginModal from '../../hooks/useLoginModal';
+import useRegisterModal from '../../hooks/useRegisterModal';
+import Input from '../inputs/Input';
+import { UserContext } from '../../Contexts/currentUser';
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -18,7 +18,7 @@ const RegisterModal = () => {
   const { setUser } = useContext(UserContext);
 
   const googleAuth = () => {
-    window.open(`${apiURLs["production"]}/auth/google/callback`, "_self");
+    window.open(`${apiURLs['production']}/auth/google/callback`, '_self');
   };
 
   const {
@@ -27,24 +27,23 @@ const RegisterModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("clickado");
     try {
-      const response = await api.post("/signup", data);
+      const response = await api.post('/signup', data);
       setIsLoading(true);
       // const token = response.data.token;
       // localStorage.setItem("token", token);
       setUser(response.data);
       registerModal.onClose();
-      toast.success("Usuário registrado e logado com sucesso");
+      toast.success('Usuário registrado e logado com sucesso');
     } catch (err) {
       console.log(err);
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
     } finally {
       setIsLoading(false);
     }

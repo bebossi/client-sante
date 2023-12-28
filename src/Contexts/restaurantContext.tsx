@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react";
-import { api } from "../api";
+import { createContext, useEffect, useState } from 'react';
+import { api } from '../api';
 
-type IsRestauranOpenType = {
+type IsRestaurantOpenType = {
   isOpen: boolean | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean | null>>;
 };
 
-const RestaurantContext = createContext<IsRestauranOpenType | null>(null);
+const RestaurantContext = createContext<IsRestaurantOpenType | null>(null);
 
 const RestaurantContextProvider = ({
   children,
@@ -18,7 +18,7 @@ const RestaurantContextProvider = ({
   useEffect(() => {
     const fetchIsOpen = async () => {
       try {
-        const response = await api.get("/getIsOpen");
+        const response = await api.get('/getIsOpen');
         setIsOpen(response.data.isOpen);
       } catch (err) {
         console.log(err);

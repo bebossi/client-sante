@@ -1,12 +1,7 @@
-// import { Dispatch, SetStateAction } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from "use-places-autocomplete";
-
-// interface PlacesAutocompleteProps {
-//     setSelected: Dispatch<SetStateAction<number[]>>
-// }
+} from 'use-places-autocomplete';
 
 const PlacesAutocomplete = ({
   setSelected,
@@ -47,7 +42,7 @@ const PlacesAutocomplete = ({
         placeholder="Procure um endereço"
       />
       <div>
-        {status === "OK" &&
+        {status === 'OK' &&
           data.map(({ place_id, description }) => (
             <div key={place_id}>{description}</div>
           ))}

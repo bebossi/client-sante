@@ -1,13 +1,13 @@
-import { AiOutlineMenu } from "react-icons/ai";
-import { useState, useCallback, useEffect, useContext } from "react";
+import { AiOutlineMenu } from 'react-icons/ai';
+import { useState, useCallback, useEffect, useContext } from 'react';
 
-import { useNavigate } from "react-router-dom";
-import useRegisterModal from "../../hooks/useRegisterModal";
-import useLoginModal from "../../hooks/useLoginModal";
-import MenuItem from "./MenuItem";
-import Avatar from "../Avatar";
-import { UserContext } from "../../Contexts/currentUser";
-import { api } from "../../api";
+import { useNavigate } from 'react-router-dom';
+import useRegisterModal from '../../hooks/useRegisterModal';
+import useLoginModal from '../../hooks/useLoginModal';
+import MenuItem from './MenuItem';
+import Avatar from '../Avatar';
+import { UserContext } from '../../Contexts/currentUser';
+import { api } from '../../api';
 
 const UserMenu = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const UserMenu = () => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/logout");
+      await api.post('/logout');
       setUser(null);
       window.location.reload();
     } catch (err) {
@@ -30,7 +30,7 @@ const UserMenu = () => {
     }
   };
 
-  useEffect(() => {}, [user, !user]);
+  useEffect(() => {}, [user]);
 
   return (
     <div className="relative">
@@ -38,7 +38,7 @@ const UserMenu = () => {
         <div
           data-cy="menu"
           onClick={() => {
-            navigate("/menu");
+            navigate('/menu');
             setIsOpen(false);
           }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
@@ -47,7 +47,7 @@ const UserMenu = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/menuu");
+            navigate('/menuu');
             setIsOpen(false);
           }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
@@ -56,7 +56,7 @@ const UserMenu = () => {
         </div>
         <div
           onClick={() => {
-            navigate("/map");
+            navigate('/map');
             setIsOpen(false);
           }}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
@@ -80,7 +80,7 @@ const UserMenu = () => {
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:vw-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
           <div className="flex flex-col cursor-pointer">
-            {((user && user.role === "guest") || !user) && (
+            {((user && user.role === 'guest') || !user) && (
               <>
                 <MenuItem
                   data-cy="entre"
@@ -95,61 +95,61 @@ const UserMenu = () => {
                 <MenuItem
                   data-cy="menu"
                   onClick={() => {
-                    navigate("/menu");
+                    navigate('/menu');
                     toggleOpen();
                   }}
                   label="Cardápio"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/menuu");
+                    navigate('/menuu');
                     toggleOpen();
                   }}
                   label="Quem somos"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/doubts");
+                    navigate('/doubts');
                     toggleOpen();
                   }}
                   label="Dúvidas"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/contact");
+                    navigate('/contact');
                     toggleOpen();
                   }}
                   label="Contato"
                 />
               </>
             )}
-            {user && user.role === "admin" && (
+            {user && user.role === 'admin' && (
               <>
                 <MenuItem
                   data-cy="menu"
                   onClick={() => {
-                    navigate("/menu");
+                    navigate('/menu');
                     toggleOpen();
                   }}
                   label="Cardápio"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/menuu");
+                    navigate('/menuu');
                     toggleOpen();
                   }}
                   label="Quem somos"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/doubts");
+                    navigate('/doubts');
                     toggleOpen();
                   }}
                   label="Dúvidas"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/contact");
+                    navigate('/contact');
                     toggleOpen();
                   }}
                   label="Contato"
@@ -171,39 +171,39 @@ const UserMenu = () => {
                 <MenuItem onClick={handleLogout} label="Sair" />
               </>
             )}
-            {user && user.role === "user" && (
+            {user && user.role === 'user' && (
               <>
                 <MenuItem
                   onClick={() => {
-                    navigate("/menu");
+                    navigate('/menu');
                     toggleOpen();
                   }}
                   label="Cardápio"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/menuu");
+                    navigate('/menuu');
                     toggleOpen();
                   }}
                   label="Quem somos"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/doubts");
+                    navigate('/doubts');
                     toggleOpen();
                   }}
                   label="Dúvidas"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/contact");
+                    navigate('/contact');
                     toggleOpen();
                   }}
                   label="Contato"
                 />
                 <MenuItem
                   onClick={() => {
-                    navigate("/orders");
+                    navigate('/orders');
                     toggleOpen();
                   }}
                   label="Pedidos"

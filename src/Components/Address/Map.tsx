@@ -4,45 +4,55 @@ import {
   useJsApiLoader,
   Autocomplete,
   LoadScriptProps,
-} from "@react-google-maps/api";
-import { useEffect, useRef, useState } from "react";
+} from '@react-google-maps/api';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-} from "use-places-autocomplete";
-import { api } from "../../api";
-import Button from "../Button";
-import { toast } from "react-hot-toast";
-import { Address } from "../../interfaces";
+} from 'use-places-autocomplete';
+import { api } from '../../api';
+import Button from '../Button';
+import { toast } from 'react-hot-toast';
+import { Address } from '../../interfaces';
 
 interface MapAddressProps {
   handleAddressId: (addressId: string, selectedAddress?: Address) => void;
 }
 const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
 
-const libraries: LoadScriptProps["libraries"] = ["places"];
+const libraries: LoadScriptProps['libraries'] = ['places'];
 
 const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   const [selectedCoordinates, setSelectedCoordinates] = useState<{
     lat: number;
     lng: number;
   }>();
-  const [selectedAddress, setSelectedAddress] = useState("");
-  const [distance, setDistance] = useState<string>("");
+  const [selectedAddress, setSelectedAddress] = useState('');
+  const [distance, setDistance] = useState<string>('');
   const [form, setForm] = useState({
-    rua: "",
-    numero: "",
-    bairro: "",
-    cep: "",
-    cidade: "",
-    apartamento: "",
+    rua: '',
+    numero: '',
+    bairro: '',
+    cep: '',
+    cidade: '',
+    apartamento: '',
   });
   const addressRef = useRef<HTMLInputElement>(null);
 
+  const calculateRoute = useCallback(async () => {
+    const directionsService = new google.maps.DirectionsService();
+    const results = await directionsService.route({
+      origin: { lat: -19.9126701, lng: -43.9207056 },
+      destination: selectedCoordinates as { lat: number; lng: number },
+      travelMode: google.maps.TravelMode.DRIVING,
+    });
+    setDistance(results.routes[0].legs[0].distance!.text);
+  }, [selectedCoordinates]);
+
   useEffect(() => {
     if (selectedAddress) {
-      const addressParts = selectedAddress.split(", ");
-      const streetNumberAndNeighborhood = addressParts[1].split(" - ");
+      const addressParts = selectedAddress.split(', ');
+      const streetNumberAndNeighborhood = addressParts[1].split(' - ');
 
       setForm({
         rua: addressParts[0],
@@ -50,14 +60,14 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         bairro: streetNumberAndNeighborhood[1],
         cep: addressParts[3],
         cidade: addressParts[2],
-        apartamento: "",
+        apartamento: '',
       });
       calculateRoute();
     }
-  }, [selectedAddress]);
+  }, [calculateRoute, selectedAddress]);
 
   const { value, setValue, clearSuggestions } = usePlacesAutocomplete({
-    callbackName: "MapAddress",
+    callbackName: 'MapAddress',
   });
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
@@ -67,11 +77,10 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  // console.log("value", value);
 
   const handleSelect = async (address: string) => {
     try {
-      if (!address.toLowerCase().startsWith("rua")) {
+      if (!address.toLowerCase().startsWith('rua')) {
         address = `rua ${address}`;
       }
 
@@ -82,7 +91,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       const results = await getGeocode({ address: result });
 
       if (results.length === 0) {
-        toast.error("No results found for the selected address");
+        toast.error('No results found for the selected address');
         return;
       }
       const { lat, lng } = getLatLng(results[0]);
@@ -93,43 +102,33 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       console.log(err);
     }
   };
-  // console.log(selectedAddress);
 
-  const calculateRoute = async () => {
-    const directionsService = new google.maps.DirectionsService();
-    const results = await directionsService.route({
-      origin: { lat: -19.9126701, lng: -43.9207056 },
-      destination: selectedCoordinates as { lat: number; lng: number },
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
-    setDistance(results.routes[0].legs[0].distance!.text);
-  };
-  const calculatedDistance = parseFloat(distance.split(" ")[0]);
+  const calculatedDistance = parseFloat(distance.split(' ')[0]);
 
   if (calculatedDistance >= 2) {
-    toast.error("Distance is bigger than 2km");
+    toast.error('Distance is bigger than 2km');
   }
 
   const onSubmit = async () => {
     try {
-      const cleanedCEP = form.cep.replace(/-/g, "");
+      const cleanedCEP = form.cep.replace(/-/g, '');
 
-      const calculatedDistance = parseFloat(distance.split(" ")[0]);
+      const calculatedDistance = parseFloat(distance.split(' ')[0]);
 
       if (calculatedDistance > 2) {
-        toast.error("Distância maior que 2km");
+        toast.error('Distância maior que 2km');
         return;
       }
 
-      const response = await api.post("/address", {
+      const response = await api.post('/address', {
         street: form.rua,
         neighborhood: form.bairro,
         streetNumber: Number(form.numero),
-        complementNumber: Number(form.apartamento) || "",
+        complementNumber: Number(form.apartamento) || '',
         CEP: Number(cleanedCEP),
       });
       handleAddressId(response.data.id, response.data);
-      toast.success("Address added");
+      toast.success('Address added');
     } catch (err) {
       console.log(err);
     }
@@ -141,9 +140,9 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
           <Autocomplete
             onLoad={(autocomplete) => {
               autocomplete.setFields([
-                "formatted_address",
-                "name",
-                "address_components",
+                'formatted_address',
+                'name',
+                'address_components',
               ]);
             }}
             onPlaceChanged={() => handleSelect(value)}
@@ -216,7 +215,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
             <GoogleMap
               zoom={11}
               center={selectedCoordinates}
-              mapContainerClassName={"map-container"}
+              mapContainerClassName={'map-container'}
               options={{
                 zoomControl: false,
                 streetViewControl: false,

@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import qs from "query-string";
-import { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from 'react-router-dom';
+import qs from 'query-string';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Form,
   FormControl,
@@ -8,21 +8,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from './ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import DateTimePicker from "react-datetime-picker";
-import { Switch } from "./ui/switch";
-import { Value } from "../Pages/AppointmentsPage";
-import { Separator } from "./ui/separator";
+} from './ui/select';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import DateTimePicker from 'react-datetime-picker';
+import { Switch } from './ui/switch';
+import { Value } from '../Pages/AppointmentsPage';
+import { Separator } from './ui/separator';
 
 const FormSchema = z.object({
   status: z.string().min(1),
@@ -43,7 +43,7 @@ const OrderFilters = () => {
       string | null
     >;
 
-    setIsPaid(queryParameters.isPaid === "true" ? true : null);
+    setIsPaid(queryParameters.isPaid === 'true' ? true : null);
     setStatus(queryParameters.status || null);
     setAppointment((queryParameters.appointment as Value) || null);
   }, [location.search]);
@@ -56,28 +56,20 @@ const OrderFilters = () => {
   };
 
   const onSubmit = useCallback(async () => {
-    // let currentQuery = {};
-
     const queryParameters = qs.parse(location.search) as Record<
       string,
       string | null
     >;
 
-    // if (params) {
-    //   currentQuery = qs.parse(params.toString());
-    // }
-
-    // const updatedQuery: any = {
-    //   // ...currentQuery,
-    //   queryParameters,
-    //   isPaid,
-    //   status,
-    //   appointment,
-    // };
-    const updatedQuery: any = {
+    const updatedQuery: {
+      isPaid?: string;
+      status?: string | undefined;
+      appointment?: string;
+      [key: string]: string | undefined;
+    } = {
       ...queryParameters,
       isPaid: isPaid !== null ? isPaid.toString() : undefined,
-      status,
+      status: status !== null ? status.toString() : undefined,
       appointment: appointment ? appointment.toString() : undefined,
     };
 
@@ -93,7 +85,7 @@ const OrderFilters = () => {
       { skipNull: true }
     );
     navigate(url);
-  }, [navigate, isPaid, status, appointment, location.search]);
+  }, [navigate, isPaid, status, appointment, location]);
 
   const handleResetFilters = () => {
     setIsPaid(false);
@@ -109,7 +101,7 @@ const OrderFilters = () => {
       <Separator />
       <div className="space-y-2">
         <div className="flex items-center py-3">
-          <p className="text-3xl mr-3"> Pago {""}</p>
+          <p className="text-3xl mr-3"> Pago {''}</p>
           <Switch
             onCheckedChange={(value) => handleSwitchClick(!value)}
             checked={isPaid as boolean}
@@ -137,7 +129,7 @@ const OrderFilters = () => {
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={status ? status : "status"}
+                            placeholder={status ? status : 'status'}
                           />
                         </SelectTrigger>
                       </FormControl>
