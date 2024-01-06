@@ -6,17 +6,16 @@ import Heading from '../Heading';
 import Button from '../Button';
 import { api, apiURLs } from '../../api';
 import { toast } from 'react-hot-toast';
-import useLoginModal from '../../hooks/useLoginModal';
-import useRegisterModal from '../../hooks/useRegisterModal';
+import { useRegisterModal, useLoginModal } from '../../hooks';
 import Input from '../inputs/Input';
 import { UserContext } from '../../Contexts/currentUser';
 
-const RegisterModal = () => {
+export const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useContext(UserContext);
-
+  const userContext = useContext(UserContext);
+  const { setUser } = userContext || { user: null, setUser: () => {} };
   const googleAuth = () => {
     window.open(`${apiURLs['production']}/auth/google/callback`, '_self');
   };

@@ -1,10 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import NavBar from './Components/Navbar/NavBar';
-import LoginModal from './Components/modals/LoginModal';
-// import { AuthContextComponent } from "./Contexts/authContext";
+import {
+  LoginModal,
+  AddToCartModal,
+  CartModal,
+  RegisterModal,
+} from './Components/modals';
 import MenuPage from './Pages/MenuPage';
-import AddToCartModal from './Components/modals/AddToCartModal';
-import CartModal from './Components/modals/CartModal';
 import ProductPage from './Pages/ProductPage';
 import DashboardCategories from './Pages/CategoryAdmin/DashboardCategories';
 import DashboardToppings from './Pages/ToppingAdmin/DashboardTopping';
@@ -18,7 +20,6 @@ import DashboardOrders from './Pages/OrderAdmin/DashboardOrders';
 import OrderPage from './Pages/OrderPage';
 import { UserContextProvider } from './Contexts/currentUser';
 import AppointmentsPage from './Pages/AppointmentsPage';
-import RegisterModal from './Components/modals/RegisterModal';
 import OrdersClientPage from './Pages/OrdersClientPage';
 import { RestaurantContextProvider } from './Contexts/restaurantContext';
 import { ProtectedRoute } from './Components/ProtectedRoute';

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
-import useCartModal from '../../hooks/useCartModal';
 import { api } from '../../api';
 import Modal from './Modal';
 import {
@@ -10,17 +9,22 @@ import {
 } from '../../interfaces';
 import toast from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
-import useAddToCartModal from '../../hooks/useAddToCartModal';
+import {
+  useAddToCartModal,
+  useCartModal,
+  useRegisterModal,
+} from '../../hooks/index';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SelectAppointment from '../SelectAppointment';
 import SelectAddress from '../Address/SelectAddress';
 import Button from '../Button';
-import MapAddress from '../Address/Map';
+import MapAddress from '../Address/CreateAddress';
 import { CalendarIcon, Car } from 'lucide-react';
-import { RestaurantContext } from '../../Contexts/restaurantContext';
-import useRegisterModal from '../../hooks/useRegisterModal';
-import { UserContext } from '../../Contexts/currentUser';
-import { MercadoPagoContext } from '../../Contexts/mercadoPagoContext';
+import {
+  RestaurantContext,
+  UserContext,
+  MercadoPagoContext,
+} from '../../Contexts';
 
 enum STEPS {
   PRODUCTS = 0,
@@ -30,7 +34,7 @@ enum STEPS {
   PAYMENT = 4,
 }
 
-const CartModal = () => {
+export const CartModal = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const user = userContext ? userContext.user : null;

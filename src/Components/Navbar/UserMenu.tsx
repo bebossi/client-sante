@@ -2,11 +2,10 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { useState, useCallback, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import useRegisterModal from '../../hooks/useRegisterModal';
-import useLoginModal from '../../hooks/useLoginModal';
+import { useRegisterModal, useLoginModal } from '../../hooks';
 import MenuItem from './MenuItem';
 import Avatar from '../Avatar';
-import { UserContext } from '../../Contexts/currentUser';
+import { UserContext } from '../../Contexts';
 import { api } from '../../api';
 
 const UserMenu = () => {
@@ -15,10 +14,8 @@ const UserMenu = () => {
   const loginModal = useLoginModal();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext);
-  const toggleOpen = useCallback(() => {
-    setIsOpen((value) => !value);
-  }, []);
+  const userContext = useContext(UserContext);
+  const { user, setUser } = userContext || { user: null, setUser: () => {} };
 
   const handleLogout = async () => {
     try {
@@ -30,6 +27,9 @@ const UserMenu = () => {
     }
   };
 
+  const toggleOpen = useCallback(() => {
+    setIsOpen((value) => !value);
+  }, []);
   useEffect(() => {}, [user]);
 
   return (

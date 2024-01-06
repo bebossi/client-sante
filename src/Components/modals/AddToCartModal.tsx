@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Modal from './Modal';
 import Heading from '../Heading';
 import { api } from '../../api';
-import useAddToCartModal from '../../hooks/useAddToCartModal';
+import { useAddToCartModal } from '../../hooks';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import { Topping } from '../../interfaces';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ interface ToppingProps {
   quantity: number;
 }
 
-const AddToCartModal = () => {
+export const AddToCartModal = () => {
   const addCartModal = useAddToCartModal();
   const userContext = useContext(UserContext);
   const user = userContext?.user;

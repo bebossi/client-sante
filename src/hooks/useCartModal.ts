@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { CartToProduct } from "../interfaces";
+import { create } from 'zustand';
+import { CartToProduct } from '../interfaces';
 
 interface useCartModalStore {
   isOpen: boolean;
@@ -8,11 +8,11 @@ interface useCartModalStore {
   cartItems: CartToProduct[];
 }
 
-const useCartModal = create<useCartModalStore>((set) => ({
+export const useCartModal = create<useCartModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
   cartItems: [],
 }));
 
-export default useCartModal;
+// export default useCartModal;

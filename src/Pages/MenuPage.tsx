@@ -1,8 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { api } from '../api';
-import useAddToCartModal from '../hooks/useAddToCartModal';
+import { useAddToCartModal, useCartModal } from '../hooks';
 import { Product, Category } from '../interfaces';
-import useCartModal from '../hooks/useCartModal';
 import ProductCard from '../Components/ProductCard';
 import { ShoppingBag } from 'lucide-react';
 import { UserContext } from '../Contexts/currentUser';

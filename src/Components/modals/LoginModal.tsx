@@ -1,60 +1,63 @@
-import { useCallback, useContext, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import useLoginModal from "../../hooks/useLoginModal";
-import useRegisterModal from "../../hooks/useRegisterModal";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { api } from "../../api";
-import toast from "react-hot-toast";
-import Button from "../Button";
-import Heading from "../Heading";
-import Input from "../inputs/Input";
-import Modal from "./Modal";
-import { apiURLs } from "../../api";
-import { UserContext } from "../../Contexts/currentUser";
+import { useCallback, useContext, useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import { useLoginModal, useRegisterModal } from '../../hooks';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { api } from '../../api';
+import toast from 'react-hot-toast';
+import Button from '../Button';
+import Heading from '../Heading';
+import Input from '../inputs/Input';
+import Modal from './Modal';
+import { apiURLs } from '../../api';
+import { UserContext } from '../../Contexts';
 
-const LoginModal = () => {
+export const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useContext(UserContext);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
-
-  const googleAuth = () => {
-    // window.open(`${apiURLs["production"]}/auth/google/callback`, "_self");
-    window.open(`${apiURLs["development"]}/auth/google/callback`, "_self");
-  };
-
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    try {
-      const response = await api.post("/login", data);
-      console.log(response);
-      setIsLoading(true);
-      setUser(response.data);
-      toast.success("Usuario logado");
-      loginModal.onClose();
-      window.location.reload();
-    } catch (err) {
-      toast.error("Algo deu errado");
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const toogle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
   }, [loginModal, registerModal]);
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    return null;
+  }
+
+  const { setUser } = userContext;
+
+  const googleAuth = () => {
+    // window.open(`${apiURLs["production"]}/auth/google/callback`, "_self");
+    window.open(`${apiURLs['development']}/auth/google/callback`, '_self');
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const response = await api.post('/login', data);
+      console.log(response);
+      setIsLoading(true);
+      setUser(response.data);
+      toast.success('Usuario logado');
+      loginModal.onClose();
+      window.location.reload();
+    } catch (err) {
+      toast.error('Algo deu errado');
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -107,7 +110,7 @@ const LoginModal = () => {
       <Modal
         onSubmit={handleSubmit(onSubmit)}
         title="Login"
-        actionLabel={isLoading ? "Fazendo login..." : "Continue"}
+        actionLabel={isLoading ? 'Fazendo login...' : 'Continue'}
         onClose={loginModal.onClose}
         isOpen={loginModal.isOpen}
         disabled={isLoading}
