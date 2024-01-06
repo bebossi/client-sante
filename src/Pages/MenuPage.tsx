@@ -4,7 +4,7 @@ import { useAddToCartModal, useCartModal } from '../hooks';
 import { Product, Category } from '../interfaces';
 import ProductCard from '../Components/ProductCard';
 import { ShoppingBag } from 'lucide-react';
-import { UserContext } from '../Contexts/currentUser';
+import { UserContext } from '../Contexts';
 
 const MenuPage = () => {
   const { user, setUser } = useContext(UserContext)!;

@@ -4,11 +4,11 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../../Components/ui/dropdown-menu";
-import { OrderColumn } from "./columns";
-import { Button } from "../../Components/ui/button";
-import { Edit, MoreHorizontalIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+  Button,
+} from '../../Components/ui';
+import { OrderColumn } from './columns';
+import { Edit, MoreHorizontalIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface CellActionProps {
   data: OrderColumn;

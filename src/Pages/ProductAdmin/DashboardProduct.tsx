@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { DataTable } from "../../Components/DataTable/Data-table";
-import { api } from "../../api";
-import { Product } from "../../interfaces";
-import { columns } from "./columns";
-import { Button } from "../../Components/ui/button";
-import { useNavigate } from "react-router-dom";
-import DashboardNavigation from "../../Components/DashboardNavigation";
+import { useEffect, useState } from 'react';
+import { DataTable } from '../../Components/DataTable/Data-table';
+import { api } from '../../api';
+import { Product } from '../../interfaces';
+import { columns } from './columns';
+import { Button } from '../../Components/ui';
+import { useNavigate } from 'react-router-dom';
+import DashboardNavigation from '../../Components/DashboardNavigation';
 
 const DashboardProduct = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const DashboardProduct = () => {
     const fetchProducts = async () => {
       try {
         setIsloading(true);
-        const response = await api.get("/getProducts");
+        const response = await api.get('/getProducts');
         setProducts(response.data);
       } catch (err) {
         console.log(err);
@@ -57,10 +57,10 @@ const DashboardProduct = () => {
   return (
     <>
       <DashboardNavigation />
-      <Button variant="destructive" onClick={() => navigate("/product")}>
+      <Button variant="destructive" onClick={() => navigate('/product')}>
         Adicione novo produto
       </Button>
-      <DataTable columns={columns} data={products ?? []} searchKey={"name"} />
+      <DataTable columns={columns} data={products ?? []} searchKey={'name'} />
     </>
   );
 };

@@ -1,16 +1,23 @@
 import { api } from '../../api';
-import { Separator } from '../ui/separator';
-import { Trash } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import {
+  Separator,
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
+} from '../ui';
+import { Trash } from 'lucide-react';
 import * as z from 'zod';
 import { Product, Topping } from '../../interfaces';
 import { useForm } from 'react-hook-form';
@@ -19,15 +26,6 @@ import toast from 'react-hot-toast';
 import Heading from '../Heading';
 import ImageUpload from '../image-upload';
 import { useNavigate } from 'react-router-dom';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
 import { useState } from 'react';
 
 const formSchema = z.object({

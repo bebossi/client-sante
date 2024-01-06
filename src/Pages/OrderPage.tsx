@@ -8,21 +8,19 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../Components/ui/select';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '../Components/ui/form';
+} from '../Components/ui';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Components/Button';
 import toast from 'react-hot-toast';
-import { UserContext } from '../Contexts/currentUser';
+import { UserContext } from '../Contexts';
 
 const FormSchema = z.object({
   status: z.string().min(1),

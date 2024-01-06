@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { DataTable } from "../../Components/DataTable/Data-table";
-import { api } from "../../api";
-import { Category } from "../../interfaces";
-import { columns } from "../CategoryAdmin/columns";
-import { Button } from "../../Components/ui/button";
-import { useNavigate } from "react-router-dom";
-import DashboardNavigation from "../../Components/DashboardNavigation";
+import { useEffect, useState } from 'react';
+import { DataTable } from '../../Components/DataTable/Data-table';
+import { api } from '../../api';
+import { Category } from '../../interfaces';
+import { columns } from '../CategoryAdmin/columns';
+import { Button } from '../../Components/ui';
+import { useNavigate } from 'react-router-dom';
+import DashboardNavigation from '../../Components/DashboardNavigation';
 
 const DashboardCategories = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const DashboardCategories = () => {
     const fetchCategores = async () => {
       try {
         setIsloading(true);
-        const response = await api.get("/getCategories");
+        const response = await api.get('/getCategories');
         setCategories(response.data);
       } catch (err) {
         console.log(err);
@@ -55,10 +55,10 @@ const DashboardCategories = () => {
     <>
       <DashboardNavigation />
 
-      <Button variant="destructive" onClick={() => navigate("/category")}>
+      <Button variant="destructive" onClick={() => navigate('/category')}>
         Adicione uma categoria
       </Button>
-      <DataTable columns={columns} data={categories ?? []} searchKey={"name"} />
+      <DataTable columns={columns} data={categories ?? []} searchKey={'name'} />
     </>
   );
 };

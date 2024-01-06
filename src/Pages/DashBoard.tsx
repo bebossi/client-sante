@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import DashboardNavigation from "../Components/DashboardNavigation";
-import { api } from "../api";
-import Heading from "../Components/Heading";
-import { Separator } from "../Components/ui/separator";
+import { useEffect, useState } from 'react';
+import DashboardNavigation from '../Components/DashboardNavigation';
+import { api } from '../api';
+import Heading from '../Components/Heading';
 import {
+  Separator,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../Components/ui/card";
-import { CreditCard, DollarSign, Package } from "lucide-react";
-import { Overview } from "../Components/Overview";
+} from '../Components/ui';
+import { CreditCard, DollarSign, Package } from 'lucide-react';
+import { Overview } from '../Components/Overview';
 
 const DashBoard = () => {
   const [totalRevenue, setTotalRevenue] = useState();
@@ -21,8 +21,8 @@ const DashBoard = () => {
     const fetchData = async () => {
       try {
         const [totalRevenueResponse, graphRevenueResponse] = await Promise.all([
-          api.get("/totalRevenue"),
-          api.get("/graphRevenue"),
+          api.get('/totalRevenue'),
+          api.get('/graphRevenue'),
         ]);
 
         setTotalRevenue(totalRevenueResponse.data.totalRevenue);

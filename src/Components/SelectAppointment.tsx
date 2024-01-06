@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { AvaliableAppointment } from "../interfaces";
-import { api } from "../api";
+import { useEffect, useState } from 'react';
+import { AvaliableAppointment } from '../interfaces';
+import { api } from '../api';
 import {
   Form,
   FormControl,
@@ -8,17 +8,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+} from './ui';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 interface AppointmentInfoProps {
   handleAvailiableAppointmentId?: (
@@ -44,7 +42,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
   useEffect(() => {
     const fecthAppointments = async () => {
       try {
-        const response = await api.get("/getAppointments");
+        const response = await api.get('/getAppointments');
         setAvaliableAppointments(response.data);
         console.log(response.data);
       } catch (err) {
@@ -56,7 +54,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
 
   return (
     <div className="flex flex-col justify-center gap-2">
-      {window.location.pathname === "/appointment" ? (
+      {window.location.pathname === '/appointment' ? (
         <>
           <ul className="space-y-4">
             {avaliableAppointments?.map((avaliableAppointment) => (
@@ -66,11 +64,11 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
               >
                 <span className="text-xl font-semibold text-blue-500">
                   {new Date(avaliableAppointment.startDate).toLocaleString(
-                    "pt-BR",
+                    'pt-BR',
                     {
-                      timeZone: "America/Sao_Paulo",
-                      dateStyle: "short",
-                      timeStyle: "short",
+                      timeZone: 'America/Sao_Paulo',
+                      dateStyle: 'short',
+                      timeStyle: 'short',
                     }
                   )}
                 </span>
@@ -125,10 +123,10 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                           >
                             {new Date(
                               avaliableAppointment.startDate
-                            ).toLocaleString("pt-BR", {
-                              timeZone: "America/Sao_Paulo",
-                              dateStyle: "short",
-                              timeStyle: "short",
+                            ).toLocaleString('pt-BR', {
+                              timeZone: 'America/Sao_Paulo',
+                              dateStyle: 'short',
+                              timeStyle: 'short',
                             })}
                             - {avaliableAppointment.endTime}
                           </p>

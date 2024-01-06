@@ -4,13 +4,13 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../../Components/ui/dropdown-menu";
-import { ToppingColumn } from "./columns";
-import { Button } from "../../Components/ui/button";
-import { Edit, MoreHorizontalIcon, Trash } from "lucide-react";
-import toast from "react-hot-toast";
-import { api } from "../../api";
-import { useNavigate } from "react-router-dom";
+  Button,
+} from '../../Components/ui';
+import { ToppingColumn } from './columns';
+import { Edit, MoreHorizontalIcon, Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { api } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 interface CellActionProps {
   data: ToppingColumn;
@@ -25,9 +25,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           toppingId: id,
         },
       });
-      toast.success("Topping deletado");
+      toast.success('Topping deletado');
     } catch (err) {
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
     }
   };
 

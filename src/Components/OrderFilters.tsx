@@ -8,21 +8,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './ui/form';
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+  Switch,
+  Separator,
+} from './ui';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import DateTimePicker from 'react-datetime-picker';
-import { Switch } from './ui/switch';
 import { Value } from '../Pages/AppointmentsPage';
-import { Separator } from './ui/separator';
 
 const FormSchema = z.object({
   status: z.string().min(1),

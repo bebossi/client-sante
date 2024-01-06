@@ -8,9 +8,8 @@ import Button from '../Components/Button';
 import { format } from 'date-fns-tz';
 import toast from 'react-hot-toast';
 import SelectAppointment from '../Components/SelectAppointment';
-import { UserContext } from '../Contexts/currentUser';
-import { Switch } from '../Components/ui/switch';
-import { RestaurantContext } from '../Contexts/restaurantContext';
+import { Switch } from '../Components/ui';
+import { RestaurantContext, UserContext } from '../Contexts';
 
 type ValuePiece = Date | null;
 

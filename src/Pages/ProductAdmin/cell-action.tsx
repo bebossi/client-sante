@@ -4,13 +4,13 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../../Components/ui/dropdown-menu";
-import { ProductColumn } from "./columns";
-import { Button } from "../../Components/ui/button";
-import { Edit, MoreHorizontalIcon, Trash } from "lucide-react";
-import toast from "react-hot-toast";
-import { api } from "../../api";
-import { useNavigate } from "react-router-dom";
+  Button,
+} from '../../Components/ui';
+import { ProductColumn } from './columns';
+import { Edit, MoreHorizontalIcon, Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { api } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 interface CellActionProps {
   data: ProductColumn;
@@ -25,9 +25,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           productId: id,
         },
       });
-      toast.success("Produto deletado");
+      toast.success('Produto deletado');
     } catch (err) {
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
     }
   };
 

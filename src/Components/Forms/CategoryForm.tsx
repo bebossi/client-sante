@@ -1,24 +1,24 @@
-import { api } from "../../api";
-import { Separator } from "../ui/separator";
-import { Trash } from "lucide-react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { api } from '../../api';
 import {
+  Separator,
+  Button,
+  Input,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import * as z from "zod";
-import { Category } from "../../interfaces";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-import Heading from "../Heading";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+} from '../ui';
+import { Trash } from 'lucide-react';
+import * as z from 'zod';
+import { Category } from '../../interfaces';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
+import Heading from '../Heading';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -34,14 +34,14 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Editar categoria" : "Criar categoria";
+  const title = initialData ? 'Editar categoria' : 'Criar categoria';
   const description = initialData
-    ? "Editar categoria"
-    : "Adicione uma categoria";
+    ? 'Editar categoria'
+    : 'Adicione uma categoria';
   const toastMessage = initialData
-    ? "Categoria atualizada"
-    : "Categoria criada";
-  const action = initialData ? "Salvar mudanças" : "Criar";
+    ? 'Categoria atualizada'
+    : 'Categoria criada';
+  const action = initialData ? 'Salvar mudanças' : 'Criar';
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
@@ -50,7 +50,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
           ...initialData,
         }
       : {
-          name: "",
+          name: '',
         },
   });
 
@@ -66,9 +66,9 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
         toast.success(toastMessage);
       }
 
-      navigate("/dashboardOverview");
+      navigate('/dashboardOverview');
     } catch (err) {
-      toast.error("Algo deu errado");
+      toast.error('Algo deu errado');
     } finally {
       setLoading(false);
     }

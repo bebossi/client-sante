@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { DataTable } from "../../Components/DataTable/Data-table";
-import { api } from "../../api";
-import { Topping } from "../../interfaces";
-import { columns } from "./columns";
-import { Button } from "../../Components/ui/button";
-import { useNavigate } from "react-router-dom";
-import DashboardNavigation from "../../Components/DashboardNavigation";
+import { useEffect, useState } from 'react';
+import { DataTable } from '../../Components/DataTable/Data-table';
+import { api } from '../../api';
+import { Topping } from '../../interfaces';
+import { columns } from './columns';
+import { Button } from '../../Components/ui';
+import { useNavigate } from 'react-router-dom';
+import DashboardNavigation from '../../Components/DashboardNavigation';
 
 const DashboardToppings = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const DashboardToppings = () => {
     const fetchToppings = async () => {
       try {
         setIsloading(true);
-        const response = await api.get("/getToppings");
+        const response = await api.get('/getToppings');
         setToppings(response.data);
       } catch (err) {
         console.log(err);
@@ -54,10 +54,10 @@ const DashboardToppings = () => {
     <>
       <DashboardNavigation />
 
-      <Button variant="destructive" onClick={() => navigate("/topping")}>
+      <Button variant="destructive" onClick={() => navigate('/topping')}>
         Adicione novo topping
       </Button>
-      <DataTable columns={columns} data={toppings ?? []} searchKey={"name"} />
+      <DataTable columns={columns} data={toppings ?? []} searchKey={'name'} />
     </>
   );
 };
