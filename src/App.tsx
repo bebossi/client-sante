@@ -28,7 +28,6 @@ import MercadoPagoProvider from './Contexts/mercadoPagoContext';
 function App() {
   return (
     <>
-      {/* <AuthContextComponent> */}
       <UserContextProvider>
         <RestaurantContextProvider>
           <MercadoPagoProvider>
@@ -101,7 +100,6 @@ function App() {
           </MercadoPagoProvider>
         </RestaurantContextProvider>
       </UserContextProvider>
-      {/* </AuthContextComponent> */}
     </>
   );
 }

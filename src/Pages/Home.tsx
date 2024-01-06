@@ -9,17 +9,18 @@ import 'aos/dist/aos.css';
 const Home = () => {
   const navigate = useNavigate();
   const restaurantContext = useContext(RestaurantContext);
-  const isOpen = restaurantContext?.isOpen;
-  const { user } = useContext(UserContext);
+  const isRestaurantOpen = restaurantContext?.isRestaurantOpen;
+  const userContext = useContext(UserContext);
+  const user = userContext?.user;
 
   AOS.init();
 
   useEffect(() => {
-    if (isOpen === null) {
+    if (isRestaurantOpen === null) {
       return;
     }
     try {
-      if (!isOpen)
+      if (!isRestaurantOpen)
         toast(
           'Restaurante está fechado, só é possível fazer pedidos por agendamento para buscar na loja',
           {
@@ -30,7 +31,7 @@ const Home = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [isOpen, user]);
+  }, [isRestaurantOpen, user]);
 
   return (
     <>

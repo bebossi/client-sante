@@ -21,9 +21,9 @@ const AppointmentsPage = () => {
   const [endTime, setOnEndTime] = useState<Value>(new Date());
   const { user } = useContext(UserContext)!;
   const restaurantContext = useContext(RestaurantContext);
-  const isOpen = restaurantContext?.isOpen;
+  const isRestaurantOpen = restaurantContext?.isRestaurantOpen;
 
-  useEffect(() => {}, [isOpen]);
+  useEffect(() => {}, [isRestaurantOpen]);
   if (user && user.role !== 'admin') {
     return <div>Você não tem acesso à essa pagina</div>;
   }
@@ -73,7 +73,7 @@ const AppointmentsPage = () => {
         <div>
           <Switch
             data-cy="updateIsOpen"
-            checked={isOpen!}
+            checked={isRestaurantOpen!}
             onCheckedChange={handleIsOpen}
           />
         </div>
