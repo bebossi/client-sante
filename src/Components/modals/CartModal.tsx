@@ -26,17 +26,18 @@ enum STEPS {
   PRODUCTS = 0,
   CHOOSE = 1,
   APPOINTMENT = 2,
-  LOCATION = 3,
+  DELIVERY = 3,
   PAYMENT = 4,
 }
 
 const CartModal = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const user = userContext ? userContext.user : null;
+  const { isRestaurantOpen } = useContext(RestaurantContext)!;
   const cartModal = useCartModal();
   const addCartModal = useAddToCartModal();
   const registerModal = useRegisterModal();
-  const { isOpen } = useContext(RestaurantContext)!;
 
   const [step, setStep] = useState(STEPS.PRODUCTS);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,12 +48,13 @@ const CartModal = () => {
   );
   const [addressId, setAddressId] = useState('');
   const [address, setAddress] = useState<Address | null>(null);
-  const [showSelectAddress, setShowSelectAddress] = useState(true);
+  const [showUserAdresses, setShowSelectAddress] = useState(true);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
   const [serachParams] = useSearchParams();
 
   const toggleSelectAddress = () => {
-    setShowSelectAddress(!showSelectAddress);
+    setShowSelectAddress(!showUserAdresses);
   };
 
   useEffect(() => {
@@ -107,7 +109,7 @@ const CartModal = () => {
   const { setOrderData, setPreferenceId } = mercadoPagoContext;
 
   const onBack = () => {
-    if (step === STEPS.LOCATION) {
+    if (step === STEPS.DELIVERY) {
       return setStep((value) => value - 2);
     }
     setStep((value) => value - 1);
@@ -117,7 +119,7 @@ const CartModal = () => {
     if (step === STEPS.APPOINTMENT) {
       return setStep((value) => value + 2);
     }
-    if (step === STEPS.LOCATION && !isOpen) {
+    if (step === STEPS.DELIVERY && !isRestaurantOpen) {
       toast.error('Restaurante está fechado');
       return;
     }
@@ -272,10 +274,10 @@ const CartModal = () => {
     );
   }
 
-  if (step === STEPS.LOCATION) {
+  if (step === STEPS.DELIVERY) {
     bodyContent = (
       <div className="flex flex-col  gap-3">
-        {showSelectAddress && user.addresses ? (
+        {showUserAdresses && user?.addresses ? (
           <>
             <SelectAddress
               user={user}
@@ -287,7 +289,7 @@ const CartModal = () => {
               onClick={toggleSelectAddress}
               outline
               small
-              disabled={isSelectOpen || !isOpen}
+              disabled={isSelectOpen || !isRestaurantOpen}
             />
           </>
         ) : (
@@ -298,7 +300,7 @@ const CartModal = () => {
               onClick={toggleSelectAddress}
               outline
               small
-              disabled={!isOpen}
+              disabled={!isRestaurantOpen}
             />
           </div>
         )}

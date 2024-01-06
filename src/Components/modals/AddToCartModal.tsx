@@ -15,11 +15,12 @@ interface ToppingProps {
 
 const AddToCartModal = () => {
   const addCartModal = useAddToCartModal();
-  const { user } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const user = userContext?.user;
 
   const [isLoading, setIsLoading] = useState(false);
   const [toppings, setToppings] = useState<ToppingProps[]>([]);
-  const [quantity, setQuantity] = useState(1);
+  const [productQuantity, setProductQuantity] = useState(1);
 
   useEffect(() => {
     if (addCartModal.isOpen === true) {
@@ -43,17 +44,17 @@ const AddToCartModal = () => {
     }
   }, [addCartModal.product?.toppings]);
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const increaseQuantityProduct = () => {
+    setProductQuantity(productQuantity + 1);
   };
-  const decreaseQuantity = () => {
-    if (quantity === 1) {
+  const decreaseQuantityProduct = () => {
+    if (productQuantity === 1) {
       return;
     }
-    setQuantity(quantity - 1);
+    setProductQuantity(productQuantity - 1);
   };
 
-  const onAdd = (toppingId: string) => {
+  const onAddTopping = (toppingId: string) => {
     if (!toppings) {
       return;
     }
@@ -68,7 +69,7 @@ const AddToCartModal = () => {
     }
   };
 
-  const onSub = (toppingId: string) => {
+  const onSubTopping = (toppingId: string) => {
     if (!toppings) {
       return;
     }
@@ -90,7 +91,7 @@ const AddToCartModal = () => {
         (await api.post('/addProduct', {
           productId: addCartModal?.product?.id,
           toppings: toppings,
-          quantity: quantity,
+          quantity: productQuantity,
         }));
 
       toast.success('Produto addicionado ao carrinho');
@@ -107,8 +108,8 @@ const AddToCartModal = () => {
   }, 0);
 
   const subtotal =
-    Number(totalPriceToppings) * quantity +
-    Number(addCartModal?.product?.price) * quantity;
+    Number(totalPriceToppings) * productQuantity +
+    Number(addCartModal?.product?.price) * productQuantity;
 
   const bodyContent = (
     <div className="flex flex-col gap-4 ">
@@ -135,18 +136,17 @@ const AddToCartModal = () => {
                   <BiMinus
                     data-cy="decreaseTopping"
                     className="cursor-pointer"
-                    onClick={() => onSub(topping.id)}
+                    onClick={() => onSubTopping(topping.id)}
                   />
                   <p data-cy="topping-quantity">
                     {toppings?.find((item) => item.topping.id === topping.id)
                       ?.quantity || 0}
                   </p>
                 </>
-
                 <BiPlus
                   data-cy="increaseTopping"
                   className="mr-2 cursor-pointer "
-                  onClick={() => onAdd(topping.id)}
+                  onClick={() => onAddTopping(topping.id)}
                 />
               </div>
             </div>
@@ -162,14 +162,14 @@ const AddToCartModal = () => {
         data-cy="decreaseQuantity"
         size={30}
         className="cursor-pointer"
-        onClick={() => decreaseQuantity()}
+        onClick={() => decreaseQuantityProduct()}
       />
-      <p data-cy="product-quantity">{quantity}</p>
+      <p data-cy="product-quantity">{productQuantity}</p>
       <BiPlus
         data-cy="increaseQuantity"
         size={28}
         className="mr-2 cursor-pointer"
-        onClick={() => increaseQuantity()}
+        onClick={() => increaseQuantityProduct()}
       />
     </div>
   );
@@ -184,7 +184,7 @@ const AddToCartModal = () => {
         disabled={isLoading}
         onSubmit={addProductToCart}
         isOpen={addCartModal.isOpen}
-        thirdAction={() => thirdAction as JSX.Element}
+        thirdAction={thirdAction}
       />
     </div>
   );
