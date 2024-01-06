@@ -18,57 +18,67 @@ import { Address } from '../../interfaces';
 interface MapAddressProps {
   handleAddressId: (addressId: string, selectedAddress?: Address) => void;
 }
+
 const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
 
 const libraries: LoadScriptProps['libraries'] = ['places'];
 
 const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
-  const [selectedCoordinates, setSelectedCoordinates] = useState<{
+  const [coordinates, setCoordinates] = useState<{
     lat: number;
     lng: number;
   }>();
-  const [selectedAddress, setSelectedAddress] = useState('');
   const [distance, setDistance] = useState<string>('');
   const [form, setForm] = useState({
-    rua: '',
-    numero: '',
-    bairro: '',
+    street: '',
+    streetNumber: '',
+    neighborhood: '',
     cep: '',
-    cidade: '',
-    apartamento: '',
+    city: '',
+    apartmentNumber: '',
   });
+
   const addressRef = useRef<HTMLInputElement>(null);
 
   const calculateRoute = useCallback(async () => {
     const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
       origin: { lat: -19.9126701, lng: -43.9207056 },
-      destination: selectedCoordinates as { lat: number; lng: number },
+      destination: coordinates as { lat: number; lng: number },
       travelMode: google.maps.TravelMode.DRIVING,
     });
     setDistance(results.routes[0].legs[0].distance!.text);
-  }, [selectedCoordinates]);
+  }, [coordinates]);
 
   useEffect(() => {
-    if (selectedAddress) {
-      const addressParts = selectedAddress.split(', ');
-      const streetNumberAndNeighborhood = addressParts[1].split(' - ');
+    const addressValue = addressRef.current?.value;
 
-      setForm({
-        rua: addressParts[0],
-        numero: streetNumberAndNeighborhood[0],
-        bairro: streetNumberAndNeighborhood[1],
-        cep: addressParts[3],
-        cidade: addressParts[2],
-        apartamento: '',
-      });
-      calculateRoute();
+    if (addressValue) {
+      const addressParts = addressValue.split(', ');
+
+      if (addressParts.length > 3) {
+        const [street, streetNumberAndNeighborhood, city] = addressParts;
+        const [streetNumber, neighborhood] =
+          streetNumberAndNeighborhood.split(' - ');
+
+        setForm((prevForm) => ({
+          ...prevForm,
+          street,
+          streetNumber,
+          neighborhood,
+          city,
+          apartmentNumber: '',
+        }));
+
+        calculateRoute();
+      }
     }
-  }, [calculateRoute, selectedAddress]);
+  }, [calculateRoute, addressRef.current?.value, coordinates]);
 
   const { value, setValue, clearSuggestions } = usePlacesAutocomplete({
     callbackName: 'MapAddress',
   });
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: apiKey as string,
     libraries,
@@ -78,26 +88,26 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
     return <div>Loading...</div>;
   }
 
-  const handleSelect = async (address: string) => {
+  const handleSelectAddress = async (address: string) => {
     try {
       if (!address.toLowerCase().startsWith('rua')) {
         address = `rua ${address}`;
       }
-
       setValue(address, false);
       clearSuggestions();
       const result = addressRef.current?.value as string;
-
       const results = await getGeocode({ address: result });
-
+      const cep = results[0].address_components[6].long_name;
+      setForm({
+        ...form,
+        cep: cep,
+      });
       if (results.length === 0) {
         toast.error('No results found for the selected address');
         return;
       }
       const { lat, lng } = getLatLng(results[0]);
-
-      setSelectedCoordinates({ lat, lng });
-      setSelectedAddress(results[0].formatted_address);
+      setCoordinates({ lat, lng });
     } catch (err) {
       console.log(err);
     }
@@ -111,21 +121,18 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
   const onSubmit = async () => {
     try {
-      const cleanedCEP = form.cep.replace(/-/g, '');
-
       const calculatedDistance = parseFloat(distance.split(' ')[0]);
-
       if (calculatedDistance > 2) {
         toast.error('Distância maior que 2km');
         return;
       }
-
+      const formattedCep = form.cep.replace('-', '');
       const response = await api.post('/address', {
-        street: form.rua,
-        neighborhood: form.bairro,
-        streetNumber: Number(form.numero),
-        complementNumber: Number(form.apartamento) || '',
-        CEP: Number(cleanedCEP),
+        street: form.street,
+        neighborhood: form.neighborhood,
+        streetNumber: form.streetNumber,
+        complementNumber: Number(form.apartmentNumber) || '',
+        CEP: Number(formattedCep),
       });
       handleAddressId(response.data.id, response.data);
       toast.success('Address added');
@@ -133,6 +140,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="h-full w-full flex flex-col ">
@@ -145,7 +153,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                 'address_components',
               ]);
             }}
-            onPlaceChanged={() => handleSelect(value)}
+            onPlaceChanged={() => handleSelectAddress(value)}
             className="w-full"
           >
             <input
@@ -159,62 +167,27 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
             />
           </Autocomplete>
 
-          {selectedAddress && selectedCoordinates && (
+          {addressRef.current?.value && coordinates && (
             <>
               <form {...form} className="m-2 " name="Map">
                 <input
                   className="border-slate-200 border-[1px] m-2 rounded-lg"
                   type="text"
-                  placeholder="Street"
-                  value={form.rua}
-                  onChange={(e) => setForm({ ...form, rua: e.target.value })}
-                />
-                <input
-                  className="border-slate-200 border-[1px] m-2 rounded-lg"
-                  type="number"
-                  placeholder="Number"
-                  value={form.numero}
-                  onChange={(e) => setForm({ ...form, numero: e.target.value })}
-                />
-                <input
-                  className="border-slate-200 border-[1px] m-2 rounded-lg"
-                  type="text"
-                  placeholder="Neighborhood"
-                  value={form.bairro}
-                  onChange={(e) => setForm({ ...form, bairro: e.target.value })}
-                />
-                <input
-                  className="border-slate-200 border-[1px] m-2 rounded-lg"
-                  type="text"
-                  placeholder="City"
-                  value={form.cidade}
-                  onChange={(e) => setForm({ ...form, cidade: e.target.value })}
-                />
-                <input
-                  className="border-slate-200 border-[1px] m-2 rounded-lg"
-                  type="string"
-                  placeholder="Zip/Postal code"
-                  value={form.cep}
-                  onChange={(e) => setForm({ ...form, cep: e.target.value })}
-                />
-                <input
-                  className="border-slate-200 border-[1px] m-2 rounded-lg"
-                  type="text"
                   placeholder="Apt, Suite, etc (optional)"
-                  value={form.apartamento}
+                  value={form.apartmentNumber}
                   onChange={(e) =>
-                    setForm({ ...form, apartamento: e.target.value })
+                    setForm({ ...form, apartmentNumber: e.target.value })
                   }
                 />
               </form>
             </>
           )}
         </div>
-        {selectedAddress && selectedCoordinates && (
+        {addressRef.current?.value && coordinates && (
           <>
             <GoogleMap
               zoom={11}
-              center={selectedCoordinates}
+              center={coordinates}
               mapContainerClassName={'map-container'}
               options={{
                 zoomControl: false,
@@ -223,7 +196,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                 fullscreenControl: false,
               }}
             >
-              {selectedCoordinates && <Marker position={selectedCoordinates} />}
+              {coordinates && <Marker position={coordinates} />}
             </GoogleMap>
             <Button label="Confirmar endereço" onClick={onSubmit} small />
           </>
