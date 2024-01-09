@@ -1,31 +1,31 @@
 import { useEffect, useState } from 'react';
-import { DataTable } from '../../Components/DataTable/Data-table';
-import { api } from '../../api';
-import { Topping } from '../../interfaces';
-import { columns } from './columns';
-import { Button } from '../../Components/ui';
+import { DataTable } from '../Components/DataTable/Data-table';
+import { api } from '../api';
+import { Category } from '../interfaces';
+import { columns } from '../Components/Admin/Categories/columns';
+import { Button } from '../Components/ui';
 import { useNavigate } from 'react-router-dom';
-import DashboardNavigation from '../../Components/DashboardNavigation';
+import DashboardNavigation from '../Components/Admin/DashboardNavigation';
 
-const DashboardToppings = () => {
+const DashboardCategories = () => {
   const navigate = useNavigate();
 
-  const [toppings, setToppings] = useState<Topping[] | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>(null);
   const [isLoading, setIsloading] = useState(false);
 
   useEffect(() => {
-    const fetchToppings = async () => {
+    const fetchCategores = async () => {
       try {
         setIsloading(true);
-        const response = await api.get('/getToppings');
-        setToppings(response.data);
+        const response = await api.get('/getCategories');
+        setCategories(response.data);
       } catch (err) {
         console.log(err);
       } finally {
         setIsloading(false);
       }
     };
-    fetchToppings();
+    fetchCategores();
   }, []);
 
   if (isLoading) {
@@ -50,16 +50,17 @@ const DashboardToppings = () => {
       </div>
     );
   }
+
   return (
     <>
       <DashboardNavigation />
 
-      <Button variant="destructive" onClick={() => navigate('/topping')}>
-        Adicione novo topping
+      <Button variant="destructive" onClick={() => navigate('/category')}>
+        Adicione uma categoria
       </Button>
-      <DataTable columns={columns} data={toppings ?? []} searchKey={'name'} />
+      <DataTable columns={columns} data={categories ?? []} searchKey={'name'} />
     </>
   );
 };
 
-export default DashboardToppings;
+export default DashboardCategories;

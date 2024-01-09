@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { DataTable } from '../../Components/DataTable/Data-table';
-import { api } from '../../api';
-import { Product } from '../../interfaces';
-import { columns } from './columns';
-import { Button } from '../../Components/ui';
+import { DataTable } from '../Components/DataTable/Data-table';
+import { api } from '../api';
+import { Product } from '../interfaces';
+import { columns } from '../Components/Admin/Products/columns';
+import { Button } from '../Components/ui';
 import { useNavigate } from 'react-router-dom';
-import DashboardNavigation from '../../Components/DashboardNavigation';
+import DashboardNavigation from '../Components/Admin/DashboardNavigation';
 
 const DashboardProduct = () => {
   const navigate = useNavigate();

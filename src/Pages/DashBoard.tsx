@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import DashboardNavigation from '../Components/DashboardNavigation';
+import DashboardNavigation from '../Components/Admin/DashboardNavigation';
 import { api } from '../api';
 import Heading from '../Components/Heading';
 import {
@@ -12,7 +12,7 @@ import {
 import { CreditCard, DollarSign, Package } from 'lucide-react';
 import { Overview } from '../Components/Overview';
 
-const DashBoard = () => {
+const Dashboard = () => {
   const [totalRevenue, setTotalRevenue] = useState();
   const [salesCount, setSalesCount] = useState();
   const [graphRevenue, setGraphRevenue] = useState();
@@ -85,4 +85,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default Dashboard;

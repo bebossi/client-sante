@@ -3,7 +3,7 @@ import { Order } from '../interfaces';
 import { toast } from 'react-hot-toast';
 import { api } from '../api';
 import { DataTable } from '../Components/DataTable/Data-table';
-import { columns } from './OrderAdmin/columns';
+import { columns } from '../Components/Admin/Orders/columns';
 import qs from 'query-string';
 import { Menu } from 'lucide-react';
 import OrderFilters from '../Components/OrderFilters';

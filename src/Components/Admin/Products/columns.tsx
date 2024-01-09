@@ -1,12 +1,12 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
+import { ColumnDef } from '@tanstack/react-table';
+import { CellAction } from './cell-action';
 import {
   CartToProduct,
   Category,
   OrderToProduct,
   Product,
   Topping,
-} from "../../interfaces";
+} from '../../../interfaces';
 
 export type ProductColumn = {
   id: string;
@@ -26,19 +26,19 @@ export type ProductColumn = {
 
 export const columns: ColumnDef<Product>[] = [
   {
-    accessorKey: "name",
-    header: "Nome",
+    accessorKey: 'name',
+    header: 'Nome',
   },
   {
-    accessorKey: "price",
-    header: "Preço",
+    accessorKey: 'price',
+    header: 'Preço',
   },
   {
-    accessorKey: "category.name",
-    header: "Categoria",
+    accessorKey: 'category.name',
+    header: 'Categoria',
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

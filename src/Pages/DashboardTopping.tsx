@@ -1,31 +1,31 @@
 import { useEffect, useState } from 'react';
-import { DataTable } from '../../Components/DataTable/Data-table';
-import { api } from '../../api';
-import { Category } from '../../interfaces';
-import { columns } from '../CategoryAdmin/columns';
-import { Button } from '../../Components/ui';
+import { DataTable } from '../Components/DataTable/Data-table';
+import { api } from '../api';
+import { Topping } from '../interfaces';
+import { columns } from '../Components/Admin/Toppings/columns';
+import { Button } from '../Components/ui';
 import { useNavigate } from 'react-router-dom';
-import DashboardNavigation from '../../Components/DashboardNavigation';
+import DashboardNavigation from '../Components/Admin/DashboardNavigation';
 
-const DashboardCategories = () => {
+const DashboardToppings = () => {
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState<Category[] | null>(null);
+  const [toppings, setToppings] = useState<Topping[] | null>(null);
   const [isLoading, setIsloading] = useState(false);
 
   useEffect(() => {
-    const fetchCategores = async () => {
+    const fetchToppings = async () => {
       try {
         setIsloading(true);
-        const response = await api.get('/getCategories');
-        setCategories(response.data);
+        const response = await api.get('/getToppings');
+        setToppings(response.data);
       } catch (err) {
         console.log(err);
       } finally {
         setIsloading(false);
       }
     };
-    fetchCategores();
+    fetchToppings();
   }, []);
 
   if (isLoading) {
@@ -50,17 +50,16 @@ const DashboardCategories = () => {
       </div>
     );
   }
-
   return (
     <>
       <DashboardNavigation />
 
-      <Button variant="destructive" onClick={() => navigate('/category')}>
-        Adicione uma categoria
+      <Button variant="destructive" onClick={() => navigate('/topping')}>
+        Adicione novo topping
       </Button>
-      <DataTable columns={columns} data={categories ?? []} searchKey={'name'} />
+      <DataTable columns={columns} data={toppings ?? []} searchKey={'name'} />
     </>
   );
 };
 
-export default DashboardCategories;
+export default DashboardToppings;

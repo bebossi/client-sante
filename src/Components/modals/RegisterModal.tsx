@@ -7,7 +7,7 @@ import Button from '../Button';
 import { api, apiURLs } from '../../api';
 import { toast } from 'react-hot-toast';
 import { useRegisterModal, useLoginModal } from '../../hooks';
-import Input from '../inputs/Input';
+import Input from '../Input';
 import { UserContext } from '../../Contexts/currentUser';
 
 export const RegisterModal = () => {

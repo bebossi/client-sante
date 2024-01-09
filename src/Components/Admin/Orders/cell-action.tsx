@@ -5,7 +5,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   Button,
-} from '../../Components/ui';
+} from '../../ui';
 import { OrderColumn } from './columns';
 import { Edit, MoreHorizontalIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';

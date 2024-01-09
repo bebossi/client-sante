@@ -6,7 +6,7 @@ import { api } from '../../api';
 import toast from 'react-hot-toast';
 import Button from '../Button';
 import Heading from '../Heading';
-import Input from '../inputs/Input';
+import Input from '../Input';
 import Modal from './Modal';
 import { apiURLs } from '../../api';
 import { UserContext } from '../../Contexts';

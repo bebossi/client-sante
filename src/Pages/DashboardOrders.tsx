@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../api';
-import { DataTable } from '../../Components/DataTable/Data-table';
-import { columns } from './columns';
-import { Order } from '../../interfaces';
+import { api } from '../api';
+import { DataTable } from '../Components/DataTable/Data-table';
+import { columns } from '../Components/Admin/Orders/columns';
+import { Order } from '../interfaces';
 import qs from 'query-string';
-import OrderFilters from '../../Components/OrderFilters';
+import OrderFilters from '../Components/OrderFilters';
 import { Menu } from 'lucide-react';
-import DashboardNavigation from '../../Components/DashboardNavigation';
+import DashboardNavigation from '../Components/Admin/DashboardNavigation';
 import toast from 'react-hot-toast';
 
 const DashboardOrders = () => {

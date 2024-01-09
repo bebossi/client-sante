@@ -5,11 +5,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   Button,
-} from '../../Components/ui';
+} from '../../ui';
 import { CategoryColumn } from './columns';
 import { Edit, MoreHorizontalIcon, Trash } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { api } from '../../api';
+import { api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 
 interface CellActionProps {

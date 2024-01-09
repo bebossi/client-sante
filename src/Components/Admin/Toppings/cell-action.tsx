@@ -5,27 +5,27 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
   Button,
-} from '../../Components/ui';
-import { ProductColumn } from './columns';
+} from '../../ui';
+import { ToppingColumn } from './columns';
 import { Edit, MoreHorizontalIcon, Trash } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { api } from '../../api';
+import { api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 
 interface CellActionProps {
-  data: ProductColumn;
+  data: ToppingColumn;
 }
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const navigate = useNavigate();
 
   const onDelete = async (id: string) => {
     try {
-      await api.delete(`/delete`, {
+      await api.delete(`/deleteTopping`, {
         data: {
-          productId: id,
+          toppingId: id,
         },
       });
-      toast.success('Produto deletado');
+      toast.success('Topping deletado');
     } catch (err) {
       toast.error('Algo deu errado');
     }
@@ -42,7 +42,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigate(`/product/${data.id}`)}>
+          <DropdownMenuItem onClick={() => navigate(`/topping/${data.id}`)}>
             <Edit className="mr-2 h-4 w-4" />
             Atualizar
           </DropdownMenuItem>

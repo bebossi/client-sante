@@ -8,15 +8,14 @@ import {
 } from './Components/modals';
 import MenuPage from './Pages/MenuPage';
 import ProductPage from './Pages/ProductPage';
-import DashboardCategories from './Pages/CategoryAdmin/DashboardCategories';
-import DashboardToppings from './Pages/ToppingAdmin/DashboardTopping';
+import DashboardCategories from './Pages/DashboardCategories';
+import DashboardToppings from './Pages/DashboardTopping';
 import ToppingPage from './Pages/ToppingPage';
-import DashboardProduct from './Pages/ProductAdmin/DashboardProduct';
-import DashBoard from './Pages/DashBoard';
+import DashboardProduct from './Pages/DashboardProduct';
 import CategoryPage from './Pages/CategoryPage';
 import ToasterProvider from './Providers/ToaterProvider';
 import Home from './Pages/Home';
-import DashboardOrders from './Pages/OrderAdmin/DashboardOrders';
+import DashboardOrders from './Pages/DashboardOrders';
 import OrderPage from './Pages/OrderPage';
 import { UserContextProvider } from './Contexts/currentUser';
 import AppointmentsPage from './Pages/AppointmentsPage';
@@ -25,6 +24,7 @@ import { RestaurantContextProvider } from './Contexts/restaurantContext';
 import { ProtectedRoute } from './Components/ProtectedRoute';
 import CheckoutPage from './Pages/Payment';
 import MercadoPagoProvider from './Contexts/mercadoPagoContext';
+import Dashboard from './Pages/DashBoard';
 
 function App() {
   return (
@@ -45,7 +45,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route
                     path="/dashboardOverview"
-                    element={<ProtectedRoute component={DashBoard} />}
+                    element={<ProtectedRoute component={Dashboard} />}
                   />
                   <Route
                     path="/dashboardProduct"
