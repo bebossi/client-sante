@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { api } from "../api";
-import { Category, Product } from "../interfaces";
-import ProductForm from "../Components/Forms/ProductForm";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { api } from '../api';
+import { Category, Product } from '../interfaces';
+import ProductForm from '../Components/Forms/ProductForm';
 
 const ProductPage = () => {
   const params = useParams();
@@ -14,7 +14,7 @@ const ProductPage = () => {
     const fetchData = async () => {
       try {
         const [categoriesResponse] = await Promise.all([
-          api.get("/getCategories"),
+          api.get('/getCategories'),
           params.productId
             ? api.get(`/getProduct/${params.productId}`)
             : Promise.resolve(null),
@@ -23,9 +23,7 @@ const ProductPage = () => {
         setCategories(categoriesResponse.data);
 
         if (params.productId) {
-          const productResponse = await api.get(
-            `/getProduct/${params.productId}`
-          );
+          const productResponse = await api.get(`/getProduct/${params.productId}`);
           setProduct(productResponse.data);
         }
 

@@ -35,12 +35,8 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false);
 
   const title = initialData ? 'Editar categoria' : 'Criar categoria';
-  const description = initialData
-    ? 'Editar categoria'
-    : 'Adicione uma categoria';
-  const toastMessage = initialData
-    ? 'Categoria atualizada'
-    : 'Categoria criada';
+  const description = initialData ? 'Editar categoria' : 'Adicione uma categoria';
+  const toastMessage = initialData ? 'Categoria atualizada' : 'Categoria criada';
   const action = initialData ? 'Salvar mudanças' : 'Criar';
 
   const form = useForm<CategoryFormValues>({
@@ -86,10 +82,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
@@ -98,11 +91,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Nome categoria"
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder="Nome categoria" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

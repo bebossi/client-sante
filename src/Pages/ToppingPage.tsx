@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api } from "../api";
-import ToppingForm from "../Components/Forms/ToppingForm";
-import { Product, Topping } from "../interfaces";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { api } from '../api';
+import ToppingForm from '../Components/Forms/ToppingForm';
+import { Product, Topping } from '../interfaces';
 
 const ToppingPage = () => {
   const params = useParams();
@@ -14,7 +14,7 @@ const ToppingPage = () => {
     const fetchData = async () => {
       try {
         const [productsResponse, toppingResponse] = await Promise.all([
-          api.get("/getProducts"),
+          api.get('/getProducts'),
           params.toppingId
             ? api.get(`/getTopping/${params.toppingId}`)
             : Promise.resolve(null),

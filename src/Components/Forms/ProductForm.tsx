@@ -42,10 +42,7 @@ interface ProductFormProps {
   initialData: Product | null;
   categories: Category[];
 }
-const ProductForm: React.FC<ProductFormProps> = ({
-  initialData,
-  categories,
-}) => {
+const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -103,10 +100,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <FormField
             control={form.control}
             name="image"
@@ -115,10 +109,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 <FormItem className="w-1/3">
                   <FormLabel>Imagem</FormLabel>
                   <FormControl>
-                    <ImageUpload
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
+                    <ImageUpload value={field.value} onChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,11 +124,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Prouct name"
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder="Prouct name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -103,10 +103,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <FormField
             control={form.control}
             name="image"
@@ -115,10 +112,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                 <FormItem className="w-1/3">
                   <FormLabel>Imagem</FormLabel>
                   <FormControl>
-                    <ImageUpload
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
+                    <ImageUpload value={field.value} onChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,11 +127,7 @@ const ToppingForm: React.FC<ToppingFormProps> = ({ initialData, products }) => {
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Nome topping"
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder="Nome topping" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
