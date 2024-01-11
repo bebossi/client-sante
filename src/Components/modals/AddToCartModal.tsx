@@ -7,6 +7,7 @@ import { BiMinus, BiPlus } from 'react-icons/bi';
 import { Topping } from '../../interfaces';
 import toast from 'react-hot-toast';
 import { UserContext } from '../../Contexts/currentUser';
+import { useLockBody } from '../../hooks/useLockBoody';
 
 interface ToppingProps {
   topping: Topping;
@@ -14,6 +15,7 @@ interface ToppingProps {
 }
 
 export const AddToCartModal = () => {
+  useLockBody();
   const addCartModal = useAddToCartModal();
   const userContext = useContext(UserContext);
   const user = userContext?.user;
@@ -23,23 +25,12 @@ export const AddToCartModal = () => {
   const [productQuantity, setProductQuantity] = useState(1);
 
   useEffect(() => {
-    if (addCartModal.isOpen === true) {
-      document.body.style.overflow = 'hidden';
-    }
-    if (addCartModal.isOpen === false) {
-      document.body.style.overflow = 'auto';
-    }
-  }, [addCartModal.isOpen]);
-
-  useEffect(() => {
     let initialToppings: ToppingProps[] | undefined = undefined;
     if (addCartModal.product?.toppings) {
-      initialToppings = addCartModal.product.toppings.map(
-        (topping: Topping) => ({
-          topping,
-          quantity: 0,
-        })
-      );
+      initialToppings = addCartModal.product.toppings.map((topping: Topping) => ({
+        topping,
+        quantity: 0,
+      }));
       setToppings(initialToppings);
     }
   }, [addCartModal.product?.toppings]);
@@ -139,8 +130,8 @@ export const AddToCartModal = () => {
                     onClick={() => onSubTopping(topping.id)}
                   />
                   <p data-cy="topping-quantity">
-                    {toppings?.find((item) => item.topping.id === topping.id)
-                      ?.quantity || 0}
+                    {toppings?.find((item) => item.topping.id === topping.id)?.quantity ||
+                      0}
                   </p>
                 </>
                 <BiPlus

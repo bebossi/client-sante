@@ -1,30 +1,18 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { api } from '../../api';
 import Modal from './Modal';
-import {
-  Address,
-  AvaliableAppointment,
-  Cart,
-  CartToProduct,
-} from '../../interfaces';
+import { Address, AvaliableAppointment, Cart, CartToProduct } from '../../interfaces';
 import toast from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
-import {
-  useAddToCartModal,
-  useCartModal,
-  useRegisterModal,
-} from '../../hooks/index';
+import { useAddToCartModal, useCartModal, useRegisterModal } from '../../hooks/index';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SelectAppointment from '../SelectAppointment';
 import SelectAddress from '../Address/SelectAddress';
 import Button from '../Button';
 import MapAddress from '../Address/CreateAddress';
 import { CalendarIcon, Car } from 'lucide-react';
-import {
-  RestaurantContext,
-  UserContext,
-  MercadoPagoContext,
-} from '../../Contexts';
+import { RestaurantContext, UserContext, MercadoPagoContext } from '../../Contexts';
+import { useLockBody } from '../../hooks/useLockBoody';
 
 enum STEPS {
   PRODUCTS = 0,
@@ -35,6 +23,7 @@ enum STEPS {
 }
 
 export const CartModal = () => {
+  useLockBody();
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const user = userContext ? userContext.user : null;
@@ -47,9 +36,7 @@ export const CartModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState<Cart>();
   const [appointmentId, setAppointmentId] = useState('');
-  const [appointment, setAppointment] = useState<AvaliableAppointment | null>(
-    null
-  );
+  const [appointment, setAppointment] = useState<AvaliableAppointment | null>(null);
   const [addressId, setAddressId] = useState('');
   const [address, setAddress] = useState<Address | null>(null);
   const [showUserAdresses, setShowSelectAddress] = useState(true);
@@ -69,15 +56,6 @@ export const CartModal = () => {
       toast.error('Algo deu errado, tente novamente.');
     }
   }, [serachParams]);
-
-  useEffect(() => {
-    if (cartModal.isOpen === true) {
-      document.body.style.overflow = 'hidden';
-    }
-    if (cartModal.isOpen === false) {
-      document.body.style.overflow = 'auto';
-    }
-  }, [cartModal.isOpen]);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -202,16 +180,11 @@ export const CartModal = () => {
   let bodyContent = (
     <div>
       {cart?.cartProducts.map((cartProduct) => (
-        <div
-          key={cartProduct.id}
-          className="flex items-center justify-between mb-6"
-        >
+        <div key={cartProduct.id} className="flex items-center justify-between mb-6">
           <div className="flex flex-col items-start justify-between">
             <div className="flex gap-x-2">
               <p>{cartProduct.quantity}x</p>
-              <p className="font-semibold text-lg">
-                {cartProduct.product.name}
-              </p>
+              <p className="font-semibold text-lg">{cartProduct.product.name}</p>
             </div>
             {cartProduct.cartToProductToppings.map((ctpt) => (
               <div key={ctpt.id} className="flex text-gray-500 gap-x-3">
@@ -316,16 +289,11 @@ export const CartModal = () => {
     bodyContent = (
       <div className="flex flex-col ">
         {cart?.cartProducts.map((cartProduct) => (
-          <div
-            key={cartProduct.id}
-            className="flex items-center justify-between mb-6"
-          >
+          <div key={cartProduct.id} className="flex items-center justify-between mb-6">
             <div className="flex flex-col items-start justify-between">
               <div className="flex gap-x-2">
                 <p>{cartProduct.quantity}x</p>
-                <p className="font-semibold text-lg">
-                  {cartProduct.product.name}
-                </p>
+                <p className="font-semibold text-lg">{cartProduct.product.name}</p>
               </div>
               {cartProduct.cartToProductToppings.map((ctpt) => (
                 <div key={ctpt.id} className="flex text-gray-500 gap-x-3">
@@ -370,13 +338,10 @@ export const CartModal = () => {
           )}
           {address && (
             <div data-cy="deliveryAddress">
-              <h1 className="text-xl font-semibold mb-2">
-                Endereço de entrega:
-              </h1>
+              <h1 className="text-xl font-semibold mb-2">Endereço de entrega:</h1>
               <p className="text-sm">
                 {address.street}, {address.streetNumber} - apto
-                {address.complementNumber} - {address.neighborhood},{' '}
-                {address.CEP}
+                {address.complementNumber} - {address.neighborhood}, {address.CEP}
               </p>
             </div>
           )}
@@ -389,9 +354,7 @@ export const CartModal = () => {
       <Modal
         title="Carrinho"
         actionLabel={
-          isLoading && step === STEPS.PAYMENT
-            ? 'Enviando pedido...'
-            : actionLabel
+          isLoading && step === STEPS.PAYMENT ? 'Enviando pedido...' : actionLabel
         }
         body={bodyContent}
         onClose={cartModal.onClose}

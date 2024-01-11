@@ -10,8 +10,10 @@ import Input from '../Input';
 import Modal from './Modal';
 import { apiURLs } from '../../api';
 import { UserContext } from '../../Contexts';
+import { useLockBody } from '../../hooks/useLockBoody';
 
 export const LoginModal = () => {
+  useLockBody();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -85,12 +87,7 @@ export const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue com google"
-        icon={FcGoogle}
-        onClick={googleAuth}
-      />
+      <Button outline label="Continue com google" icon={FcGoogle} onClick={googleAuth} />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Primeira vez usando nosso app?</div>

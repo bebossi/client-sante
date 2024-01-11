@@ -9,8 +9,10 @@ import { toast } from 'react-hot-toast';
 import { useRegisterModal, useLoginModal } from '../../hooks';
 import Input from '../Input';
 import { UserContext } from '../../Contexts/currentUser';
+import { useLockBody } from '../../hooks/useLockBoody';
 
 export const RegisterModal = () => {
+  useLockBody();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -79,12 +81,7 @@ export const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue with google"
-        icon={FcGoogle}
-        onClick={googleAuth}
-      />
+      <Button outline label="Continue with google" icon={FcGoogle} onClick={googleAuth} />
 
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
