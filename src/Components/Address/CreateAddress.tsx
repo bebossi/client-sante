@@ -6,24 +6,21 @@ import {
   LoadScriptProps,
 } from '@react-google-maps/api';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import { api } from '../../api';
 import Button from '../Button';
 import { toast } from 'react-hot-toast';
 import { Address } from '../../interfaces';
 
 interface MapAddressProps {
-  handleAddressId: (addressId: string, selectedAddress?: Address) => void;
+  handleAddress: (addressId: string, selectedAddress?: Address) => void;
 }
 
 const apiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY as string;
 
 const libraries: LoadScriptProps['libraries'] = ['places'];
 
-const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
+const MapAddress: React.FC<MapAddressProps> = ({ handleAddress }) => {
   const [coordinates, setCoordinates] = useState<{
     lat: number;
     lng: number;
@@ -58,8 +55,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
 
       if (addressParts.length > 3) {
         const [street, streetNumberAndNeighborhood, city] = addressParts;
-        const [streetNumber, neighborhood] =
-          streetNumberAndNeighborhood.split(' - ');
+        const [streetNumber, neighborhood] = streetNumberAndNeighborhood.split(' - ');
 
         setForm((prevForm) => ({
           ...prevForm,
@@ -134,7 +130,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         complementNumber: Number(form.apartmentNumber) || '',
         CEP: Number(formattedCep),
       });
-      handleAddressId(response.data.id, response.data);
+      handleAddress(response.data.id, response.data);
       toast.success('Address added');
     } catch (err) {
       console.log(err);
@@ -147,11 +143,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
         <div className="w-full">
           <Autocomplete
             onLoad={(autocomplete) => {
-              autocomplete.setFields([
-                'formatted_address',
-                'name',
-                'address_components',
-              ]);
+              autocomplete.setFields(['formatted_address', 'name', 'address_components']);
             }}
             onPlaceChanged={() => handleSelectAddress(value)}
             className="w-full"
@@ -175,9 +167,7 @@ const MapAddress: React.FC<MapAddressProps> = ({ handleAddressId }) => {
                   type="text"
                   placeholder="Apt, Suite, etc (optional)"
                   value={form.apartmentNumber}
-                  onChange={(e) =>
-                    setForm({ ...form, apartmentNumber: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, apartmentNumber: e.target.value })}
                 />
               </form>
             </>

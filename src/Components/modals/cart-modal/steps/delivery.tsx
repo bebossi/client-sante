@@ -7,9 +7,9 @@ import { Address, User } from '../../../../interfaces';
 interface DeliveryProps {
   showUserAdresses: boolean;
   user: User | null;
-  handleIsSelectOpen: () => void;
-  handleAddressId: (addressId: string, selectedAddress?: Address) => void;
-  toggleSelectAddress: () => void;
+  toggleIsSelectOpen: () => void;
+  handleAddress: (addressId: string, selectedAddress?: Address) => void;
+  toggleShowSelectAddress: () => void;
   isSelectOpen: boolean;
   isRestaurantOpen: boolean | null;
 }
@@ -17,9 +17,9 @@ interface DeliveryProps {
 export const Delivery: React.FC<DeliveryProps> = ({
   showUserAdresses,
   user,
-  handleIsSelectOpen,
-  handleAddressId,
-  toggleSelectAddress,
+  toggleIsSelectOpen,
+  handleAddress,
+  toggleShowSelectAddress,
   isSelectOpen,
   isRestaurantOpen,
 }) => {
@@ -29,12 +29,12 @@ export const Delivery: React.FC<DeliveryProps> = ({
         <>
           <SelectAddress
             user={user}
-            handleIsSelectOpen={handleIsSelectOpen}
-            handleAddressId={handleAddressId}
+            toggleIsSelectOpen={toggleIsSelectOpen}
+            handleAddress={handleAddress}
           />
           <Button
             label="Crie um endereço"
-            onClick={toggleSelectAddress}
+            onClick={toggleShowSelectAddress}
             outline
             small
             disabled={isSelectOpen || !isRestaurantOpen}
@@ -42,10 +42,10 @@ export const Delivery: React.FC<DeliveryProps> = ({
         </>
       ) : (
         <div className="flex flex-col gap-3 ">
-          <MapAddress handleAddressId={handleAddressId} />
+          <MapAddress handleAddress={handleAddress} />
           <Button
             label="Selecione um endereço salvo"
-            onClick={toggleSelectAddress}
+            onClick={toggleShowSelectAddress}
             outline
             small
             disabled={!isRestaurantOpen}

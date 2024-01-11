@@ -18,8 +18,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 interface SelectAddressProps {
   user: User;
-  handleAddressId: (addressId: string, selectedAddress?: Address) => void;
-  handleIsSelectOpen: () => void;
+  handleAddress: (addressId: string, selectedAddress?: Address) => void;
+  toggleIsSelectOpen: () => void;
 }
 
 const FormSchema = z.object({
@@ -28,8 +28,8 @@ const FormSchema = z.object({
 
 const SelectAddress: React.FC<SelectAddressProps> = ({
   user,
-  handleAddressId,
-  handleIsSelectOpen,
+  handleAddress,
+  toggleIsSelectOpen,
 }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -46,12 +46,12 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
               <FormItem>
                 <FormLabel>Endereço</FormLabel>
                 <Select
-                  onOpenChange={handleIsSelectOpen}
+                  onOpenChange={toggleIsSelectOpen}
                   onValueChange={(newValue) => {
                     const address = user.addresses?.find((address) => {
                       return address.id === newValue;
                     });
-                    handleAddressId!(newValue, address!);
+                    handleAddress!(newValue, address!);
                     field.onChange(newValue);
                   }}
                   value={field.value}

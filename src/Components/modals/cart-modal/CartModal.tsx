@@ -37,10 +37,6 @@ export const CartModal = () => {
 
   const [serachParams] = useSearchParams();
 
-  const toggleSelectAddress = () => {
-    setShowSelectAddress(!showUserAdresses);
-  };
-
   useEffect(() => {
     if (serachParams.get('success')) {
       toast.success('Pagamento efetuado com sucesso.');
@@ -101,12 +97,16 @@ export const CartModal = () => {
     setStep((value) => value + 1);
   };
 
-  const handleAddressId = (addressId: string, selectedAddress?: Address) => {
+  const toggleShowSelectAddress = () => {
+    setShowSelectAddress(!showUserAdresses);
+  };
+
+  const handleAddress = (addressId: string, selectedAddress?: Address) => {
     setAddressId(addressId);
     setAddress(selectedAddress as Address);
   };
 
-  const handleAvailiableAppointmentId = (
+  const handleAvailiableAppointment = (
     avaliableAppointmentId: string,
     appointment?: AvaliableAppointment
   ) => {
@@ -114,7 +114,7 @@ export const CartModal = () => {
     setAppointment(appointment as AvaliableAppointment);
   };
 
-  const handleIsSelectOpen = () => {
+  const toggleIsSelectOpen = () => {
     setIsSelectOpen(!isSelectOpen);
   };
 
@@ -176,7 +176,7 @@ export const CartModal = () => {
 
   if (step === STEPS.APPOINTMENT) {
     bodyContent = (
-      <Appointment handleAvailiableAppointmentId={handleAvailiableAppointmentId} />
+      <Appointment handleAvailiableAppointment={handleAvailiableAppointment} />
     );
   }
 
@@ -185,11 +185,11 @@ export const CartModal = () => {
       <Delivery
         user={user}
         showUserAdresses={showUserAdresses}
-        handleAddressId={handleAddressId}
-        handleIsSelectOpen={handleIsSelectOpen}
+        handleAddress={handleAddress}
+        toggleIsSelectOpen={toggleIsSelectOpen}
         isRestaurantOpen={isRestaurantOpen}
         isSelectOpen={isSelectOpen}
-        toggleSelectAddress={toggleSelectAddress}
+        toggleShowSelectAddress={toggleShowSelectAddress}
       />
     );
   }

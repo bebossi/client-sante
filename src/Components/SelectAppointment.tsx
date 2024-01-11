@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 interface AppointmentInfoProps {
-  handleAvailiableAppointmentId?: (
+  handleAvailiableAppointment?: (
     avaliableAppointmentId: string,
     appointment?: AvaliableAppointment
   ) => void;
@@ -31,7 +31,7 @@ const FormSchema = z.object({
 });
 
 const SelectAppointment: React.FC<AppointmentInfoProps> = ({
-  handleAvailiableAppointmentId,
+  handleAvailiableAppointment,
 }) => {
   const [avaliableAppointments, setAvaliableAppointments] =
     useState<AvaliableAppointment[]>();
@@ -63,14 +63,11 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                 className="p-4 bg-white rounded-lg shadow-md border border-gray-300 hover:bg-gray-100 flex items-center"
               >
                 <span className="text-xl font-semibold text-blue-500">
-                  {new Date(avaliableAppointment.startDate).toLocaleString(
-                    'pt-BR',
-                    {
-                      timeZone: 'America/Sao_Paulo',
-                      dateStyle: 'short',
-                      timeStyle: 'short',
-                    }
-                  )}
+                  {new Date(avaliableAppointment.startDate).toLocaleString('pt-BR', {
+                    timeZone: 'America/Sao_Paulo',
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                  })}
                 </span>
                 <span className="mx-2 text-gray-500">-</span>
                 <span className="text-xl font-semibold text-red-500">
@@ -97,10 +94,7 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                           return availableAppointment.id === newValue;
                         }
                       );
-                      handleAvailiableAppointmentId!(
-                        newValue,
-                        avaliableAppointment
-                      );
+                      handleAvailiableAppointment!(newValue, avaliableAppointment);
                       field.onChange(newValue);
                     }}
                     value={field.value}
@@ -121,13 +115,14 @@ const SelectAppointment: React.FC<AppointmentInfoProps> = ({
                             key={avaliableAppointment.id}
                             className="text-lg font-semibold"
                           >
-                            {new Date(
-                              avaliableAppointment.startDate
-                            ).toLocaleString('pt-BR', {
-                              timeZone: 'America/Sao_Paulo',
-                              dateStyle: 'short',
-                              timeStyle: 'short',
-                            })}
+                            {new Date(avaliableAppointment.startDate).toLocaleString(
+                              'pt-BR',
+                              {
+                                timeZone: 'America/Sao_Paulo',
+                                dateStyle: 'short',
+                                timeStyle: 'short',
+                              }
+                            )}
                             - {avaliableAppointment.endTime}
                           </p>
                         </SelectItem>
